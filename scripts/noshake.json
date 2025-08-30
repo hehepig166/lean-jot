@@ -1,3 +1,7 @@
 {
-  "ignore": []
+    "ignoreImport": [
+        "LeanJot.Mathlib"
+    ],
+    "ignoreAll": [],
+    "ignore": {}
 }
