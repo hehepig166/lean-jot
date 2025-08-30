@@ -1,4 +1,8 @@
-import Mathlib
+import Mathlib.Algebra.GCDMonoid.Nat
+import Mathlib.Data.Int.ModEq
+import Mathlib.Data.Int.Star
+import Mathlib.Algebra.Order.Ring.Star
+import Mathlib.Analysis.Normed.Ring.Lemmas
 
 
 lemma lemma_exist_inverse (x n : ℕ) (hn_pos : 0 < n) (h : x.gcd n = 1) : ∃ y, y ∈ Finset.Icc 1 n ∧ x * y % n = 1 % n := by
