@@ -1,8 +1,8 @@
 import Mathlib.Algebra.GCDMonoid.Nat
-import Mathlib.Data.Int.ModEq
-import Mathlib.Data.Int.Star
 import Mathlib.Algebra.Order.Ring.Star
 import Mathlib.Analysis.Normed.Ring.Lemmas
+import Mathlib.Data.Int.ModEq
+import Mathlib.Data.Int.Star
 
 
 lemma lemma_exist_inverse (x n : ℕ) (hn_pos : 0 < n) (h : x.gcd n = 1) : ∃ y, y ∈ Finset.Icc 1 n ∧ x * y % n = 1 % n := by
@@ -15,8 +15,7 @@ lemma lemma_exist_inverse (x n : ℕ) (hn_pos : 0 < n) (h : x.gcd n = 1) : ∃ y
     by_contra! h_contra
     have : x * y % n = 0 := by
       refine Nat.mod_eq_zero_of_dvd ?_
-      suffices : n ∣ y
-      . exact Dvd.dvd.mul_left this x
+      apply Dvd.dvd.mul_left ?_ x
       exact Nat.dvd_of_mod_eq_zero h_contra
     omega
   constructor
