@@ -5,6 +5,8 @@ import Mathlib.Data.Int.ModEq
 import Mathlib.Data.Int.Star
 
 
+namespace Example
+
 lemma lemma_exist_inverse (x n : ℕ) (hn_pos : 0 < n) (h : x.gcd n = 1) : ∃ y, y ∈ Finset.Icc 1 n ∧ x * y % n = 1 % n := by
   by_cases hn : n = 1
   . use 1
@@ -108,3 +110,5 @@ lemma lemma_exist_unique_inverse_in_range
 
   apply h_contra
   omega
+
+end Example
