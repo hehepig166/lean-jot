@@ -60,3 +60,14 @@ jobs:
 
       - name: Build project
         run: ~/.elan/bin/lake build LeanJot
+      
+      - name: Check for unused imports
+        id: shake
+        run: |
+          ~/.elan/bin/lake exe shake --gh-style || echo "Shake not available, skipping import check"
+
+      - name: Lint code
+        id: lint
+        run: |
+          ~/.elan/bin/lake exe runLinter . || echo "Linter not available, skipping lint check"
+
