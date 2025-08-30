@@ -69,4 +69,4 @@ jobs:
       - name: Lint code
         id: lint
         run: |
-          ~/.elan/bin/lake exe runLinter . || echo "Linter not available, skipping lint check"
+          ~/.elan/bin/lake exe runLinter LeanJot || echo "Linter not available, skipping lint check"
