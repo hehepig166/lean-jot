@@ -64,7 +64,7 @@ jobs:
       - name: Check for unused imports
         id: shake
         run: |
-          ~/.elan/bin/lake exe shake --gh-style || echo "Shake not available, skipping import check"
+          ~/.elan/bin/lake exe shake --gh-style
 
       - name: Lint code
         id: lint
