@@ -70,4 +70,3 @@ jobs:
         id: lint
         run: |
           ~/.elan/bin/lake exe runLinter . || echo "Linter not available, skipping lint check"
-
