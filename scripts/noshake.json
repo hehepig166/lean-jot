@@ -3,7 +3,7 @@
         "LeanJot.Mathlib"
     ],
     "ignoreAll": [
-        "LeanJot.Helpers_old"
+        "LeanJot.OldHelpers"
     ],
     "ignore": {}
 }
