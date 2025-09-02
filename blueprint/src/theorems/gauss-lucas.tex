@@ -1,0 +1,94 @@
+
+
+\chapter{The Gauss-Lucas Theorem}
+
+These lemmas constitute a proof of the Gauss-Lucas Theorem. See \url{https://en.wikipedia.org/wiki/Gauss%E2%80%93Lucas_theorem} for more details.
+
+\begin{lemma}[Logarithmic Derivative of a Complex Polynomial]
+  \label{lem:logDeriv_Polynomial}
+  \lean{logDeriv_Polynomial}
+  \leanok
+  The logarithmic derivative of a complex polynomial
+  is the sum of the inverses of its factors.
+\end{lemma}
+
+\begin{proof}
+Let the polynomial be $P(z) = c \prod_{i=1}^{n} (z - r_i)$, where $r_i$ are the roots of the polynomial.
+Taking the natural logarithm of both sides gives:
+$$ \ln P(z) = \ln c + \sum_{i=1}^{n} \ln(z - r_i) $$
+The logarithmic derivative is the derivative of $\ln P(z)$, which is $\frac{P'(z)}{P(z)}$. Differentiating the right-hand side with respect to $z$ yields:
+$$ \frac{P'(z)}{P(z)} = \sum_{i=1}^{n} \frac{1}{z - r_i} $$
+This proves that the logarithmic derivative is the sum of the inverses of the terms $(z - r_i)$.
+\end{proof}
+
+\begin{lemma}[Sum of inverses of polynomial factors on a root]
+  \label{lem:sum_inv_sub_roots_eq_zero}
+  \lean{sum_inv_sub_roots_eq_zero}
+  \leanok
+  If z is a root of the derivative of a polynomial p, but not a root of p itself, then the sum of the inverses of the differences between x and each root of p is zero.
+\end{lemma}
+
+\begin{proof}
+  \uses{lem:logDeriv_Polynomial}
+  From Lemma~\ref{lem:logDeriv_Polynomial}, we have the identity $\frac{P'(z)}{P(z)} = \sum_{i=1}^{n} \frac{1}{z - r_i}$.
+  The lemma states that $z$ is a root of the derivative, so $P'(z) = 0$. It also states that $z$ is not a root of $P$ itself, which means $P(z) \neq 0$.
+  Substituting these conditions into the identity gives:
+  $$ \frac{0}{P(z)} = \sum_{i=1}^{n} \frac{1}{z - r_i} $$
+  Therefore, we must have:
+  $$ \sum_{i=1}^{n} \frac{1}{z - r_i} = 0 $$
+\end{proof}
+
+\begin{lemma}[The derivative root is a weighted average of roots]
+  \label{lem:deriv_root_as_weighted_average_of_roots}
+  \lean{deriv_root_as_weighted_average_of_roots}
+  \leanok
+  If z is a root of the derivative of a polynomial p, but not a root of p itself,
+  then it can be expressed as a weighted average of the roots of p.
+\end{lemma}
+
+\begin{proof}
+  \uses{lem:sum_inv_sub_roots_eq_zero}
+  Starting from the result of Lemma~\ref{lem:sum_inv_sub_roots_eq_zero}:
+  $$ \sum_{i=1}^{n} \frac{1}{z - r_i} = 0 $$
+  We can rewrite each term in the sum using its complex conjugate:
+  $$ \frac{1}{z - r_i} = \frac{\overline{z - r_i}}{|z - r_i|^2} = \frac{\bar{z} - \bar{r_i}}{|z - r_i|^2} $$
+  Substituting this back into the sum gives:
+  $$ \sum_{i=1}^{n} \frac{\bar{z} - \bar{r_i}}{|z - r_i|^2} = 0 $$
+  We can split the sum into two parts:
+  $$ \sum_{i=1}^{n} \frac{\bar{z}}{|z - r_i|^2} - \sum_{i=1}^{n} \frac{\bar{r_i}}{|z - r_i|^2} = 0 $$
+  Rearranging the equation to solve for $\bar{z}$:
+  $$ \bar{z} \sum_{i=1}^{n} \frac{1}{|z - r_i|^2} = \sum_{i=1}^{n} \frac{\bar{r_i}}{|z - r_i|^2} $$
+  Taking the complex conjugate of the entire equation (and noting that $|z - r_i|^2$ is a real number) yields:
+  $$ z \sum_{i=1}^{n} \frac{1}{|z - r_i|^2} = \sum_{i=1}^{n} \frac{r_i}{|z - r_i|^2} $$
+  Let us define positive real weights $w_i = \frac{1}{|z - r_i|^2}$. The equation becomes $z \sum_{i=1}^{n} w_i = \sum_{i=1}^{n} w_i r_i$.
+  Solving for $z$, we get:
+  $$ z = \frac{\sum_{i=1}^{n} w_i r_i}{\sum_{i=1}^{n} w_i} $$
+  This shows that $z$ is a weighted average of the polynomial's roots $r_i$ with positive real coefficients.
+\end{proof}
+
+\begin{theorem}[Gauss-Lucas]
+  \label{thm:gauss_lucas}
+  \lean{gauss_lucas}
+  \leanok
+  If P is a polynomial with complex coefficients, all roots of P' belong to the convex hull of the set of zeros of P.
+\end{theorem}
+
+\begin{proof}
+  \uses{lem:deriv_root_as_weighted_average_of_roots}
+  Let $z$ be a root of the derivative, $P'(z)=0$. We want to show that $z$ lies in the convex hull of the set of roots of $P$, denoted $R = \{r_1, r_2, \dots, r_n\}$.
+
+  We consider two cases for the root $z$:
+
+  \begin{itemize}
+      \item \textbf{Case 1: $z$ is also a root of $P$.}
+      If $z$ is one of the roots of $P$, then $z \in R$. A point that belongs to a set of points is, by definition, contained within the convex hull of that set.
+
+      \item \textbf{Case 2: $z$ is not a root of $P$.}
+      In this case, the conditions for Lemma~\ref{lem:deriv_root_as_weighted_average_of_roots} are met. We can express $z$ as a weighted average:
+      $$ z = \frac{\sum_{i=1}^{n} w_i r_i}{\sum_{i=1}^{n} w_i} $$
+      where the weights $w_i = 1/|z - r_i|^2$ are positive real numbers.
+      If we let $\lambda_i = \frac{w_i}{\sum_{j=1}^{n} w_j}$, then we can write $z = \sum_{i=1}^{n} \lambda_i r_i$.
+      The coefficients $\lambda_i$ are positive and they sum to 1 ($\sum \lambda_i = 1$). This is the definition of a convex combination of the points $r_i$. Any point that is a convex combination of a set of points lies within their convex hull.
+  \end{itemize}
+  In both possible cases, any root of $P'$ must lie within the convex hull of the roots of $P$.
+\end{proof}

@@ -1,0 +1,71 @@
+\chapter{Abel's Theorem}
+
+\begin{lemma}[Summation by Parts for Power Series]
+Let $G(z) = \sum_{k=0}^{\infty} a_k z^k$ be a power series that converges for $|z| < 1$. Let $s_n = \sum_{k=0}^{n} a_k$ be the partial sums of the coefficients. If the sequence $(s_k)$ is bounded, then the series $\sum_{k=0}^{\infty} s_k z^k$ converges for $|z|<1$, and we have the identity:
+$$G(z) = (1-z) \sum_{k=0}^{\infty} s_k z^k$$
+\end{lemma}
+
+\begin{proof}
+Since the sequence of partial sums $(s_k)$ is bounded, the radius of convergence of the series $\sum_{k=0}^{\infty} s_k z^k$ is at least 1, so it converges for all $|z| < 1$. We define $s_{-1} = 0$. For $k \ge 0$, we have the relation $a_k = s_k - s_{k-1}$. Substituting this into the power series for $G(z)$:
+\begin{align*}
+G(z) & = \sum_{k=0}^{\infty} (s_k - s_{k-1}) z^k \\
+& = \sum_{k=0}^{\infty} s_k z^k - \sum_{k=0}^{\infty} s_{k-1} z^k \\
+& = \sum_{k=0}^{\infty} s_k z^k - \left(s_{-1}z^0 + \sum_{k=1}^{\infty} s_{k-1} z^k\right) \\
+& = \sum_{k=0}^{\infty} s_k z^k - z \sum_{k=1}^{\infty} s_{k-1} z^{k-1} \quad (\text{since } s_{-1}=0) \\
+& = \sum_{k=0}^{\infty} s_k z^k - z \sum_{j=0}^{\infty} s_j z^j \quad (\text{letting } j=k-1) \\
+& = (1-z) \sum_{k=0}^{\infty} s_k z^k.
+\end{align*}
+\end{proof}
+
+\begin{lemma}[Bound on the Tail Sum]
+Let $(s_k)_{k=0}^\infty$ be a sequence of complex numbers converging to $0$. For any $\epsilon > 0$ and any $M > 1$, there exists an integer $n$ such that for all $z$ in the unit disk satisfying the Stolz sector condition $|1-z| \le M(1-|z|)$, we have:
+$$\left| (1-z) \sum_{k=n}^{\infty} s_k z^k \right| \le M\epsilon$$
+\end{lemma}
+
+\begin{proof}
+Since $\lim_{k \to \infty} s_k = 0$, for any given $\epsilon > 0$, we can choose an integer $n$ such that for all $k \ge n$, we have $|s_k| < \epsilon$. For $z$ inside the unit disk, we bound the tail of the series:
+\begin{align*}
+\left| (1-z) \sum_{k=n}^{\infty} s_k z^k \right| & \le |1-z| \sum_{k=n}^{\infty} |s_k| |z|^k \\
+& < |1-z| \sum_{k=n}^{\infty} \epsilon |z|^k \\
+& = \epsilon |1-z| \left( \frac{|z|^n}{1 - |z|} \right)
+\end{align*}
+Since $|z| < 1$, we have $|z|^n \le 1$. For $z$ within the Stolz sector, the condition $|1-z| \le M(1-|z|)$ implies $\frac{|1-z|}{1-|z|} \le M$. Therefore,
+$$\epsilon |1-z| \left( \frac{|z|^n}{1 - |z|} \right) \le \epsilon \frac{|1-z|}{1-|z|} \le M\epsilon.$$
+\end{proof}
+
+\begin{lemma}[Limit of the Head Sum]
+Let $(s_k)_{k=0}^\infty$ be any sequence of complex numbers. For any fixed integer $n \ge 1$, we have:
+$$\lim_{z \to 1} (1-z) \sum_{k=0}^{n-1} s_k z^k = 0$$
+where the limit is taken for $z$ in the open unit disk.
+\end{lemma}
+
+\begin{proof}
+The sum $P(z) = \sum_{k=0}^{n-1} s_k z^k$ is a polynomial in $z$. As a polynomial, it is continuous everywhere. Therefore, as $z \to 1$, $P(z) \to \sum_{k=0}^{n-1} s_k$, which is a finite value. The limit of the product is the product of the limits:
+$$\lim_{z \to 1} (1-z) P(z) = \left(\lim_{z \to 1} (1-z)\right) \left(\lim_{z \to 1} P(z)\right) = 0 \cdot \left(\sum_{k=0}^{n-1} s_k\right) = 0.$$
+\end{proof}
+
+\begin{theorem}[Abel's Theorem]
+Let $G(z) = \sum_{k=0}^{\infty} a_k z^k$ be a power series with complex coefficients that converges for $|z| < 1$. If the series of coefficients $\sum_{k=0}^{\infty} a_k$ converges to a sum $S$, then the limit of $G(z)$ as $z$ approaches $1$ non-tangentially from within the unit disk is $S$. That is, for any $M > 1$,
+$$\lim_{z \to 1} G(z) = S$$
+where the limit is taken for $z$ approaching $1$ inside the open unit disk and within the Stolz sector defined by $|1-z| \le M(1-|z|)$.
+\end{theorem}
+
+\begin{proof}
+It is sufficient to prove the case where $S=0$. If $S \neq 0$, we can define a new series $H(z) = G(z) - S = \sum_{k=0}^\infty b_k z^k$, where $b_0 = a_0 - S$ and $b_k = a_k$ for $k \ge 1$. The sum of these new coefficients is $\sum b_k = (\sum a_k) - S = S - S = 0$. If we prove $\lim_{z \to 1} H(z) = 0$, it follows that $\lim_{z \to 1} G(z) = S$.
+
+We thus assume $\sum_{k=0}^{\infty} a_k = 0$. Let $s_n = \sum_{k=0}^{n} a_k$. By our assumption, $\lim_{n \to \infty} s_n = 0$. By Lemma 1, we can write $G(z) = (1-z) \sum_{k=0}^{\infty} s_k z^k$.
+
+Let $\epsilon > 0$ be given. Let $\epsilon' = \epsilon / (M+1)$.
+Since $s_k \to 0$, by Lemma 2, we can choose an integer $n$ such that for all $z$ in the Stolz sector,
+$$\left| (1-z) \sum_{k=n}^{\infty} s_k z^k \right| \le M\epsilon'.$$
+For this fixed $n$, by Lemma 3, we can choose a $\delta > 0$ such that if $|1-z| < \delta$,
+$$\left| (1-z) \sum_{k=0}^{n-1} s_k z^k \right| < \epsilon'.$$
+Combining these results, for any $z$ in the Stolz sector with $|1-z| < \delta$, we have:
+\begin{align*}
+|G(z)| & = \left| (1-z) \sum_{k=0}^{n-1} s_k z^k + (1-z) \sum_{k=n}^{\infty} s_k z^k \right| \\
+& \le \left| (1-z) \sum_{k=0}^{n-1} s_k z^k \right| + \left| (1-z) \sum_{k=n}^{\infty} s_k z^k \right| \\
+& < \epsilon' + M\epsilon' \\
+& = (M+1)\epsilon' = \epsilon.
+\end{align*}
+Therefore, $\lim_{z \to 1} G(z) = 0$.
+\end{proof}
