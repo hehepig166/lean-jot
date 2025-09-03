@@ -1,106 +1,121 @@
-\chapter{Abel–Ruffini Theorem}
+\chapter{Abel-Ruffini Theorem}
 
-\begin{definition}[Solvability by Radicals]
-A polynomial equation $p(x) = 0$ with coefficients in a field $F_0$ is said to be \textbf{solvable by radicals} if all its roots can be expressed using only the elements of $F_0$ and the operations of addition, subtraction, multiplication, division, and $n$-th root extraction.
-This is equivalent to the existence of a tower of field extensions
-$$F_0 \subseteq F_1 \subseteq \dots \subseteq F_k$$
-such that the splitting field of $p(x)$ is a subfield of $F_k$, and for each $i \in \{1, \dots, k\}$, the extension $F_i$ is a radical extension of $F_{i-1}$, meaning $F_i = F_{i-1}(\alpha_i)$ where $\alpha_i^{n_i} \in F_{i-1}$ for some integer $n_i > 1$.
+\begin{definition}[Solution by Radicals]
+    \label{def:Solution_by_Radicals}
+    A field extension $L/F$ is a \textit{radical extension} if there exists a tower of fields $F = F_0 \subseteq F_1 \subseteq \dots \subseteq F_k = L$ such that for each $i \in \{1, \dots, k\}$, we have $F_i = F_{i-1}(\alpha_i)$ for some $\alpha_i \in F_i$ where $\alpha_i^{n_i} \in F_{i-1}$ for some integer $n_i > 0$.
+
+    A polynomial $p(x) \in F[x]$ is \textit{solvable by radicals} if there exists a radical extension $L/F$ that contains the splitting field of $p(x)$. This means that all roots of $p(x)$ can be expressed using only the coefficients of $p(x)$, the field operations (addition, subtraction, multiplication, division), and root extractions.
 \end{definition}
 
+\begin{definition}[Solvable Group]
+    \label{def:Solvable_Group}
+    A group $G$ is called \textit{solvable} if there exists a finite chain of subgroups
+    \[ \{e\} = G_0 \trianglelefteq G_1 \trianglelefteq \dots \trianglelefteq G_k = G \]
+    such that for each $i \in \{1, \dots, k\}$, the quotient group $G_i / G_{i-1}$ is abelian. Such a chain is called a subnormal series with abelian factors.
+\end{definition}
 
-
-\begin{lemma}[Solvability Condition in Galois Theory]
-A polynomial equation is solvable by radicals if and only if its Galois group is a solvable group.
+\begin{lemma}[Galois's Criterion for Solvability]
+    \label{lem:Solvability_Criterion}
+    \uses{def:Solution_by_Radicals}
+    \uses{def:Solvable_Group}
+    A polynomial $p(x) \in F[x]$ (where $F$ is a field of characteristic 0) is solvable by radicals if and only if its Galois group, $\operatorname{Gal}(K/F)$, is a solvable group, where $K$ is the splitting field of $p(x)$ over $F$.
 \end{lemma}
 
 \begin{proof}
-Let $p(x)$ be a polynomial over a field $F_0$, and let $L$ be its splitting field. The equation $p(x)=0$ is solvable by radicals if and only if there exists a tower of fields $F_0 \subseteq F_1 \subseteq \dots \subseteq F_k$ such that $L \subseteq F_k$ and each extension $F_i/F_{i-1}$ is a radical extension.
+    This is a fundamental theorem of Galois theory. The proof connects the structure of a radical field extension to the group-theoretic property of solvability.
 
-We can refine this tower by adjoining roots of unity at each step, ensuring each extension is a normal extension. A radical extension $F_{i-1}(\alpha_i)$ where $\alpha_i^{n_i} \in F_{i-1}$ can be embedded in a normal extension by first adjoining a primitive $n_i$-th root of unity. The resulting Galois group for each step, $\text{Gal}(F_i/F_{i-1})$, is cyclic, and therefore abelian.
+    ($\Rightarrow$) If $p(x)$ is solvable by radicals, its splitting field $K$ is contained in a radical extension $L/F$. We can construct a tower of fields $F=F_0 \subset F_1 \subset \dots \subset F_m=L$ where each step is a simple radical extension. By adjoining roots of unity, we can ensure each extension $F_i/F_{i-1}$ is a normal extension with an abelian (in fact, cyclic) Galois group. The Galois group $\operatorname{Gal}(L/F)$ is then solvable. Since $K \subseteq L$, $\operatorname{Gal}(K/F)$ is a quotient group of $\operatorname{Gal}(L/F)$, and a quotient of a solvable group is solvable.
 
-By the Galois correspondence, this tower of fields corresponds to a sequence of subgroups of the Galois group $G = \text{Gal}(L/F_0)$:
-$$G = G_0 \triangleright G_1 \triangleright \dots \triangleright G_k = \{e\}$$
-where each $G_i$ is a normal subgroup of $G_{i-1}$, and the quotient group $G_{i-1}/G_i$ is isomorphic to $\text{Gal}(F_i/F_{i-1})$. Since each of these quotient groups is abelian, this composition series has abelian factors. This is precisely the definition of a \textbf{solvable group}.
-
-Conversely, if the Galois group $G = \text{Gal}(L/F_0)$ is solvable, it has a composition series with abelian (and thus cyclic, as every finite abelian group is a product of cyclic groups) factors. By the Galois correspondence, this corresponds to a tower of normal field extensions where each step is a cyclic extension. A cyclic extension of degree $n$ over a field containing the $n$-th roots of unity is a radical extension. Therefore, the roots of $p(x)$ can be expressed by radicals.
+    ($\Leftarrow$) If $\operatorname{Gal}(K/F)$ is solvable, there exists a composition series with abelian quotients. By the Galois correspondence, this corresponds to a tower of intermediate fields $F=K_0 \subset K_1 \subset \dots \subset K_m=K$ where each extension $K_i/K_{i-1}$ is a normal extension with an abelian Galois group. By adjoining roots of unity and applying Kummer theory, each of these abelian extensions can be shown to be a radical extension. Thus, $K$ is contained in a radical extension of $F$, so $p(x)$ is solvable by radicals.
 \end{proof}
 
-
-
-\begin{lemma}[Insolvability of the Symmetric Group for $n \ge 5$]
-The symmetric group $S_n$ is not a solvable group for any integer $n \ge 5$.
+\begin{lemma}[Insolvability of the Alternating Group $A_n$ for $n \geq 5$]
+    \label{lem:Insolvability_of_An}
+    \uses{def:Solvable_Group}
+    For any integer $n \geq 5$, the alternating group $A_n$ is not a solvable group.
 \end{lemma}
 
 \begin{proof}
-A group $G$ is solvable if it has a composition series
-$$G = G_0 \triangleright G_1 \triangleright \dots \triangleright G_k = \{e\}$$
-where each $G_i$ is a normal subgroup of $G_{i-1}$ and each factor group $G_{i-1}/G_i$ is abelian.
-
-Consider the symmetric group $S_n$ for $n \ge 5$. The only non-trivial proper normal subgroup of $S_n$ is the alternating group, $A_n$. Thus, any composition series for $S_n$ must begin with $S_n \triangleright A_n$. The quotient group is $S_n/A_n \cong \mathbb{Z}_2$, which is abelian.
-
-The next step requires finding a non-trivial proper normal subgroup of $A_n$. However, for $n \ge 5$, the alternating group $A_n$ is a \textbf{simple group}, which means it has no non-trivial proper normal subgroups.
-Therefore, the only possible composition series is:
-$$S_n \triangleright A_n \triangleright \{e\}$$
-The factor groups are $S_n/A_n \cong \mathbb{Z}_2$ (which is abelian) and $A_n/\{e\} \cong A_n$.
-
-For $A_n$ to be solvable, it must be abelian itself (since it cannot be broken down further). However, the group $A_n$ is not abelian for $n \ge 4$. For example, in $A_5$, the permutations $(1 \ 2 \ 3)$ and $(3 \ 4 \ 5)$ are both in $A_5$, but $(1 \ 2 \ 3)(3 \ 4 \ 5) = (1 \ 2 \ 3 \ 4 \ 5)$ whereas $(3 \ 4 \ 5)(1 \ 2 \ 3) = (1 \ 2 \ 4 \ 5 \ 3)$. These are not equal.
-
-Since the factor group $A_n$ in the composition series is not abelian, the group $S_n$ is not solvable for $n \ge 5$.
+    A standard result in group theory states that for $n \geq 5$, the alternating group $A_n$ is a simple group. A group is simple if its only normal subgroups are the trivial group $\{e\}$ and the group itself.
+    For $A_n$ to be solvable, as per definition \ref{def:Solvable_Group}, there must be a subnormal series with abelian factors. If $A_n$ were solvable, its composition series would be $\{e\} \trianglelefteq A_n$. The corresponding quotient group would be $A_n / \{e\} \cong A_n$.
+    However, for $n \geq 5$, the group $A_n$ is non-abelian. For example, in $A_5$, the permutations $(1 \ 2 \ 3)$ and $(3 \ 4 \ 5)$ do not commute:
+    \[ (1 \ 2 \ 3)(3 \ 4 \ 5) = (1 \ 2 \ 4 \ 5 \ 3) \]
+    \[ (3 \ 4 \ 5)(1 \ 2 \ 3) = (1 \ 2 \ 3 \ 4 \ 5) \]
+    Since the only quotient in the composition series, $A_n$ itself, is not abelian, $A_n$ cannot be a solvable group.
 \end{proof}
 
+\begin{lemma}[Insolvability of the Symmetric Group $S_n$ for $n \geq 5$]
+    \label{lem:Insolvability_of_Sn}
+    \uses{lem:Insolvability_of_An}
+    For any integer $n \geq 5$, the symmetric group $S_n$ is not a solvable group.
+\end{lemma}
 
+\begin{proof}
+    Consider the subnormal series for $S_n$: $\{e\} \trianglelefteq A_n \trianglelefteq S_n$. The alternating group $A_n$ is a normal subgroup of $S_n$. The quotient group $S_n / A_n$ is isomorphic to the cyclic group of order 2, which is abelian.
+    However, for $S_n$ to be solvable, every subgroup in the composition series must be solvable. The subgroup $A_n$ is not solvable for $n \geq 5$ by lemma \ref{lem:Insolvability_of_An}. Since a subgroup of a solvable group must be solvable, $S_n$ cannot be solvable if it contains a non-solvable subgroup.
+    Therefore, for $n \geq 5$, the symmetric group $S_n$ is not solvable.
+\end{proof}
 
 \begin{lemma}[Galois Group of the General Polynomial]
-For any integer $n > 0$, the Galois group of the general polynomial equation of degree $n$ with indeterminate coefficients over the field of rational numbers $\mathbb{Q}$ is the symmetric group $S_n$.
+    \label{lem:Galois_Group_of_General_Polynomial}
+    The Galois group of the general polynomial equation of degree $n$,
+    \[ x^n + a_1 x^{n-1} + \dots + a_{n-1}x + a_n = 0 \]
+    where the coefficients $a_1, \dots, a_n$ are algebraically independent indeterminates over $\mathbb{Q}$, is the symmetric group $S_n$.
 \end{lemma}
 
 \begin{proof}
-Let the general polynomial be
-$$P(x) = x^n + a_1 x^{n-1} + \dots + a_n = 0$$
-where the coefficients $a_1, \dots, a_n$ are algebraically independent indeterminates over $\mathbb{Q}$. Let the roots of this polynomial be $x_1, \dots, x_n$. The base field is $K = \mathbb{Q}(a_1, \dots, a_n)$. The splitting field is $L = \mathbb{Q}(x_1, \dots, x_n)$.
+    Let $F = \mathbb{Q}(a_1, \dots, a_n)$ be the field of coefficients. Let $x_1, \dots, x_n$ be the roots of the polynomial. The coefficients $a_i$ are the elementary symmetric polynomials in the roots $x_i$ (up to a sign). The splitting field of the polynomial is $K = F(x_1, \dots, x_n)$. Since the $a_i$ are symmetric in the $x_i$, any permutation of the roots $x_i$ leaves the coefficients $a_i$ unchanged, and thus leaves the base field $F$ fixed.
 
-By Vieta's formulas, the coefficients $a_i$ are the elementary symmetric polynomials in the roots $x_j$:
-\begin{align*}
-a_1 &= -(x_1 + x_2 + \dots + x_n) \\
-a_2 &= x_1x_2 + x_1x_3 + \dots + x_{n-1}x_n \\
-&\vdots \\
-a_n &= (-1)^n x_1x_2\cdots x_n
-\end{align*}
-The Galois group $\text{Gal}(L/K)$ consists of automorphisms of $L$ that fix every element of $K$. Since the coefficients $a_i$ are in $K$, any automorphism $\sigma \in \text{Gal}(L/K)$ must leave the coefficients unchanged. An automorphism of the splitting field $L$ is completely determined by its action on the roots $x_1, \dots, x_n$, and it must permute these roots. Thus, $\text{Gal}(L/K)$ is a subgroup of the symmetric group $S_n$.
-
-Because the coefficients $a_i$ are the elementary symmetric polynomials, they are invariant under *any* permutation of the roots $x_j$. This means that every permutation of the roots gives rise to a valid automorphism of $L$ that fixes $K$. Therefore, the Galois group is the entire symmetric group, $\text{Gal}(L/K) = S_n$.
+    The group of automorphisms of $K$ that permutes the roots is therefore the full symmetric group $S_n$. Since the $x_i$ are indeterminates over $\mathbb{Q}$, there are no algebraic relations among them other than those imposed by the symmetric polynomials. Therefore, every permutation of the roots corresponds to a valid automorphism in the Galois group over the field $F$ generated by the symmetric polynomials. Thus, $\operatorname{Gal}(K/F) \cong S_n$.
 \end{proof}
 
-
-
-\begin{theorem}[Abel–Ruffini Theorem]
-The general polynomial equation of degree $n$ cannot be solved by radicals for $n \ge 5$.
+\begin{theorem}[Abel-Ruffini Theorem, General Form]
+    \label{thm:General_Abel-Ruffini}
+    \uses{lem:Galois_Group_of_General_Polynomial}
+    \uses{lem:Insolvability_of_Sn}
+    \uses{lem:Solvability_Criterion}
+    The general polynomial equation of degree $n \geq 5$ is not solvable by radicals.
 \end{theorem}
 
 \begin{proof}
-Let the general polynomial equation of degree $n$ be given.
-\begin{enumerate}
-    \item By Lemma 3, the Galois group of this equation is the symmetric group $S_n$.
-    \item By Lemma 2, for $n \ge 5$, the group $S_n$ is not solvable.
-    \item By Lemma 1, a polynomial equation can be solved by radicals if and only if its Galois group is solvable.
-\end{enumerate}
-Therefore, the general polynomial equation of degree $n \ge 5$ is not solvable by radicals.
+    By lemma \ref{lem:Galois_Group_of_General_Polynomial}, the Galois group of the general polynomial equation of degree $n$ over the field of its coefficients is the symmetric group $S_n$.
+    By lemma \ref{lem:Insolvability_of_Sn}, the group $S_n$ is not solvable for $n \geq 5$.
+    By lemma \ref{lem:Solvability_Criterion}, a polynomial is solvable by radicals if and only if its Galois group is solvable.
+    Combining these results, the general polynomial equation of degree $n \geq 5$ is not solvable by radicals.
 \end{proof}
 
+\begin{lemma}[A Quintic with Galois Group $S_5$]
+    \label{lem:Quintic_with_S5_Galois_Group}
+    The polynomial $p(x) = x^5 - x - 1$ has the symmetric group $S_5$ as its Galois group over the field of rational numbers $\mathbb{Q}$.
+\end{lemma}
 
+\begin{proof}
+    Let $G = \operatorname{Gal}(p(x)/\mathbb{Q})$ be the Galois group of $p(x)$. We identify $G$ as a subgroup of $S_5$.
 
-\begin{theorem}[Existence of an Unsolvable Quintic]
-There exists a polynomial equation of degree five with rational coefficients that is not solvable by radicals.
+    \begin{enumerate}
+        \item \textbf{Irreducibility}: The polynomial $p(x)$ is irreducible over $\mathbb{Q}$. We check this by reducing modulo 3. Over $\mathbb{F}_3$, $p(x) = x^5 - x - 1$ has no roots, as $p(0) = -1$, $p(1) = -1$, and $p(-1) = -1$. If it were reducible, it would have an irreducible factor of degree 1 or 2. Since it has no roots, it has no linear factors. The only irreducible quadratic over $\mathbb{F}_3$ is $x^2+1$. Division gives $x^5 - x - 1 = (x^2+1)(x^3-x) - 1$, so $x^2+1$ is not a factor. Thus, $p(x)$ is irreducible over $\mathbb{F}_3$, which implies it is irreducible over $\mathbb{Q}$. Since $p(x)$ is irreducible, its Galois group $G$ is a transitive subgroup of $S_5$.
+
+        \item \textbf{Existence of a 5-cycle}: Since $p(x)$ is irreducible of degree 5 over $\mathbb{F}_3$, Dedekind's theorem implies that $G$ contains a permutation of cycle length 5 (a 5-cycle).
+
+        \item \textbf{Existence of a transposition}: We reduce $p(x)$ modulo 2. Over $\mathbb{F}_2$, we have $p(x) = x^5 - x - 1 = x^5 + x + 1$. We can check that this polynomial factors as $(x^2+x+1)(x^3+x^2+1)$. Both factors are irreducible over $\mathbb{F}_2$. By Dedekind's theorem, the Galois group $G$ contains a permutation $\sigma$ with a cycle structure of $(2,3)$, i.e., a product of a disjoint 2-cycle and a 3-cycle.
+
+        \item \textbf{Generation of $S_5$}: If we take the permutation $\sigma$ of cycle structure $(2,3)$, then $\sigma^3$ is a transposition (a 2-cycle). We have shown that $G$ contains a 5-cycle and a transposition. A standard result in group theory states that any subgroup of $S_p$ (for $p$ prime) that contains a $p$-cycle and a transposition must be the entire group $S_p$. Here, $p=5$.
+    \end{enumerate}
+    Therefore, the Galois group $G$ is isomorphic to $S_5$.
+\end{proof}
+
+\begin{theorem}[Abel-Ruffini Theorem, Specific Form]
+    \label{thm:Specific_Abel-Ruffini}
+    \uses{lem:Quintic_with_S5_Galois_Group}
+    \uses{lem:Insolvability_of_Sn}
+    \uses{lem:Solvability_Criterion}
+    There exists a polynomial equation of degree five with rational coefficients that is not solvable by radicals.
 \end{theorem}
 
 \begin{proof}
-Consider the polynomial $p(x) = x^5 - x - 1$ over the rational numbers $\mathbb{Q}$.
-\begin{enumerate}
-    \item The polynomial is irreducible over $\mathbb{Q}$.
-    \item The derivative is $p'(x) = 5x^4 - 1$, which has two real roots $\pm 1/\sqrt[4]{5}$. This means $p(x)$ has two critical points, and thus at most three real roots. A calculation of values ($p(-2) = -31$, $p(-1)= -1$, $p(0)=-1$, $p(1)=-1$, $p(2)=29$) shows it has exactly three real roots and therefore two complex conjugate roots. Complex conjugation is an automorphism of the splitting field that fixes the real roots and swaps the two complex roots. This automorphism corresponds to a transposition in the Galois group $G$.
-    \item Modulo 2, the polynomial factors into $(x^2+x+1)(x^3+x^2+1)$, which are irreducible over $\mathbb{F}_2$. By a theorem of Dedekind, this implies that the Galois group $G$ contains a permutation with cycle structure $(2,3)$. The cube of this permutation is a transposition.
-    \item Modulo 3, the polynomial $x^5 - x - 1$ is irreducible over $\mathbb{F}_3$. This implies that the Galois group $G$ contains a 5-cycle.
-    \item A subgroup of $S_5$ that contains both a transposition and a 5-cycle must be the entire group $S_5$. Therefore, the Galois group of $x^5 - x - 1$ is $S_5$.
-\end{enumerate}
-From Lemma 2, since $S_5$ is not solvable, the equation $x^5 - x - 1 = 0$ is not solvable by radicals.
+    Consider the polynomial equation $x^5 - x - 1 = 0$.
+    By lemma \ref{lem:Quintic_with_S5_Galois_Group}, the Galois group of this polynomial over $\mathbb{Q}$ is the symmetric group $S_5$.
+    By lemma \ref{lem:Insolvability_of_Sn}, the group $S_5$ is not solvable.
+    By lemma \ref{lem:Solvability_Criterion}, a polynomial is solvable by radicals if and only if its Galois group is solvable.
+    Therefore, the equation $x^5 - x - 1 = 0$ is not solvable by radicals.
 \end{proof}

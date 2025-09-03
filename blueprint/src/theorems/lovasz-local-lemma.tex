@@ -1,82 +1,103 @@
 \chapter{Lovász Local Lemma}
 
 \begin{definition}[Dependency Graph]
-Let $\mathcal{A} = \{A_1, A_2, \ldots, A_n\}$ be a finite set of events in a probability space. A graph $D=(V,E)$ with $V=\{1, 2, \ldots, n\}$ is called a **dependency graph** for the events $\mathcal{A}$ if for each event $A_i$, it is mutually independent of the set of events $\{A_j \mid (i,j) \notin E \text{ and } i \neq j\}$. The neighborhood of an event $A_i$ is denoted by $\Gamma(A_i) = \{A_j \mid (i,j) \in E\}$.
+    \label{def:Dependency_Graph}
+    Let $\mathcal{A} = \{A_1, A_2, \dots, A_n\}$ be a finite set of events in a probability space. A graph $G=(V, E)$ is called a dependency graph for the events $\mathcal{A}$ if $V = \mathcal{A}$ and for each event $A_i \in \mathcal{A}$, the event $A_i$ is mutually independent of the set of all events $\{A_j \mid (A_i, A_j) \notin E\}$. For an event $A_i$, we denote its neighborhood in $G$ by $\Gamma(A_i)$.
 \end{definition}
 
-\begin{lemma}[Conditional Probability Bound]
-Let $\mathcal{A} = \{A_1, \ldots, A_n\}$ be a finite set of events with a dependency graph $D$. If there exists an assignment of real numbers $x: \mathcal{A} \to [0, 1)$ such that for all $A \in \mathcal{A}$,
-$$\Pr(A) \leq x(A) \prod_{B \in \Gamma(A)} (1 - x(B))$$
-then for any event $A_i \in \mathcal{A}$ and any set $S \subseteq \mathcal{A} \setminus \{A_i\}$, we have
-$$\Pr\left(A_i \mid \bigwedge_{B \in S} \overline{B}\right) \leq x(A_i)$$
+\begin{lemma}[Inequality for e]
+    \label{lem:Inequality_for_e}
+    For any positive integer $d \geq 1$, the following inequality holds:
+    $$ \left(1 - \frac{1}{d+1}\right)^d \geq \frac{1}{e} $$
 \end{lemma}
 
 \begin{proof}
-We proceed by induction on the size of the set $S$.
+    A standard inequality for the mathematical constant $e$ states that for any real $x > 0$, $\left(1 + \frac{1}{x}\right)^x < e$. Let $x=d$. This gives $\left(1 + \frac{1}{d}\right)^d < e$.
+    This is equivalent to $\left(\frac{d+1}{d}\right)^d < e$.
+    Taking the reciprocal of both sides and reversing the inequality sign, we get $\left(\frac{d}{d+1}\right)^d > \frac{1}{e}$.
+    Rewriting the base gives $\left(1 - \frac{1}{d+1}\right)^d > \frac{1}{e}$. The inequality in the lemma statement holds.
+\end{proof}
 
-\textbf{Base case ($|S|=0$):} Let $S = \emptyset$. The condition is $\Pr(A_i) \leq x(A_i)$. From the lemma's hypothesis, we have $\Pr(A_i) \leq x(A_i) \prod_{B \in \Gamma(A_i)} (1 - x(B))$. Since $x(B) \in [0, 1)$, the product term is at most 1, so $\Pr(A_i) \leq x(A_i)$. The base case holds.
+\begin{lemma}[Conditional Probability Bound]
+    \label{lem:Conditional_Probability_Bound}
+    \uses{def:Dependency_Graph}
+    Let $\mathcal{A} = \{A_1, \dots, A_n\}$ be a set of events with a dependency graph $G$. Suppose there exists an assignment of real numbers $x: \mathcal{A} \to [0,1)$ to the events such that for each $A \in \mathcal{A}$:
+    $$ \Pr(A) \leq x(A) \prod_{B \in \Gamma(A)} (1-x(B)) $$
+    Then for any event $A \in \mathcal{A}$ and any set $S \subseteq \mathcal{A} \setminus \{A\}$, we have:
+    $$ \Pr\left(A \mid \bigwedge_{B \in S} \overline{B}\right) \leq x(A) $$
+\end{lemma}
 
-\textbf{Inductive step:} Assume the statement holds for all sets $S'$ with $|S'| < k$. Let $S$ be a set with $|S| = k$. Let $A_i \in \mathcal{A} \setminus S$. We want to show $\Pr(A_i \mid \bigwedge_{B \in S} \overline{B}) \leq x(A_i)$.
+\begin{proof}
+    We prove this by induction on the size of $S$, $k = |S|$.
 
-Let $S_1 = S \cap \Gamma(A_i)$ be the neighbors of $A_i$ in $S$, and let $S_2 = S \setminus S_1$. By the definition of conditional probability,
-$$\Pr\left(A_i \mid \bigwedge_{B \in S} \overline{B}\right) = \frac{\Pr\left(A_i \wedge \bigwedge_{B \in S_1} \overline{B} \mid \bigwedge_{C \in S_2} \overline{C}\right)}{\Pr\left(\bigwedge_{B \in S_1} \overline{B} \mid \bigwedge_{C \in S_2} \overline{C}\right)}$$
-We bound the numerator and the denominator separately.
+    \textbf{Base Case ($k=0$):} If $S = \emptyset$, the statement is $\Pr(A) \leq x(A)$. From the lemma's hypothesis, we have $\Pr(A) \leq x(A) \prod_{B \in \Gamma(A)} (1-x(B))$. Since $x(B) \in [0,1)$ for all $B$, the product term is at most 1. Thus, $\Pr(A) \leq x(A)$, and the base case holds.
 
-For the numerator, we have:
-$$\Pr\left(A_i \wedge \bigwedge_{B \in S_1} \overline{B} \mid \bigwedge_{C \in S_2} \overline{C}\right) \leq \Pr\left(A_i \mid \bigwedge_{C \in S_2} \overline{C}\right)$$
-Since $A_i$ is independent of the events in $S_2$ by the definition of the dependency graph, this simplifies to $\Pr(A_i)$. By the hypothesis of the lemma, we have:
-$$\text{Numerator} \leq \Pr(A_i) \leq x(A_i) \prod_{B \in \Gamma(A_i)} (1 - x(B))$$
-For the denominator, let $S_1 = \{B_1, \ldots, B_m\}$. We expand using the chain rule:
-$$\Pr\left(\bigwedge_{j=1}^m \overline{B_j} \mid \bigwedge_{C \in S_2} \overline{C}\right) = \prod_{j=1}^m \Pr\left(\overline{B_j} \mid \bigwedge_{l=j+1}^m \overline{B_l} \wedge \bigwedge_{C \in S_2} \overline{C}\right)$$
-For each term in the product, we have:
-$$\Pr\left(\overline{B_j} \mid \dots\right) = 1 - \Pr\left(B_j \mid \dots\right)$$
-The conditioning set for $B_j$ is $\{B_{j+1}, \ldots, B_m\} \cup S_2$, which is a subset of $\mathcal{A} \setminus \{B_j\}$ and has size strictly less than $k=|S|$. By the induction hypothesis, $\Pr(B_j \mid \dots) \leq x(B_j)$. Therefore, each term is $\geq (1 - x(B_j))$. This gives us the bound:
-$$\text{Denominator} \geq \prod_{j=1}^m (1 - x(B_j)) = \prod_{B \in S_1} (1 - x(B))$$
-Combining the bounds for the numerator and denominator:
-$$\Pr\left(A_i \mid \bigwedge_{B \in S} \overline{B}\right) \leq \frac{x(A_i) \prod_{B \in \Gamma(A_i)} (1 - x(B))}{\prod_{B \in S_1} (1 - x(B))} = x(A_i) \prod_{B \in \Gamma(A_i) \setminus S_1} (1 - x(B))$$
-Since $x(B) \in [0,1)$, the product is at most 1. Thus, we have $\Pr(A_i \mid \bigwedge_{B \in S} \overline{B}) \leq x(A_i)$. The induction is complete.
+    \textbf{Inductive Step:} Assume the statement is true for all sets $S'$ with $|S'| < k$. Let $S$ be a set with $|S| = k > 0$. Let $S_1 = S \cap \Gamma(A)$ and $S_2 = S \setminus S_1$.
+    Using the definition of conditional probability:
+    $$ \Pr\left(A \mid \bigwedge_{B \in S} \overline{B}\right) = \frac{\Pr\left(A \wedge \bigwedge_{B \in S_1} \overline{B} \mid \bigwedge_{B \in S_2} \overline{B}\right)}{\Pr\left(\bigwedge_{B \in S_1} \overline{B} \mid \bigwedge_{B \in S_2} \overline{B}\right)} $$
+
+    We bound the numerator:
+    $$ \text{Numerator} \leq \Pr\left(A \mid \bigwedge_{B \in S_2} \overline{B}\right) $$
+    By the definition of the dependency graph, $A$ is independent of all events in $S_2$. Thus,
+    $$ \Pr\left(A \mid \bigwedge_{B \in S_2} \overline{B}\right) = \Pr(A) \leq x(A) \prod_{B \in \Gamma(A)} (1-x(B)) $$
+
+    We bound the denominator. Let $S_1 = \{B_1, \dots, B_m\}$. Using the chain rule:
+    $$ \Pr\left(\bigwedge_{j=1}^m \overline{B_j} \mid \bigwedge_{C \in S_2} \overline{C}\right) = \prod_{j=1}^m \Pr\left(\overline{B_j} \mid \bigwedge_{l=j+1}^m \overline{B_l} \wedge \bigwedge_{C \in S_2} \overline{C}\right) $$
+    For each term in the product, the conditioning set has size $(m-j) + |S_2| < m + |S_2| = k$. By the induction hypothesis, $\Pr\left(B_j \mid \dots\right) \leq x(B_j)$. Thus, $\Pr\left(\overline{B_j} \mid \dots\right) \geq 1-x(B_j)$.
+    So, the denominator is bounded below:
+    $$ \text{Denominator} \geq \prod_{j=1}^m (1 - x(B_j)) = \prod_{B \in S_1} (1-x(B)) $$
+
+    Combining the bounds for the numerator and denominator:
+    $$ \Pr\left(A \mid \bigwedge_{B \in S} \overline{B}\right) \leq \frac{x(A) \prod_{B \in \Gamma(A)} (1-x(B))}{\prod_{B \in S_1} (1-x(B))} = x(A) \prod_{B \in \Gamma(A) \setminus S_1} (1-x(B)) $$
+    Since $1-x(B) \leq 1$ for all $B$, the product is at most 1. Therefore, $\Pr\left(A \mid \bigwedge_{B \in S} \overline{B}\right) \leq x(A)$. The induction is complete.
 \end{proof}
 
 \begin{theorem}[Asymmetric Lovász Local Lemma]
-Let $\mathcal{A}=\{A_{1},\ldots ,A_{n}\}$ be a finite set of events with a dependency graph $D$. If there exists an assignment of real numbers $x: \mathcal{A} \to [0,1)$ such that for each $A_i \in \mathcal{A}$,
-$$\Pr(A_i) \leq x(A_i)\prod_{A_j \in \Gamma(A_i)}(1-x(A_j))$$
-then the probability that none of the events in $\mathcal{A}$ occurs is strictly positive. Specifically,
-$$\Pr\left(\bigwedge_{i=1}^n \overline{A_{i}}\right) \geq \prod_{i=1}^n (1-x(A_{i})) > 0$$
+    \label{thm:Asymmetric_Lovasz_Local_Lemma}
+    \uses{def:Dependency_Graph}
+    Let $\mathcal{A} = \{A_1, \ldots, A_n\}$ be a finite set of events with a dependency graph $G$. If there exists an assignment of real numbers $x: \mathcal{A} \to [0,1)$ such that for each $A \in \mathcal{A}$:
+    $$ \Pr(A) \leq x(A) \prod_{B \in \Gamma(A)} (1-x(B)) $$
+    Then the probability of avoiding all events in $\mathcal{A}$ is positive, and more specifically:
+    $$ \Pr\left(\bigwedge_{i=1}^n \overline{A_i}\right) \geq \prod_{i=1}^n (1-x(A_i)) $$
 \end{theorem}
 
 \begin{proof}
-Using the chain rule for probability, we can write:
-$$\Pr\left(\bigwedge_{i=1}^n \overline{A_i}\right) = \Pr(\overline{A_1}) \cdot \Pr(\overline{A_2} \mid \overline{A_1}) \cdots \Pr\left(\overline{A_n} \mid \bigwedge_{i=1}^{n-1} \overline{A_i}\right) = \prod_{i=1}^n \Pr\left(\overline{A_i} \mid \bigwedge_{j=1}^{i-1} \overline{A_j}\right)$$
-Each term in the product can be rewritten as:
-$$\Pr\left(\overline{A_i} \mid \bigwedge_{j=1}^{i-1} \overline{A_j}\right) = 1 - \Pr\left(A_i \mid \bigwedge_{j=1}^{i-1} \overline{A_j}\right)$$
-By the Conditional Probability Bound Lemma, with $S = \{A_1, \ldots, A_{i-1}\}$, we have $\Pr\left(A_i \mid \bigwedge_{j=1}^{i-1} \overline{A_j}\right) \leq x(A_i)$.
-Therefore, each term in the product is bounded below:
-$$\Pr\left(\overline{A_i} \mid \bigwedge_{j=1}^{i-1} \overline{A_j}\right) \geq 1 - x(A_i)$$
-Combining these inequalities, we get the final result:
-$$\Pr\left(\bigwedge_{i=1}^n \overline{A_i}\right) \geq \prod_{i=1}^n (1 - x(A_i))$$
-Since $x(A_i) < 1$ for all $i$, the product on the right is strictly positive.
+    \uses{lem:Conditional_Probability_Bound}
+    By the chain rule of probability, we have:
+    $$ \Pr\left(\bigwedge_{i=1}^n \overline{A_i}\right) = \prod_{i=1}^n \Pr\left(\overline{A_i} \mid \bigwedge_{j=1}^{i-1} \overline{A_j}\right) $$
+    Each term in this product can be written as:
+    $$ \Pr\left(\overline{A_i} \mid \bigwedge_{j=1}^{i-1} \overline{A_j}\right) = 1 - \Pr\left(A_i \mid \bigwedge_{j=1}^{i-1} \overline{A_j}\right) $$
+    By lemma \ref{lem:Conditional_Probability_Bound}, with the conditioning set $S = \{A_1, \dots, A_{i-1}\}$, we have:
+    $$ \Pr\left(A_i \mid \bigwedge_{j=1}^{i-1} \overline{A_j}\right) \leq x(A_i) $$
+    Therefore, each term in the product is bounded below:
+    $$ \Pr\left(\overline{A_i} \mid \bigwedge_{j=1}^{i-1} \overline{A_j}\right) \geq 1 - x(A_i) $$
+    Substituting this back into the chain rule expansion gives:
+    $$ \Pr\left(\bigwedge_{i=1}^n \overline{A_i}\right) \geq \prod_{i=1}^n (1 - x(A_i)) $$
+    Since $x(A_i) \in [0,1)$ for all $i$, each term $(1-x(A_i))$ is positive, and thus the product is strictly positive.
 \end{proof}
 
 \begin{theorem}[Symmetric Lovász Local Lemma]
-Let $A_1, A_2, \ldots, A_k$ be a sequence of events. Suppose that for some real numbers $p$ and $d$:
-\begin{enumerate}
-    \item $\Pr(A_i) \leq p$ for all $i$.
-    \item Each event $A_i$ is dependent on at most $d$ other events.
-\end{enumerate}
-If $ep(d+1) \leq 1$, where $e$ is Euler's number, then there is a nonzero probability that none of the events occurs, i.e., $\Pr(\bigwedge_{i=1}^k \overline{A_i}) > 0$.
+    \label{thm:Symmetric_Lovasz_Local_Lemma}
+    \uses{def:Dependency_Graph}
+    Let $\mathcal{A} = \{A_1, \ldots, A_n\}$ be a set of events. Suppose that for each $i$, $\Pr(A_i) \leq p$, and each event $A_i$ is dependent on at most $d$ other events from $\mathcal{A}$. If
+    $$ ep(d+1) \leq 1 $$
+    where $e$ is the base of the natural logarithm, then $\Pr(\bigwedge_{i=1}^n \overline{A_i}) > 0$.
 \end{theorem}
 
 \begin{proof}
-This is a corollary of the Asymmetric Lovász Local Lemma. We define $x(A_i) = \frac{1}{d+1}$ for all $i$. Since $d \ge 0$, we have $x(A_i) \in (0, 1]$. We need to check if the condition of the asymmetric lemma holds:
-$$\Pr(A_i) \leq \frac{1}{d+1} \prod_{A_j \in \Gamma(A_i)} \left(1 - \frac{1}{d+1}\right)$$
-The left side is at most $p$. The number of neighbors $|\Gamma(A_i)|$ is at most $d$. Thus, the product on the right is at least:
-$$\frac{1}{d+1} \left(1 - \frac{1}{d+1}\right)^d$$
-We use the well-known inequality $(1 - 1/t)^{t-1} > 1/e$ for $t > 1$. Let $t=d+1$. Then $\left(1 - \frac{1}{d+1}\right)^d > 1/e$.
-So, the condition becomes:
-$$p \leq \frac{1}{d+1} \left(1 - \frac{1}{d+1}\right)^d > \frac{1}{e(d+1)}$$
-The given hypothesis is $ep(d+1) \leq 1$, which is equivalent to $p \leq \frac{1}{e(d+1)}$. This is a stricter condition than what is required to apply the Asymmetric Lovász Local Lemma. Therefore, the conditions are met.
+    \uses{thm:Asymmetric_Lovasz_Local_Lemma}
+    \uses{lem:Inequality_for_e}
+    We aim to satisfy the conditions of the theorem \ref{thm:Asymmetric_Lovasz_Local_Lemma}. Let the dependency graph be such that the maximum degree is at most $d$. We define $x(A_i) = \frac{1}{d+1}$ for all $A_i \in \mathcal{A}$. Since $d \geq 0$, $x(A_i) \in (0, 1]$. For the condition $x(A_i) < 1$ to hold, we require $d>0$. If $d=0$, events are mutually independent and the problem is trivial. Let's assume $d>0$.
 
-By the Asymmetric Lovász Local Lemma,
-$$\Pr\left(\bigwedge_{i=1}^k \overline{A_i}\right) \geq \prod_{i=1}^k \left(1 - \frac{1}{d+1}\right) = \left(\frac{d}{d+1}\right)^k > 0$$
-Thus, there is a positive probability that none of the events occurs.
+    We must verify the condition from theorem \ref{thm:Asymmetric_Lovasz_Local_Lemma}:
+    $$ \Pr(A_i) \leq x(A_i) \prod_{A_j \in \Gamma(A_i)} (1-x(A_j)) $$
+    Given $\Pr(A_i) \leq p$ and $|\Gamma(A_i)| \leq d$, it is sufficient to show:
+    $$ p \leq \frac{1}{d+1} \left(1-\frac{1}{d+1}\right)^{|\Gamma(A_i)|} $$
+    Since $1 - \frac{1}{d+1} < 1$, the term on the right is minimized when the exponent is maximal. Thus, it suffices to show:
+    $$ p \leq \frac{1}{d+1} \left(1-\frac{1}{d+1}\right)^d $$
+    By lemma \ref{lem:Inequality_for_e}, we have $\left(1-\frac{1}{d+1}\right)^d \geq \frac{1}{e}$.
+    Therefore, the condition is satisfied if we have:
+    $$ p \leq \frac{1}{d+1} \cdot \frac{1}{e} $$
+    This is equivalent to the given condition $ep(d+1) \leq 1$.
+    Since the conditions of theorem \ref{thm:Asymmetric_Lovasz_Local_Lemma} are met, we can conclude that $\Pr(\bigwedge_{i=1}^n \overline{A_i}) > 0$.
 \end{proof}

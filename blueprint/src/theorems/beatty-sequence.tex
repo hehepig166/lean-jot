@@ -1,70 +1,105 @@
-\chapter{Rayleigh's Theorem}
+
+\chapter{Rayleigh's Theorem on Beatty Sequences}
 
 \begin{definition}[Beatty Sequence]
-For a positive irrational number $r > 1$, the Beatty sequence $\mathcal{B}_r$ is the set of integers given by $\mathcal{B}_r = \{ \lfloor nr \rfloor : n \in \mathbb{Z}^+ \}$.
+    \label{def:Beatty_Sequence}
+    For a positive irrational number $r$, the Beatty sequence $\mathcal{B}_r$ is the set of integers given by $\mathcal{B}_r = \{\lfloor nr \rfloor \mid n \in \mathbb{Z}^+\}$, where $\lfloor \cdot \rfloor$ is the floor function.
 \end{definition}
 
-\begin{definition}[Partition of a Set]
-A partition of a set $X$ is a collection of non-empty subsets of $X$ such that every element in $X$ is in exactly one of these subsets. For two subsets $A$ and $B$, this means $A \cap B = \emptyset$ and $A \cup B = X$.
+\begin{definition}[Complementary Beatty Sequences]
+    \label{def:Complementary_Beatty_Sequences}
+    \uses{def:Beatty_Sequence}
+    Let $r > 1$ be an irrational number. Let $s$ be a real number such that $\frac{1}{r} + \frac{1}{s} = 1$. The sequences defined in definition \ref{def:Beatty_Sequence}, $\mathcal{B}_r$ and $\mathcal{B}_s$, are called a pair of complementary Beatty sequences. Note that since $r>1$ is irrational, $s = \frac{r}{r-1}$ must also be an irrational number greater than 1.
 \end{definition}
 
 \begin{lemma}[Disjointness of Complementary Beatty Sequences]
-Let $r > 1$ be an irrational number and let $s$ be a real number such that $\frac{1}{r} + \frac{1}{s} = 1$. The Beatty sequences $\mathcal{B}_r$ and $\mathcal{B}_s$ are disjoint, i.e., $\mathcal{B}_r \cap \mathcal{B}_s = \emptyset$.
+    \label{lem:Disjointness}
+    \uses{def:Complementary_Beatty_Sequences}
+    The two sequences in a pair of complementary Beatty sequences, $\mathcal{B}_r$ and $\mathcal{B}_s$, are disjoint, i.e., $\mathcal{B}_r \cap \mathcal{B}_s = \emptyset$.
 \end{lemma}
 
 \begin{proof}
-Assume for the sake of contradiction that the sequences are not disjoint. Then there exists a positive integer $j$ such that $j \in \mathcal{B}_r$ and $j \in \mathcal{B}_s$.
-By the definition of a Beatty sequence, this means there exist positive integers $k$ and $m$ such that:
-$$j = \lfloor kr \rfloor \quad \text{and} \quad j = \lfloor ms \rfloor$$
-These equalities can be rewritten as the inequalities:
-$$j \leq kr < j+1 \quad \text{and} \quad j \leq ms < j+1$$
-Since $r$ is irrational, $s = r/(r-1)$ must also be irrational. If $s$ were rational, $s = p/q$, then $r = s/(s-1) = (p/q)/((p/q)-1) = p/(p-q)$, which would imply $r$ is rational, a contradiction. Therefore, as $r$ and $s$ are irrational, $kr$ and $ms$ cannot be integers. The inequalities must be strict:
-$$j < kr < j+1 \quad \text{and} \quad j < ms < j+1$$
-Dividing by $r$ and $s$ respectively gives:
-$$\frac{j}{r} < k < \frac{j+1}{r} \quad \text{and} \quad \frac{j}{s} < m < \frac{j+1}{s}$$
-Adding these two inequalities, we obtain:
-$$\frac{j}{r} + \frac{j}{s} < k+m < \frac{j+1}{r} + \frac{j+1}{s}$$
-Using the given condition $\frac{1}{r} + \frac{1}{s} = 1$, this simplifies to:
-$$j\left(\frac{1}{r} + \frac{1}{s}\right) < k+m < (j+1)\left(\frac{1}{r} + \frac{1}{s}\right)$$
-$$j < k+m < j+1$$
-This result is a contradiction, as there can be no integer $k+m$ strictly between two consecutive integers $j$ and $j+1$. Thus, our initial assumption must be false, and the sequences $\mathcal{B}_r$ and $\mathcal{B}_s$ are disjoint.
+    We prove this by contradiction. Assume there exists an integer $j$ that is in both sequences. Then, for some positive integers $k$ and $m$, we have $j = \lfloor kr \rfloor$ and $j = \lfloor ms \rfloor$.
+
+    By the definition of the floor function, these equalities are equivalent to the inequalities:
+    \[
+    j \le kr < j+1 \quad \text{and} \quad j \le ms < j+1
+    \]
+    Since $r$ and $s$ are irrational, $kr$ and $ms$ cannot be integers. Thus, we can write the strict inequalities:
+    \[
+    j < kr < j+1 \quad \text{and} \quad j < ms < j+1
+    \]
+    Dividing by $r$ and $s$ respectively (which are positive), we get:
+    \[
+    \frac{j}{r} < k < \frac{j+1}{r} \quad \text{and} \quad \frac{j}{s} < m < \frac{j+1}{s}
+    \]
+    Adding these two inequalities gives:
+    \[
+    \frac{j}{r} + \frac{j}{s} < k+m < \frac{j+1}{r} + \frac{j+1}{s}
+    \]
+    Factoring out $j$ on the left and $j+1$ on the right yields:
+    \[
+    j\left(\frac{1}{r} + \frac{1}{s}\right) < k+m < (j+1)\left(\frac{1}{r} + \frac{1}{s}\right)
+    \]
+    From definition \ref{def:Complementary_Beatty_Sequences}, we know that $\frac{1}{r} + \frac{1}{s} = 1$. Substituting this into the inequality gives:
+    \[
+    j < k+m < j+1
+    \]
+    This is a contradiction, as there can be no integer $k+m$ strictly between two consecutive integers $j$ and $j+1$. Therefore, our initial assumption must be false, and the two sequences are disjoint.
 \end{proof}
 
 \begin{lemma}[Completeness of Complementary Beatty Sequences]
-Let $r > 1$ be an irrational number and let $s$ be a real number such that $\frac{1}{r} + \frac{1}{s} = 1$. The union of the Beatty sequences $\mathcal{B}_r$ and $\mathcal{B}_s$ covers all positive integers, i.e., $\mathcal{B}_r \cup \mathcal{B}_s = \mathbb{Z}^+$.
+    \label{lem:Completeness}
+    \uses{def:Complementary_Beatty_Sequences}
+    The union of the two sequences in a pair of complementary Beatty sequences, $\mathcal{B}_r \cup \mathcal{B}_s$, contains every positive integer.
 \end{lemma}
 
 \begin{proof}
-Assume for the sake of contradiction that there exists a positive integer $j$ that is in neither sequence. This means that for any positive integer $n$, $j \neq \lfloor nr \rfloor$ and $j \neq \lfloor ns \rfloor$.
-This implies that there must exist non-negative integers $k$ and $m$ such that no multiple of $r$ or $s$ falls in the interval $[j, j+1)$.
-This can be expressed by the following inequalities:
-$$kr < j \quad \text{and} \quad j+1 \leq (k+1)r$$
-$$ms < j \quad \text{and} \quad j+1 \leq (m+1)s$$
-As $r$ and $s$ are irrational, the equalities can be excluded:
-$$j+1 < (k+1)r \quad \text{and} \quad j+1 < (m+1)s$$
-From these inequalities, we can deduce two sets of relations. First, from $kr < j$ and $ms < j$:
-$$k < \frac{j}{r} \quad \text{and} \quad m < \frac{j}{s}$$
-Adding these gives:
-$$k+m < \frac{j}{r} + \frac{j}{s} = j\left(\frac{1}{r} + \frac{1}{s}\right) = j$$
-So, $k+m \le j-1$.
-Second, from $j+1 < (k+1)r$ and $j+1 < (m+1)s$:
-$$\frac{j+1}{r} < k+1 \quad \text{and} \quad \frac{j+1}{s} < m+1$$
-Adding these gives:
-$$\frac{j+1}{r} + \frac{j+1}{s} < (k+1) + (m+1)$$
-$$(j+1)\left(\frac{1}{r} + \frac{1}{s}\right) < k+m+2$$
-$$j+1 < k+m+2 \implies j-1 < k+m$$
-So, $k+m \ge j$.
-We have derived two contradictory conditions: $k+m \le j-1$ and $k+m \ge j$. This is impossible.
-Therefore, our assumption that such an integer $j$ exists is false, and every positive integer must belong to at least one of the sequences.
+    We will show that for any positive integer $N$, the number of elements in $\mathcal{B}_r \cup \mathcal{B}_s$ that are less than or equal to $N$ is exactly $N$.
+
+    Let $C_r(N)$ be the number of elements in $\mathcal{B}_r$ that are less than or equal to $N$.
+    $C_r(N) = |\{k \in \mathbb{Z}^+ \mid \lfloor kr \rfloor \le N \}|$.
+    The condition $\lfloor kr \rfloor \le N$ is equivalent to $kr < N+1$, since $kr$ is not an integer. This is equivalent to $k < \frac{N+1}{r}$.
+    Since $k$ must be a positive integer, the number of such values of $k$ is $\lfloor \frac{N+1}{r} \rfloor$.
+    Thus, $C_r(N) = \lfloor \frac{N+1}{r} \rfloor$.
+
+    Similarly, the number of elements in $\mathcal{B}_s$ less than or equal to $N$, denoted $C_s(N)$, is $C_s(N) = \lfloor \frac{N+1}{s} \rfloor$.
+
+    Since the sequences are disjoint from lemma \ref{lem:Disjointness}, the total number of elements in their union less than or equal to $N$ is $C(N) = C_r(N) + C_s(N) = \lfloor \frac{N+1}{r} \rfloor + \lfloor \frac{N+1}{s} \rfloor$.
+
+    For any non-integer $x$, we have $x-1 < \lfloor x \rfloor < x$. Since $r$ and $s$ are irrational, $\frac{N+1}{r}$ and $\frac{N+1}{s}$ are not integers. Thus, we can write:
+    \[
+    \left(\frac{N+1}{r} - 1\right) + \left(\frac{N+1}{s} - 1\right) < C(N) < \frac{N+1}{r} + \frac{N+1}{s}
+    \]
+    Using the property $\frac{1}{r} + \frac{1}{s} = 1$ from definition \ref{def:Complementary_Beatty_Sequences}, this simplifies to:
+    \[
+    (N+1)\left(\frac{1}{r} + \frac{1}{s}\right) - 2 < C(N) < (N+1)\left(\frac{1}{r} + \frac{1}{s}\right)
+    \]
+    \[
+    (N+1) - 2 < C(N) < N+1
+    \]
+    \[
+    N-1 < C(N) < N+1
+    \]
+    Since $C(N)$ is an integer, the only possibility is $C(N) = N$.
+
+    This means that for any integer $N$, the set $\{1, 2, \dots, N\}$ is composed of exactly the elements of $\mathcal{B}_r$ and $\mathcal{B}_s$ that are less than or equal to $N$. This holds for all $N$, so the union $\mathcal{B}_r \cup \mathcal{B}_s$ must be the set of all positive integers $\mathbb{Z}^+$.
 \end{proof}
 
 \begin{theorem}[Rayleigh's Theorem]
-Let $r > 1$ be an irrational number and let $s = r/(r-1)$. Then $s$ is also an irrational number greater than 1, they satisfy $\frac{1}{r} + \frac{1}{s} = 1$, and the two Beatty sequences $\mathcal{B}_r$ and $\mathcal{B}_s$ form a partition of the set of positive integers $\mathbb{Z}^+$.
+    \label{thm:Rayleighs_Theorem}
+    \uses{def:Complementary_Beatty_Sequences}
+    A pair of complementary Beatty sequences, $\mathcal{B}_r$ and $\mathcal{B}_s$, forms a partition of the set of positive integers $\mathbb{Z}^+$.
 \end{theorem}
 
 \begin{proof}
-The condition $s = r/(r-1)$ directly implies $\frac{1}{r} + \frac{1}{s} = 1$. Since $r > 1$, we have $r-1 > 0$, so $s > 0$. Also, since $r > r-1$, it follows that $s > 1$. As shown in the proof of Lemma 1, if $r$ is irrational, then $s$ must also be irrational.
-Lemma 1 establishes that the sequences $\mathcal{B}_r$ and $\mathcal{B}_s$ are disjoint.
-Lemma 2 establishes that their union covers the entirety of $\mathbb{Z}^+$.
-Taken together, these two conditions mean that $\mathcal{B}_r$ and $\mathcal{B}_s$ form a partition of the set of positive integers.
+    \uses{lem:Disjointness}
+    \uses{lem:Completeness}
+    To show that the sequences $\mathcal{B}_r$ and $\mathcal{B}_s$ form a partition of $\mathbb{Z}^+$, we must show that they are disjoint and their union is $\mathbb{Z}^+$.
+
+    Lemma \ref{lem:Disjointness} establishes that $\mathcal{B}_r \cap \mathcal{B}_s = \emptyset$.
+
+    Lemma \ref{lem:Completeness} establishes that $\mathcal{B}_r \cup \mathcal{B}_s = \mathbb{Z}^+$.
+
+    Therefore, the two sequences form a partition of the set of positive integers.
 \end{proof}
