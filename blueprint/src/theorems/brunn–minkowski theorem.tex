@@ -1,0 +1,97 @@
+\chapter{The Brunn-Minkowski Theorem}
+
+\begin{definition}[Lebesgue Measure]
+Let $\mu$ be the Lebesgue measure on the Euclidean space $\mathbb{R}^n$, which assigns a volume to subsets of $\mathbb{R}^n$. For a measurable set $A \subseteq \mathbb{R}^n$, its volume is denoted by $\mu(A)$.
+\end{definition}
+
+\begin{definition}[Minkowski Sum]
+For any two non-empty subsets $A, B \subseteq \mathbb{R}^n$, their Minkowski sum, denoted $A+B$, is the set formed by the vector addition of elements from $A$ and $B$:
+$$A+B := \{a+b \in \mathbb{R}^n \mid a \in A, b \in B\}.$$
+\end{definition}
+
+\begin{lemma}[Inequality for Axis-Aligned Boxes]
+Let $A = \prod_{i=1}^{n}[0, a_i]$ and $B = \prod_{i=1}^{n}[0, b_i]$ be two axis-aligned boxes in $\mathbb{R}^n$ with side lengths $a_i \ge 0$ and $b_i \ge 0$. Then the Brunn-Minkowski inequality holds:
+$$[\mu(A+B)]^{1/n} \ge [\mu(A)]^{1/n} + [\mu(B)]^{1/n}.$$
+\end{lemma}
+
+\begin{proof}
+The Minkowski sum of the two boxes is $A+B = \prod_{i=1}^{n}[0, a_i+b_i]$. The volumes are $\mu(A) = \prod_{i=1}^{n} a_i$, $\mu(B) = \prod_{i=1}^{n} b_i$, and $\mu(A+B) = \prod_{i=1}^{n} (a_i+b_i)$. The inequality we must prove is:
+$$\left(\prod_{i=1}^{n} (a_i+b_i)\right)^{1/n} \ge \left(\prod_{i=1}^{n} a_i\right)^{1/n} + \left(\prod_{i=1}^{n} b_i\right)^{1/n}.$$
+If either $\mu(A)=0$ or $\mu(B)=0$, the inequality is trivial. Assuming both are non-zero, we can divide by the left-hand side to obtain the equivalent inequality:
+$$1 \ge \left(\prod_{i=1}^{n} \frac{a_i}{a_i+b_i}\right)^{1/n} + \left(\prod_{i=1}^{n} \frac{b_i}{a_i+b_i}\right)^{1/n}.$$
+By the inequality of arithmetic and geometric means (AM-GM), we have:
+$$\left(\prod_{i=1}^{n} \frac{a_i}{a_i+b_i}\right)^{1/n} \le \frac{1}{n} \sum_{i=1}^{n} \frac{a_i}{a_i+b_i}$$
+and
+$$\left(\prod_{i=1}^{n} \frac{b_i}{a_i+b_i}\right)^{1/n} \le \frac{1}{n} \sum_{i=1}^{n} \frac{b_i}{a_i+b_i}.$$
+Summing these two inequalities gives:
+$$\left(\prod_{i=1}^{n} \frac{a_i}{a_i+b_i}\right)^{1/n} + \left(\prod_{i=1}^{n} \frac{b_i}{a_i+b_i}\right)^{1/n} \le \frac{1}{n} \sum_{i=1}^{n} \frac{a_i+b_i}{a_i+b_i} = \frac{1}{n} \sum_{i=1}^{n} 1 = 1.$$
+This proves the inequality for axis-aligned boxes.
+\end{proof}
+
+\begin{lemma}[Inequality for Finite Unions of Disjoint Boxes]
+Let $A$ and $B$ be sets that are each a finite union of disjoint, axis-aligned boxes. The Brunn-Minkowski inequality holds for $A$ and $B$.
+\end{lemma}
+
+\begin{proof}
+We use induction on the total number of boxes, $m$, comprising $A$ and $B$. The base case, $m=2$ (i.e., $A$ and $B$ are single boxes), is established by Lemma 1.
+
+For the inductive step, assume the inequality holds for any pair of sets with a total of fewer than $m$ boxes. Let $A$ and $B$ be composed of $m_A$ and $m_B$ boxes respectively, where $m = m_A + m_B > 2$. Assume, without loss of generality, that $m_A \ge 2$. There must exist an axis-aligned hyperplane, say $H = \{x \in \mathbb{R}^n \mid x_1 = c\}$, that does not intersect the interior of any box in $A$ and splits $A$ into two non-empty collections of boxes, $A_1$ and $A_2$.
+
+Let $H_1 = \{x \mid x_1 < c\}$ and $H_2 = \{x \mid x_1 > c\}$. Then $A_1 = A \cap H_1$ and $A_2 = A \cap H_2$. By the Intermediate Value Theorem, we can translate $B$ along the $x_1$-axis to a position $B'$ such that its splitting by $H$ satisfies the ratio property:
+$$\frac{\mu(A_1)}{\mu(B'_1)} = \frac{\mu(A_2)}{\mu(B'_2)},$$
+where $B'_1 = B' \cap H_1$ and $B'_2 = B' \cap H_2$. Since the inequality is invariant under translation, we can assume $B$ is already in this position. This ratio must also equal $\frac{\mu(A_1)+\mu(A_2)}{\mu(B_1)+\mu(B_2)} = \frac{\mu(A)}{\mu(B)}$.
+
+The sets $A_1+B_1$ and $A_2+B_2$ are disjoint. Thus, $\mu(A+B) \ge \mu(A_1+B_1) + \mu(A_2+B_2)$. Applying the inductive hypothesis to the pairs $(A_1, B_1)$ and $(A_2, B_2)$:
+$$\mu(A+B) \ge (\mu(A_1)^{1/n} + \mu(B_1)^{1/n})^n + (\mu(A_2)^{1/n} + \mu(B_2)^{1/n})^n.$$
+Let $c = (\mu(A)/\mu(B))^{1/n}$. From the ratio property, $\mu(A_1)^{1/n} = c \cdot \mu(B_1)^{1/n}$ and $\mu(A_2)^{1/n} = c \cdot \mu(B_2)^{1/n}$. Substituting this into the inequality:
+\begin{align*}
+\mu(A+B) &\ge (c \cdot \mu(B_1)^{1/n} + \mu(B_1)^{1/n})^n + (c \cdot \mu(B_2)^{1/n} + \mu(B_2)^{1/n})^n \\
+&= (c+1)^n \mu(B_1) + (c+1)^n \mu(B_2) \\
+&= (c+1)^n (\mu(B_1) + \mu(B_2)) = (c+1)^n \mu(B) \\
+&= \left( \left(\frac{\mu(A)}{\mu(B)}\right)^{1/n} + 1 \right)^n \mu(B) \\
+&= (\mu(A)^{1/n} + \mu(B)^{1/n})^n.
+\end{align*}
+Taking the $n$-th root of both sides completes the induction.
+\end{proof}
+
+\begin{theorem}[Brunn-Minkowski Inequality for Compact Sets]
+Let $A$ and $B$ be two non-empty compact subsets of $\mathbb{R}^n$. Then
+$$[\mu(A+B)]^{1/n} \ge [\mu(A)]^{1/n} + [\mu(B)]^{1/n}.$$
+\end{theorem}
+
+\begin{proof}
+First, we establish the inequality for bounded open sets. Any bounded open set can be approximated from within by a sequence of sets $A_k$, each being a finite union of disjoint boxes, such that $\lim_{k \to \infty} \mu(A_k) = \mu(A)$. For any two bounded open sets $A$ and $B$, and their approximations $A_k$ and $B_k$, we have $A_k+B_k \subseteq A+B$. Applying Lemma 2:
+$$\mu(A+B)^{1/n} \ge \mu(A_k+B_k)^{1/n} \ge \mu(A_k)^{1/n} + \mu(B_k)^{1/n}.$$
+Taking the limit as $k \to \infty$, the result holds for bounded open sets.
+
+Now, let $A$ and $B$ be compact. For any $\epsilon > 0$, consider their $\epsilon$-neighborhoods $A_\epsilon = A + B(0,\epsilon)$ and $B_\epsilon = B + B(0,\epsilon)$, where $B(0,\epsilon)$ is an open ball of radius $\epsilon$. These are bounded open sets. We have $A_\epsilon+B_\epsilon = A+B+2\epsilon B(0,1) = (A+B)_{2\epsilon}$. Applying the result for open sets:
+$$\mu((A+B)_{2\epsilon})^{1/n} = \mu(A_\epsilon+B_\epsilon)^{1/n} \ge \mu(A_\epsilon)^{1/n} + \mu(B_\epsilon)^{1/n}.$$
+As $\epsilon \to 0$, the measures of the neighborhoods converge to the measures of the compact sets, i.e., $\lim_{\epsilon \to 0} \mu(A_\epsilon) = \mu(A)$, due to the regularity of the Lebesgue measure. Taking the limit yields the desired inequality for compact sets.
+\end{proof}
+
+\begin{theorem}[Multiplicative Brunn-Minkowski Inequality]
+For any two non-empty compact subsets $A, B \subseteq \mathbb{R}^n$ and any $\lambda \in [0,1]$, the following inequality holds:
+$$\mu(\lambda A + (1-\lambda)B) \ge \mu(A)^\lambda \mu(B)^{1-\lambda}.$$
+This inequality is equivalent to the additive form of the Brunn-Minkowski theorem.
+\end{theorem}
+
+\begin{proof}
+(\textbf{Additive $\implies$ Multiplicative})
+Apply the additive Brunn-Minkowski inequality (Theorem 1) to the sets $\lambda A$ and $(1-\lambda)B$:
+$$[\mu(\lambda A + (1-\lambda)B)]^{1/n} \ge [\mu(\lambda A)]^{1/n} + [\mu((1-\lambda)B)]^{1/n}.$$
+Using the scaling property of the Lebesgue measure, $\mu(c S) = c^n \mu(S)$, we get:
+$$[\mu(\lambda A + (1-\lambda)B)]^{1/n} \ge \lambda[\mu(A)]^{1/n} + (1-\lambda)[\mu(B)]^{1/n}.$$
+By the weighted AM-GM inequality, for non-negative $x, y$: $\lambda x + (1-\lambda)y \ge x^\lambda y^{1-\lambda}$. Setting $x = [\mu(A)]^{1/n}$ and $y = [\mu(B)]^{1/n}$:
+$$\lambda[\mu(A)]^{1/n} + (1-\lambda)[\mu(B)]^{1/n} \ge ([\mu(A)]^{1/n})^\lambda ([\mu(B)]^{1/n})^{1-\lambda} = \mu(A)^{\lambda/n} \mu(B)^{(1-\lambda)/n}.$$
+Combining the inequalities and raising both sides to the power of $n$ gives the multiplicative version.
+
+(\textbf{Multiplicative $\implies$ Additive})
+Let $a = \mu(A)^{1/n}$ and $b = \mu(B)^{1/n}$. If $a+b=0$, the inequality is trivial. Otherwise, define $\lambda = \frac{a}{a+b}$. Then $1-\lambda = \frac{b}{a+b}$. Define normalized sets $A' = \frac{1}{a}A$ and $B' = \frac{1}{b}B$, so that $\mu(A')=\mu(B')=1$.
+We can write $A+B$ as:
+$$A+B = aA' + bB' = (a+b) \left(\frac{a}{a+b}A' + \frac{b}{a+b}B'\right) = (a+b)(\lambda A' + (1-\lambda)B').$$
+Taking the measure of both sides:
+$$\mu(A+B) = (a+b)^n \mu(\lambda A' + (1-\lambda)B').$$
+Applying the multiplicative inequality to $A'$ and $B'$:
+$$\mu(\lambda A' + (1-\lambda)B') \ge \mu(A')^\lambda \mu(B')^{1-\lambda} = 1^\lambda \cdot 1^{1-\lambda} = 1.$$
+Therefore, $\mu(A+B) \ge (a+b)^n = (\mu(A)^{1/n} + \mu(B)^{1/n})^n$. Taking the $n$-th root gives the additive inequality.
+\end{proof}
