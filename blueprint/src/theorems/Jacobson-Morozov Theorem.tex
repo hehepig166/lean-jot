@@ -1,4 +1,3 @@
-
 \chapter{The Jacobson-Morozov Theorem}
 
 \begin{definition}[$\mathfrak{sl}_2$-Triplet]
@@ -10,7 +9,7 @@
 
 \begin{definition}[Nilpotent and Semi-simple Elements]
     \label{def:nilpotent_and_semi_simple_elements}
-    Let $\mathfrak{g}$ be a Lie algebra. An element $z \in \mathfrak{g}$ is **nilpotent** if the endomorphism $\text{ad } z: \mathfrak{g} \to \mathfrak{g}$ is nilpotent. An element $z \in \mathfrak{g}$ is **semi-simple** if the endomorphism $\text{ad } z$ is semi-simple. If $\mathfrak{g}$ is semi-simple and $(x, h, y)$ is an $\mathfrak{sl}_2$-triplet, then $x$ and $y$ are nilpotent elements and $h$ is a semi-simple element of $\mathfrak{g}$.
+    Let $\mathfrak{g}$ be a Lie algebra. An element $z \in \mathfrak{g}$ is **nilpotent** if the endomorphism $\mathrm{ad}\,z: \mathfrak{g} \to \mathfrak{g}$ is nilpotent. An element $z \in \mathfrak{g}$ is **semi-simple** if the endomorphism $\mathrm{ad}\,z$ is semi-simple. If $\mathfrak{g}$ is semi-simple and $(x, h, y)$ is an $\mathfrak{sl}_2$-triplet, then $x$ and $y$ are nilpotent elements and $h$ is a semi-simple element of $\mathfrak{g}$.
 \end{definition}
 
 \begin{definition}[Semi-simple Lie Algebra]
@@ -21,7 +20,7 @@
 \begin{definition}[Killing Form]
     \label{def:killing_form}
     The **Killing form** $\Phi$ of a finite-dimensional Lie algebra $\mathfrak{g}$ is the symmetric bilinear form given by
-    $$\Phi(x, y) = \text{Tr}(\text{ad } x \circ \text{ad } y)$$
+    $$\Phi(x, y) = \mathrm{Tr}(\mathrm{ad}\,x \circ \mathrm{ad}\,y)$$
     for all $x, y \in \mathfrak{g}$. The Killing form is invariant, meaning $\Phi([x, y], z) = \Phi(x, [y, z])$ for all $x, y, z \in \mathfrak{g}$.
 \end{definition}
 
@@ -31,8 +30,7 @@
 \end{lemma}
 
 \begin{proof}
-    \uses{def:nilpotent_and_semi_simple_elements}
-    Let $C = [A, B]$. Since $[A, C] = 0$, we have $[A, BC^p] = [A, B]C^p = C^{p+1}$ for every integer $p \geq 0$. Consequently, $\text{Tr}(C^p) = 0$ for $p \geq 1$, which proves that $C$ is nilpotent.
+    Let $C = [A, B]$. Since $[A, C] = 0$, we have $[A, BC^p] = [A, B]C^p = C^{p+1}$ for every integer $p \geq 0$. Consequently, $\mathrm{Tr}(C^p) = 0$ for $p \geq 1$, which proves that $C$ is nilpotent.
 
     Now let $\bar{k}$ be an algebraic closure of $k$, and let $\lambda \in \bar{k}$ and $x \in V \otimes_k \bar{k}$ be such that $ABx = \lambda x$ and $x \neq 0$. The relation $[[B, A], A] = 0$ shows that $[B, A^p] = p[B, A]A^{p-1}$ for every integer $p \geq 0$. Let $r$ be the smallest integer such that $A^r x = 0$. Then
     $$\lambda A^{r-1}x = A^{r-1}ABx = A^r Bx = B A^r x - [B, A^r]x = -r[B, A]A^{r-1}x.$$
@@ -41,36 +39,28 @@
 
 \begin{lemma}[Existence of the Third Triplet Element]
     \label{lem:existence_of_third_element}
-    \uses{def:sl2_triplet}
-    Let $h, x \in \mathfrak{g}$ be such that $[h, x] = 2x$ and $h \in \text{Im}(\text{ad } x)$. Then there exists an element $y \in \mathfrak{g}$ such that $(x, h, y)$ is either $(0, 0, 0)$ or an $\mathfrak{sl}_2$-triplet.
+    Let $h, x \in \mathfrak{g}$ be such that $[h, x] = 2x$ and $h \in \mathrm{Im}(\mathrm{ad}\,x)$. Then there exists an element $y \in \mathfrak{g}$ such that $(x, h, y)$ is either $(0, 0, 0)$ or an $\mathfrak{sl}_2$-triplet.
 \end{lemma}
 
 \begin{proof}
-    \uses{def:nilpotent_and_semi_simple_elements}
-    Let $\mathfrak{g}' = kh + kx$. Since $x \in [\mathfrak{g}', \mathfrak{g}']$, the endomorphism $\text{ad}_\mathfrak{g} x$ is nilpotent. Let $\mathfrak{n} = \text{Ker}(\text{ad } x)$. Since $[\text{ad } h, \text{ad } x] = \text{ad } [h, x] = 2 \text{ad } x$, we have $(\text{ad } h)\mathfrak{n} \subset \mathfrak{n}$.
+    Let $\mathfrak{g}' = kh + kx$. Since $x \in [\mathfrak{g}', \mathfrak{g}']$, the endomorphism $\mathrm{ad}_{\mathfrak{g}}\,x$ is nilpotent. Let $\mathfrak{n} = \mathrm{Ker}(\mathrm{ad}\,x)$. Since $[\mathrm{ad}\,h, \mathrm{ad}\,x] = \mathrm{ad}\,[h, x] = 2\,\mathrm{ad}\,x$, we have $(\mathrm{ad}\,h)\mathfrak{n} \subset \mathfrak{n}$.
 
-    Let $z \in \mathfrak{g}$ be such that $h = -[x, z]$. The eigenvalues of $\text{ad } h|_{\mathfrak{n}}$ are non-negative integers. Therefore, the restriction of $\text{ad } h + 2$ to $\mathfrak{n}$ is invertible.
+    Let $z \in \mathfrak{g}$ be such that $h = -[x, z]$. The eigenvalues of $\mathrm{ad}\,h|_{\mathfrak{n}}$ are non-negative integers. Therefore, the restriction of $\mathrm{ad}\,h + 2$ to $\mathfrak{n}$ is invertible.
 
     Now consider the element $[h, z] + 2z$. We have
     $$[x, [h, z] + 2z] = [[x, h], z] + [h, [x, z]] + 2[x, z] = [-2x, z] + [h, -h] + 2[x, z] = 0.$$
-    This means $[h, z] + 2z \in \mathfrak{n}$. Since $\text{ad } h + 2$ is invertible on $\mathfrak{n}$, there exists an element $z' \in \mathfrak{n}$ such that $[h, z'] + 2z' = [h, z] + 2z$. Let $y = z - z'$. Then $[h, y] = -2y$. Since $z' \in \mathfrak{n} = \text{Ker}(\text{ad } x)$, we have $[x, y] = [x, z - z'] = [x, z] = -h$. Thus, $(x, h, y)$ forms an $\mathfrak{sl}_2$-triplet (or is $(0,0,0)$ if $x,h,y$ are all zero), completing the proof.
+    This means $[h, z] + 2z \in \mathfrak{n}$. Since $\mathrm{ad}\,h + 2$ is invertible on $\mathfrak{n}$, there exists an element $z' \in \mathfrak{n}$ such that $[h, z'] + 2z' = [h, z] + 2z$. Let $y = z - z'$. Then $[h, y] = -2y$. Since $z' \in \mathfrak{n} = \mathrm{Ker}(\mathrm{ad}\,x)$, we have $[x, y] = [x, z - z'] = [x, z] = -h$. Thus, $(x, h, y)$ forms an $\mathfrak{sl}_2$-triplet (or is $(0,0,0)$ if $x,h,y$ are all zero), completing the proof.
 \end{proof}
 
 \begin{theorem}[Jacobson-Morozov Theorem]
     \label{thm:jacobson_morozov}
-    \uses{def:sl2_triplet}
-    \uses{def:nilpotent_and_semi_simple_elements}
-    \uses{def:semi_simple_lie_algebra}
     Assume that $\mathfrak{g}$ is a semi-simple Lie algebra. Let $x$ be a non-zero nilpotent element of $\mathfrak{g}$. There exist elements $h, y \in \mathfrak{g}$ such that $(x, h, y)$ is an $\mathfrak{sl}_2$-triplet.
 \end{theorem}
 
 \begin{proof}
-    \uses{def:killing_form}
-    \uses{lem:nilpotency_of_product}
-    \uses{lem:existence_of_third_element}
-    Let $\Phi$ be the Killing form of $\mathfrak{g}$. Let $\mathfrak{n} = \text{Ker}(\text{ad } x)^2$. For any $z \in \mathfrak{n}$, we have $[\text{ad } x, [\text{ad } x, \text{ad } z]] = \text{ad}([x, [x, z]]) = 0$. Since $\text{ad } x$ is nilpotent, lemma \ref{lem:nilpotency_of_product} implies that $(\text{ad } x) \circ (\text{ad } z)$ is nilpotent. Therefore, $\Phi(x, z) = \text{Tr}(\text{ad } x \circ \text{ad } z) = 0$. This shows that $x$ is orthogonal to $\mathfrak{n}$ with respect to the Killing form $\Phi$.
+    Let $\Phi$ be the Killing form of $\mathfrak{g}$. Let $\mathfrak{n} = \mathrm{Ker}((\mathrm{ad}\,x)^2)$. For any $z \in \mathfrak{n}$, we have $[\mathrm{ad}\,x, [\mathrm{ad}\,x, \mathrm{ad}\,z]] = \mathrm{ad}([x, [x, z]]) = 0$. Since $\mathrm{ad}\,x$ is nilpotent, Lemma \ref{lem:nilpotency_of_product} implies that $(\mathrm{ad}\,x) \circ (\mathrm{ad}\,z)$ is nilpotent. Therefore, $\Phi(x, z) = \mathrm{Tr}(\mathrm{ad}\,x \circ \mathrm{ad}\,z) = 0$. This shows that $x$ is orthogonal to $\mathfrak{n}$ with respect to the Killing form $\Phi$.
 
-    Since $\Phi$ is non-degenerate and invariant, the orthogonal complement of $\mathfrak{n}$ is the image of $(\text{ad } x)^2$. Thus, $x$ must be in the image of $(\text{ad } x)^2$. This means there exists an element $y' \in \mathfrak{g}$ such that $x = [x, [x, y']]$.
+    Since $\Phi$ is non-degenerate and invariant, the orthogonal complement of $\mathfrak{n}$ is the image of $(\mathrm{ad}\,x)^2$. Thus, $x$ must be in the image of $(\mathrm{ad}\,x)^2$. This means there exists an element $y' \in \mathfrak{g}$ such that $x = [x, [x, y']]$.
 
-    Let $h = -2[x, y']$. Then we have $[h, x] = -2[[x, y'], x] = 2[x, [x, y']] = 2x$. Also, $h = [x, -2y'] \in \text{Im}(\text{ad } x)$. The conditions of lemma \ref{lem:existence_of_third_element} are now satisfied for $h$ and $x$. Since $x$ is non-zero, the triplet cannot be $(0,0,0)$. Therefore, there exists an element $y \in \mathfrak{g}$ such that $(x, h, y)$ is an $\mathfrak{sl}_2$-triplet.
+    Let $h = -2[x, y']$. Then we have $[h, x] = -2[[x, y'], x] = 2[x, [x, y']] = 2x$. Also, $h = [x, -2y'] \in \mathrm{Im}(\mathrm{ad}\,x)$. The conditions of Lemma \ref{lem:existence_of_third_element} are now satisfied for $h$ and $x$. Since $x$ is non-zero, the triplet cannot be $(0,0,0)$. Therefore, there exists an element $y \in \mathfrak{g}$ such that $(x, h, y)$ is an $\mathfrak{sl}_2$-triplet.
 \end{proof}
