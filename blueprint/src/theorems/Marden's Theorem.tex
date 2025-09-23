@@ -1,0 +1,120 @@
+\chapter{Marden's Theorem}
+
+\begin{definition}[Steiner Inellipse]
+    \label{def:Steiner_Inellipse}
+    For a triangle with vertices $z_1, z_2, z_3$ in the complex plane, the Steiner inellipse is the unique ellipse inscribed in the triangle and tangent to the sides at their midpoints.
+\end{definition}
+
+\begin{lemma}[Preservation of Geometric Properties under Affine Maps]
+    \label{lem:Affine_Geometric_Preservation}
+    An affine transformation $T(z) = az+b$ (with $a \neq 0$) preserves midpoints and tangency. That is, if $m$ is the midpoint of a segment $[p,q]$, then $T(m)$ is the midpoint of $[T(p), T(q)]$. If a line $L$ is tangent to a conic $C$ at point $p$, then the line $T(L)$ is tangent to the conic $T(C)$ at point $T(p)$.
+\end{lemma}
+\begin{proof}
+    The midpoint of $[p,q]$ is $\frac{p+q}{2}$. Its image under $T$ is $a(\frac{p+q}{2}) + b = \frac{(ap+b)+(aq+b)}{2} = \frac{T(p)+T(q)}{2}$, which is the midpoint of the segment $[T(p), T(q)]$.
+    Tangency is a geometric property defined by the intersection of a line and a conic having a single point with multiplicity two. Since affine transformations are defined by linear equations, they preserve the degree of polynomial equations defining curves and their intersections. Thus, a single point of intersection with multiplicity two is mapped to another such point.
+\end{proof}
+
+\begin{lemma}[Covariance of Ellipses and their Foci]
+    \label{lem:Ellipse_Foci_Covariance}
+    Let $E$ be an ellipse in the complex plane with foci $f_1$ and $f_2$. If $T(z) = az+b$ (with $a \neq 0$) is an affine transformation, then the image $T(E)$ is an ellipse whose foci are $T(f_1)$ and $T(f_2)$.
+\end{lemma}
+\begin{proof}
+    An ellipse is a type of conic section, and affine transformations map conics to conics of the same type. Since an ellipse is a bounded conic, its image under an affine map must also be a bounded conic, which is an ellipse.
+    The foci of an ellipse can be characterized by geometric properties that are preserved under affine maps. For instance, the foci are the singular points of the pencil of conics confocal with the given one. Affine maps preserve such pencils. A more direct argument is that any affine transformation can be decomposed into a rotation, a scaling, another rotation, and a translation. Each of these elementary transformations maps foci to foci. Thus, their composition does as well.
+\end{proof}
+
+\begin{lemma}[Covariance of the Steiner Inellipse]
+    \label{lem:Steiner_Inellipse_Covariance}
+    \uses{def:Steiner_Inellipse}
+    \uses{lem:Affine_Geometric_Preservation}
+    \uses{lem:Ellipse_Foci_Covariance}
+    Let $\Delta$ be a triangle with vertices $z_1, z_2, z_3$ and let $S$ be its Steiner inellipse. For any affine transformation $T$, the image $T(S)$ is the Steiner inellipse of the transformed triangle $T(\Delta)$ with vertices $T(z_1), T(z_2), T(z_3)$.
+\end{lemma}
+\begin{proof}
+    By lemma \ref{lem:Ellipse_Foci_Covariance}, $T(S)$ is an ellipse. By definition, $S$ is tangent to the midpoints of the sides of $\Delta$. By lemma \ref{lem:Affine_Geometric_Preservation}, an affine transformation preserves midpoints and tangency. Therefore, the ellipse $T(S)$ is tangent to the midpoints of the sides of the transformed triangle $T(\Delta)$. By the uniqueness of the Steiner inellipse (stated in definition \ref{def:Steiner_Inellipse}), $T(S)$ must be the Steiner inellipse of $T(\Delta)$.
+\end{proof}
+
+\begin{lemma}[Covariance of Roots and Derivative Roots]
+    \label{lem:Root_Derivative_Covariance}
+    Let $p(z)$ be a polynomial and let $T(w) = aw+b$ be an affine transformation with $a, b \in \mathbb{C}$ and $a \neq 0$. Let $q(w) = p(T(w))$. If $r$ is a root of $p(z)$ and $s$ is a root of its derivative $p'(z)$, then $T^{-1}(r)$ is a root of $q(w)$ and $T^{-1}(s)$ is a root of its derivative $q'(w)$.
+\end{lemma}
+\begin{proof}
+    If $r$ is a root of $p(z)$, then $p(r)=0$. The roots of $q(w)$ are the values of $w$ such that $p(T(w))=0$, which means $T(w)=r$, or $w=T^{-1}(r)$.
+    By the chain rule, the derivative of $q(w)$ is $q'(w) = a \cdot p'(T(w))$. The roots of $q'(w)$ are the values of $w$ for which $p'(T(w))=0$. If $s$ is a root of $p'(z)$, then we must have $T(w)=s$, which means $w=T^{-1}(s)$.
+\end{proof}
+
+\begin{lemma}[Normalization of a Triangle]
+    \label{lem:Normalization}
+    \uses{def:Steiner_Inellipse}
+    For any non-collinear set of points $\{z_1, z_2, z_3\}$, there exists an affine transformation that maps them to points $\{w_1, w_2, w_3\}$ forming a triangle whose Steiner inellipse is centered at the origin with its foci on the real axis at $\pm c$ for some $c \ge 0$.
+\end{lemma}
+\begin{proof}
+    Let $\Delta$ be the original triangle. Its Steiner inellipse $S$ has a center $m$ and foci $f_1, f_2$. First, apply a translation $T_1(z) = z - m$ to center the ellipse at the origin. Let the foci of the new ellipse be $f'_1, f'_2$. Second, apply a rotation $T_2(z) = z e^{-i\arg(f'_1)}$ to align the foci with the real axis. The composition $T = T_2 \circ T_1$ is an affine transformation that maps the triangle to the desired standard position. The foci will be at $\pm c$ for some $c = |f'_1| \ge 0$.
+\end{proof}
+
+\begin{lemma}[Canonical Vertices for a Standard Triangle]
+    \label{lem:Vertex_Representation_Standard}
+    Let $\Delta$ be a triangle whose Steiner inellipse is centered at the origin and has foci $\pm c$ on the real axis. Let the semi-major axis be $a$ and semi-minor axis be $b$, so $c^2=a^2-b^2$. The vertices of such a triangle can be represented as $\{2a, -a+ib\sqrt{3}, -a-ib\sqrt{3}\}$ up to a rotation by $\pi$.
+\end{lemma}
+\begin{proof}
+    This is a known parameterization. It can be derived by applying the affine transformation $T(x+iy) = ax+iby$ to an equilateral triangle with vertices $\{2, -1+i\sqrt{3}, -1-i\sqrt{3}\}$. The Steiner inellipse of this equilateral triangle is the unit circle, which is transformed by $T$ into an ellipse with semi-axes $a$ and $b$ aligned with the coordinate axes. The vertices of the transformed triangle are $T(2) = 2a$, $T(-1+i\sqrt{3}) = -a+ib\sqrt{3}$, and $T(-1-i\sqrt{3}) = -a-ib\sqrt{3}$. The centroid of these vertices is $\frac{1}{3}(2a -a+ib\sqrt{3} -a-ib\sqrt{3}) = 0$.
+\end{proof}
+
+\begin{lemma}[Sum of Squared Vertices for a Standard Triangle]
+    \label{lem:Sum_Squared_Vertices_Standard}
+    \uses{lem:Vertex_Representation_Standard}
+    For a triangle in the standard position described in lemma \ref{lem:Vertex_Representation_Standard}, with Steiner inellipse foci at $\pm c$, the sum of the squares of its vertices is $6c^2$.
+\end{lemma}
+\begin{proof}
+    Using the vertex representation from lemma \ref{lem:Vertex_Representation_Standard}, $w_1=2a, w_2=-a+ib\sqrt{3}, w_3=-a-ib\sqrt{3}$.
+    \begin{align*}
+        w_1^2 &= (2a)^2 = 4a^2 \\
+        w_2^2 &= (-a+ib\sqrt{3})^2 = a^2 - 3b^2 - 2iab\sqrt{3} \\
+        w_3^2 &= (-a-ib\sqrt{3})^2 = a^2 - 3b^2 + 2iab\sqrt{3}
+    \end{align*}
+    Summing these gives:
+    $\sum_{j=1}^3 w_j^2 = 4a^2 + (a^2 - 3b^2) + (a^2 - 3b^2) = 6a^2 - 6b^2 = 6(a^2-b^2)$.
+    Since the foci are at $\pm c$ where $c^2=a^2-b^2$, we have $\sum_{j=1}^3 w_j^2 = 6c^2$.
+\end{proof}
+
+\begin{lemma}[Roots of the Derivative for Centered Polynomials]
+    \label{lem:Vieta_Centered}
+    Let $p(z)$ be a monic cubic polynomial with roots $z_1, z_2, z_3$ satisfying $\sum_{j=1}^3 z_j = 0$. The roots of the derivative $p'(z)$ are given by $\pm\sqrt{-\frac{1}{3}\sum_{j<k} z_j z_k}$.
+\end{lemma}
+\begin{proof}
+    Given $\sum z_j = 0$, the polynomial is $p(z) = z^3 + (z_1z_2+z_2z_3+z_3z_1)z - z_1z_2z_3$.
+    The derivative is $p'(z) = 3z^2 + (z_1z_2+z_2z_3+z_3z_1)$. The roots of $p'(z)$ are the values of $z$ such that $3z^2 = -(z_1z_2+z_2z_3+z_3z_1)$.
+    Thus, $z = \pm\sqrt{-\frac{1}{3}\sum_{j<k} z_j z_k}$.
+\end{proof}
+
+\begin{lemma}[Foci as Derivative Roots for Standard Triangle]
+    \label{lem:Foci_Standard_Case}
+    \uses{lem:Sum_Squared_Vertices_Standard}
+    \uses{lem:Vieta_Centered}
+    For a triangle in the standard position (centroid at origin, Steiner inellipse foci at $\pm c$), the roots of the derivative of the polynomial whose roots are the vertices are precisely the foci of the Steiner inellipse.
+\end{lemma}
+\begin{proof}
+    Let the vertices be $w_1, w_2, w_3$. Since the centroid is at the origin, $\sum w_j=0$. By lemma \ref{lem:Vieta_Centered}, the roots of the derivative are $\pm\sqrt{-\frac{1}{3}\sum_{j<k} w_j w_k}$.
+    From the identity $(\sum w_j)^2 = \sum w_j^2 + 2\sum_{j<k} w_j w_k$, and since $\sum w_j=0$, we have $\sum_{j<k} w_j w_k = -\frac{1}{2}\sum w_j^2$.
+    The roots of the derivative are therefore $\pm\sqrt{-\frac{1}{3}(-\frac{1}{2}\sum w_j^2)} = \pm\sqrt{\frac{1}{6}\sum w_j^2}$.
+    By lemma \ref{lem:Sum_Squared_Vertices_Standard}, for a triangle in standard position, $\sum w_j^2 = 6c^2$.
+    Substituting this result, the roots of the derivative are $\pm\sqrt{\frac{1}{6}(6c^2)} = \pm\sqrt{c^2} = \pm c$. These are precisely the foci of the Steiner inellipse.
+\end{proof}
+
+\begin{theorem}[Marden's Theorem]
+    \label{thm:Marden_Theorem}
+    \uses{def:Steiner_Inellipse}
+    \uses{lem:Steiner_Inellipse_Covariance}
+    \uses{lem:Root_Derivative_Covariance}
+    \uses{lem:Normalization}
+    \uses{lem:Foci_Standard_Case}
+    Suppose the zeroes $z_1, z_2, z_3$ of a third-degree polynomial $p(z)$ are non-collinear complex numbers. The foci of the Steiner inellipse of the triangle with vertices $z_1, z_2, z_3$ are the zeroes of the derivative $p'(z)$.
+\end{theorem}
+\begin{proof}
+    Let $\Delta_z$ be the triangle with vertices $z_1, z_2, z_3$. By lemma \ref{lem:Normalization}, there exists an affine transformation $T$ that maps the vertices of a triangle $\Delta_w$ in standard position to the vertices of $\Delta_z$. Let $w_1, w_2, w_3$ be the vertices of $\Delta_w$ and $f_w, g_w$ be the foci of its Steiner inellipse. Then $z_j = T(w_j)$.
+    Let $q(w)$ be the polynomial with roots $w_1, w_2, w_3$. By lemma \ref{lem:Foci_Standard_Case}, the roots of $q'(w)$ are the foci $f_w, g_w$.
+    Let $p(z)$ be the polynomial with roots $z_j$. Then $p(z)$ is proportional to $q(T^{-1}(z))$.
+    By lemma \ref{lem:Root_Derivative_Covariance}, the roots of $p'(z)$ are the images of the roots of $q'(w)$ under $T$. So the roots of $p'(z)$ are $T(f_w)$ and $T(g_w)$.
+    By lemma \ref{lem:Steiner_Inellipse_Covariance}, the Steiner inellipse of $\Delta_z$ is the image under $T$ of the Steiner inellipse of $\Delta_w$. The foci of the Steiner inellipse of $\Delta_z$ are the images under $T$ of the foci of the Steiner inellipse of $\Delta_w$, which are $T(f_w)$ and $T(g_w)$.
+    Therefore, the roots of $p'(z)$ are the foci of the Steiner inellipse of $\Delta_z$.
+\end{proof}

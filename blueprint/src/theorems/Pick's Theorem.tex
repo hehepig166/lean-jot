@@ -1,0 +1,192 @@
+\chapter{Pick's Theorem}
+
+\begin{definition}[Simple Polygon]
+    \label{def:Simple_Polygon}
+    A simple polygon is a polygon in the plane whose boundary does not cross itself. The vertices of the polygon are points on an integer lattice, i.e., points with integer coordinates.
+\end{definition}
+
+\begin{lemma}[Additivity of Area]
+    \label{lem:Additivity_of_Area}
+    \uses{def:Simple_Polygon}
+    Let a simple polygon $P$ be partitioned into a finite set of non-overlapping simple polygons $\{P_j\}$. Then the area of $P$ is the sum of the areas of the polygons $P_j$, i.e., $A(P) = \sum_{j} A(P_j)$.
+\end{lemma}
+
+\begin{proof}
+    This is a fundamental property of the geometric area of planar figures. If a region is the disjoint union of a finite number of sub-regions (up to their boundaries), its total area is the sum of the areas of the sub-regions.
+\end{proof}
+
+\begin{lemma}[Area of a Rectangle with Integer Vertices]
+    \label{lem:Area_of_a_Rectangle}
+    \uses{def:Simple_Polygon}
+    For a simple rectangle with vertices at integer coordinates and sides parallel to the coordinate axes, the area $A$ is given by $A = i + \frac{b}{2} - 1$, where $i$ is the number of interior integer points and $b$ is the number of integer points on the boundary.
+\end{lemma}
+
+\begin{proof}
+    Let the rectangle have vertices at $(x_1,y_1), (x_2,y_1), (x_1,y_2), (x_2,y_2)$ for integers $x_1<x_2$ and $y_1<y_2$. Let $w = x_2-x_1$ and $h=y_2-y_1$. The area of the rectangle is $A = wh$.
+    The number of interior points is $i = (w-1)(h-1)$.
+    The number of boundary points is $b = 2w + 2h$.
+    We verify the formula:
+    \begin{align*}
+        i + \frac{b}{2} - 1 &= (w-1)(h-1) + \frac{2w+2h}{2} - 1 \\
+        &= (wh - w - h + 1) + (w+h) - 1 \\
+        &= wh = A.
+    \end{align*}
+    Thus, the formula holds.
+\end{proof}
+
+\begin{lemma}[Central Symmetry of Rectangle Triangles]
+    \label{lem:Central_Symmetry_of_Rectangle_Triangles}
+    Let $R$ be an axis-aligned rectangle. Let a diagonal $D$ divide $R$ into two congruent right-angled triangles $T_1$ and $T_2$. The central symmetry transformation with respect to the rectangle's center is a bijection from the interior of $T_1$ to the interior of $T_2$.
+\end{lemma}
+
+\begin{proof}
+    Let the vertices of the rectangle be $(x_1, y_1), (x_2, y_1), (x_1, y_2), (x_2, y_2)$. The center of the rectangle is $C = (\frac{x_1+x_2}{2}, \frac{y_1+y_2}{2})$. The central symmetry transformation with respect to $C$ is $S(p) = 2C - p$.
+    This transformation maps the rectangle $R$ to itself. Specifically, it maps vertices to opposite vertices. For instance, $S((x_1,y_1)) = (x_2,y_2)$.
+    The diagonal $D$ is mapped to itself. A point $p$ is in the interior of $T_1$ if and only if it is in the interior of $R$ and on one side of the diagonal $D$. The map $S$ preserves the interior of $R$ and maps points from one side of $D$ to the other. Thus, $S$ maps the interior of $T_1$ to the interior of $T_2$.
+    Since $S(S(p)) = p$, the transformation is its own inverse, and is therefore a bijection.
+\end{proof}
+
+\begin{lemma}[Symmetry of Lattice Points in a Diagonal-Cut Rectangle]
+    \label{lem:Symmetry_of_Lattice_Points}
+    \uses{lem:Central_Symmetry_of_Rectangle_Triangles}
+    Let $R$ be a rectangle with integer vertices and sides parallel to the coordinate axes. A diagonal of $R$ divides it into two congruent right-angled triangles, $T_1$ and $T_2$. The number of interior integer points in $T_1$ is equal to the number of interior integer points in $T_2$.
+\end{lemma}
+
+\begin{proof}
+    Let the vertices of the rectangle be $(x_1, y_1), (x_2, y_1), (x_1, y_2), (x_2, y_2)$, where $x_1, x_2, y_1, y_2$ are integers. The central symmetry transformation is $S(x,y) = (x_1+x_2-x, y_1+y_2-y)$.
+    If a point $(x,y)$ has integer coordinates, then $S(x,y)$ also has integer coordinates.
+    By lemma \ref{lem:Central_Symmetry_of_Rectangle_Triangles}, $S$ is a bijection between the interiors of $T_1$ and $T_2$.
+    Since $S$ preserves integer coordinates, it establishes a one-to-one correspondence between the set of interior integer points of $T_1$ and the set of interior integer points of $T_2$. Consequently, their counts must be equal.
+\end{proof}
+
+\begin{lemma}[Area of a Right-Angled Triangle]
+    \label{lem:Area_of_a_Right_Angled_Triangle}
+    \uses{lem:Area_of_a_Rectangle}
+    \uses{lem:Symmetry_of_Lattice_Points}
+    For a right-angled triangle with integer vertices and legs parallel to the coordinate axes, the area $A$ is given by $A = i + \frac{b}{2} - 1$.
+\end{lemma}
+
+\begin{proof}
+    Let the right-angled triangle $T$ be formed by cutting a rectangle $R$ along its diagonal. Let $A_R, i_R, b_R$ be the area, interior points, and boundary points for $R$, and $A_T, i_T, b_T$ be for $T$.
+    By lemma \ref{lem:Area_of_a_Rectangle}, $A_R = i_R + \frac{b_R}{2} - 1$.
+    Let $k$ be the number of integer points on the diagonal. Let the rectangle have width $w$ and height $h$. The area is $A_T = \frac{1}{2} A_R$.
+    By lemma \ref{lem:Symmetry_of_Lattice_Points}, the number of interior points in the two triangles formed by the diagonal are equal. Thus, the interior points of the rectangle consist of the interior points of the two triangles plus the points on the diagonal (excluding vertices): $i_R = 2i_T + (k-2)$.
+    The boundary points of the triangle are $b_T = w+h+k-1$. From the proof of lemma \ref{lem:Area_of_a_Rectangle}, $b_R=2w+2h$.
+    First, we express $A_T$ in terms of $i_T$ and the geometric parameters:
+    \begin{align*}
+        A_T &= \frac{1}{2}A_R = \frac{1}{2} \left(i_R + \frac{b_R}{2} - 1\right) \\
+            &= \frac{1}{2} \left( (2i_T + k - 2) + \frac{2w+2h}{2} - 1 \right) \\
+            &= i_T + \frac{k-2}{2} + \frac{w+h}{2} - \frac{1}{2} \\
+            &= i_T + \frac{w+h+k-3}{2}.
+    \end{align*}
+    Now, we evaluate Pick's formula for the triangle:
+    \begin{align*}
+        i_T + \frac{b_T}{2} - 1 &= i_T + \frac{w+h+k-1}{2} - 1 \\
+                               &= i_T + \frac{w+h+k-1-2}{2} \\
+                               &= i_T + \frac{w+h+k-3}{2}.
+    \end{align*}
+    The expressions are identical, so $A_T = i_T + \frac{b_T}{2} - 1$.
+\end{proof}
+
+\begin{lemma}[Additivity of Pick's Formula Expression]
+    \label{lem:Additivity_of_Picks_Formula}
+    \uses{def:Simple_Polygon}
+    Let a simple polygon $P$ be formed by joining two simple polygons $P_1$ and $P_2$ along a common boundary edge. Let $F(S) = i_S + \frac{b_S}{2} - 1$ for any polygon $S$. Then $F(P) = F(P_1) + F(P_2)$.
+\end{lemma}
+
+\begin{proof}
+    Let $i_1, b_1$ be the counts for $P_1$, and $i_2, b_2$ for $P_2$. Let $i, b$ be for $P$.
+    Let the shared boundary contain $k$ integer points (including endpoints).
+    The interior points of $P$ are $i = i_1 + i_2 + (k-2)$.
+    The boundary points of $P$ are $b = b_1 + b_2 - 2(k-1) - 2 = b_1 + b_2 - 2k + 2$.
+    Now, we compute $F(P_1) + F(P_2)$ and substitute these relations:
+    \begin{align*}
+        F(P_1) + F(P_2) &= \left(i_1 + \frac{b_1}{2} - 1\right) + \left(i_2 + \frac{b_2}{2} - 1\right) \\
+        &= (i_1 + i_2) + \frac{b_1+b_2}{2} - 2 \\
+        &= (i-k+2) + \frac{b+2k-2}{2} - 2 \\
+        &= i-k+2 + \frac{b}{2} + k - 1 - 2 \\
+        &= i + \frac{b}{2} - 1 = F(P).
+    \end{align*}
+    Thus, the function $F$ is additive.
+\end{proof}
+
+\begin{lemma}[Decomposition of a Triangle into a Rectangle and Right Triangles]
+    \label{lem:Triangle_in_Rectangle_Decomposition}
+    Any triangle $T$ with integer vertices can be enclosed in an axis-aligned rectangle $R$ with integer vertices, such that the region $R \setminus T$ is composed of at most three right-angled triangles whose vertices are also integer points and whose legs are parallel to the coordinate axes.
+\end{lemma}
+
+\begin{proof}
+    Let the vertices of the triangle $T$ be $(x_1, y_1), (x_2, y_2), (x_3, y_3)$.
+    Define the bounding rectangle $R$ by the minimum and maximum coordinates: $x_{\min} = \min(x_i)$, $x_{\max} = \max(x_i)$, $y_{\min} = \min(y_i)$, $y_{\max} = \max(y_i)$. The vertices of $R$ are integer points.
+    The region $R \setminus T$ is composed of corner regions. Each of these regions is either empty or a right-angled triangle with integer vertices and legs parallel to the coordinate axes. There can be at most three such triangles.
+\end{proof}
+
+\begin{lemma}[Area of a General Triangle]
+    \label{lem:Area_of_a_General_Triangle}
+    \uses{lem:Area_of_a_Rectangle}
+    \uses{lem:Area_of_a_Right_Angled_Triangle}
+    \uses{lem:Additivity_of_Picks_Formula}
+    \uses{lem:Additivity_of_Area}
+    \uses{lem:Triangle_in_Rectangle_Decomposition}
+    For any triangle with integer vertices, the area $A$ is given by $A = i + \frac{b}{2} - 1$.
+\end{lemma}
+
+\begin{proof}
+    Let $T$ be a general triangle. By lemma \ref{lem:Triangle_in_Rectangle_Decomposition}, $T$ can be embedded in a rectangle $R$ such that $R$ is the disjoint union of $T$ and a set of at most three right-angled triangles, $\{T_j\}$.
+    Let $F(P) = i_P + \frac{b_P}{2} - 1$. By lemma \ref{lem:Additivity_of_Picks_Formula}, the function $F$ is additive, so $F(R) = F(T) + \sum F(T_j)$.
+    From lemma \ref{lem:Area_of_a_Rectangle}, we know $A(R) = F(R)$.
+    From lemma \ref{lem:Area_of_a_Right_Angled_Triangle}, we know $A(T_j) = F(T_j)$ for each corner triangle $T_j$.
+    Substituting these identities into the additivity equation for $F$ gives: $A(R) = F(T) + \sum A(T_j)$.
+    By lemma \ref{lem:Additivity_of_Area}, we have $A(R) = A(T) + \sum A(T_j)$.
+    Comparing the two expressions for $A(R)$, we conclude that $A(T) = F(T)$.
+\end{proof}
+
+\begin{lemma}[Existence of an Internal Diagonal]
+    \label{lem:Existence_of_Internal_Diagonal}
+    \uses{def:Simple_Polygon}
+    Every simple polygon with $n \ge 4$ vertices has at least one internal diagonal.
+\end{lemma}
+
+\begin{proof}
+    Let $P$ be a simple polygon. A vertex $v$ is convex if its interior angle is less than $\pi$. Every polygon has at least three convex vertices. Let $v$ be such a convex vertex, and let $u$ and $w$ be its adjacent vertices. Consider the triangle $\triangle uvw$.
+    If the segment $uw$ is an internal diagonal, we are done. This happens if the interior of $uw$ is in the interior of $P$.
+    If $uw$ is not an internal diagonal, there must be one or more vertices of $P$ in the interior of $\triangle uvw$. Let $z$ be such a vertex that is farthest from the line segment $uw$. The line segment $vz$ must lie entirely inside the polygon. If it did not, it would have to cross an edge of $P$, which would imply another vertex is inside $\triangle uvw$ and farther from $uw$ than $z$, a contradiction. Therefore, $vz$ is an internal diagonal of $P$.
+\end{proof}
+
+\begin{lemma}[Polygon Triangulation Theorem]
+    \label{lem:Polygon_Triangulation}
+    \uses{def:Simple_Polygon}
+    \uses{lem:Existence_of_Internal_Diagonal}
+    Every simple polygon with $n \ge 3$ vertices can be partitioned into $n-2$ non-overlapping triangles whose vertices are the vertices of the original polygon.
+\end{lemma}
+
+\begin{proof}
+    We prove this by induction on the number of vertices $n$.
+    Base Case ($n=3$): The polygon is a triangle. It is already triangulated into $3-2=1$ triangle.
+    Inductive Step: Assume any simple polygon with $k < n$ vertices can be triangulated into $k-2$ triangles. Let $P$ be a polygon with $n > 3$ vertices. By lemma \ref{lem:Existence_of_Internal_Diagonal}, there exists an internal diagonal. This diagonal splits $P$ into two smaller simple polygons, $P_1$ and $P_2$, with $n_1$ and $n_2$ vertices, respectively. We have $n_1, n_2 < n$ and $n_1+n_2 = n+2$.
+    By the induction hypothesis, $P_1$ can be triangulated into $n_1-2$ triangles and $P_2$ into $n_2-2$ triangles. The union of these triangulations forms a triangulation of $P$.
+    The total number of triangles is $(n_1-2) + (n_2-2) = n_1+n_2-4 = (n+2)-4 = n-2$.
+\end{proof}
+
+\begin{theorem}[Pick's Theorem]
+    \label{thm:Picks_Theorem}
+    \uses{def:Simple_Polygon}
+    \uses{lem:Additivity_of_Area}
+    \uses{lem:Area_of_a_General_Triangle}
+    \uses{lem:Additivity_of_Picks_Formula}
+    \uses{lem:Polygon_Triangulation}
+    For a simple polygon with integer vertices, the area $A$ is given by the formula $A = i + \frac{b}{2} - 1$, where $i$ is the number of integer points in the interior of the polygon and $b$ is the number of integer points on its boundary.
+\end{theorem}
+
+\begin{proof}
+    Let $P$ be a simple polygon. By lemma \ref{lem:Polygon_Triangulation}, $P$ can be partitioned into a set of $n-2$ non-overlapping triangles $\{T_j\}$.
+    Let $F(S) = i_S + \frac{b_S}{2} - 1$.
+    From lemma \ref{lem:Area_of_a_General_Triangle}, the formula holds for each triangle, so $A(T_j) = F(T_j)$ for all $j$.
+    By lemma \ref{lem:Additivity_of_Area}, the total area of the polygon is the sum of the areas of these triangles: $A(P) = \sum_{j} A(T_j)$.
+    By repeated application of lemma \ref{lem:Additivity_of_Picks_Formula}, the function $F$ is additive over the union of these triangles, so $F(P) = \sum_{j} F(T_j)$.
+    Combining these facts, we have:
+    \[
+        A(P) = \sum_{j} A(T_j) = \sum_{j} F(T_j) = F(P).
+    \]
+    Therefore, $A(P) = i_P + \frac{b_P}{2} - 1$.
+\end{proof}

@@ -1,0 +1,127 @@
+\chapter{Menelaus's Theorem}
+
+\begin{definition}[Signed Length of a Segment]
+    \label{def:Signed_Length}
+    For any two distinct points A and B on an oriented line, the signed length $\overline{AB}$ is the distance between A and B, taken as positive if the direction from A to B is the same as the orientation of the line, and negative otherwise. For any three collinear points A, B, and C, this implies $\overline{AB} = -\overline{BA}$ and $\overline{AC} = \overline{AB} + \overline{BC}$. A ratio $\frac{\overline{AP}}{\overline{PB}}$ is positive if P is between A and B, and negative otherwise.
+\end{definition}
+
+\begin{definition}[Transversal of a Triangle]
+    \label{def:Transversal}
+    A transversal of a triangle $\triangle ABC$ is a line that intersects the lines containing the sides of the triangle, at points distinct from the vertices A, B, and C.
+\end{definition}
+
+\begin{lemma}[AA Similarity Criterion]
+    \label{lem:AA_Similarity}
+    If two angles of one triangle are congruent to two angles of another triangle, then the two triangles are similar. This implies that the ratio of corresponding side lengths is constant.
+\end{lemma}
+
+\begin{lemma}[Segment Division and Plane Separation]
+    \label{lem:Plane_Separation_Consequence}
+    Let A and B be distinct points in a plane, and let a transversal line $l$ intersect the line AB at a point F. Then F lies between A and B if and only if A and B lie on opposite sides of the line $l$. Consequently, if F is outside the segment AB, then A and B lie on the same side of $l$.
+\end{lemma}
+
+\begin{proof}
+    This is a consequence of the Plane Separation Postulate, which states that any line in a plane divides the plane into two disjoint convex sets (half-planes). If two points lie in different half-planes, the segment connecting them must intersect the line. If F is between A and B, the segment AB contains F, which is on line $l$. Since F is the only intersection point of line AB and line $l$, A and B cannot both be in the same half-plane, as that would imply the segment AB is entirely contained within that half-plane, a contradiction. Thus, A and B are on opposite sides. Conversely, if A and B are on opposite sides of $l$, the segment AB must intersect $l$ at some point, which must be F. Therefore, F is on the segment AB.
+\end{proof}
+
+\begin{lemma}[Segment Ratio by Signed Perpendiculars]
+    \label{lem:Segment_Ratio_by_Signed_Perpendiculars}
+    \uses{def:Signed_Length}
+    \uses{lem:AA_Similarity}
+    \uses{lem:Plane_Separation_Consequence}
+    Let A and B be two distinct points, and let a line $l$ intersect the line AB at a point F. Let $h_A$ and $h_B$ be the signed distances from A and B to the line $l$, where distances on opposite sides of $l$ have opposite signs. Then, the ratio of the signed lengths is given by:
+    $$ \frac{\overline{AF}}{\overline{FB}} = -\frac{h_A}{h_B} $$
+\end{lemma}
+
+\begin{proof}
+    Let $P_A$ and $P_B$ be the feet of the perpendiculars from A and B to line $l$. The triangles $\triangle AFP_A$ and $\triangle BFP_B$ are right-angled triangles. The angles $\angle AFP_A$ and $\angle BFP_B$ are vertically opposite, so they are equal. By lemma \ref{lem:AA_Similarity}, $\triangle AFP_A \sim \triangle BFP_B$. Therefore, the ratio of the absolute lengths of corresponding sides is equal:
+    $$ \frac{|\overline{AF}|}{|\overline{FB}|} = \frac{|h_A|}{|h_B|} $$
+    Now we analyze the signs.
+    \begin{itemize}
+        \item Case 1: F is between A and B. By definition \ref{def:Signed_Length}, the ratio $\frac{\overline{AF}}{\overline{FB}}$ is positive. By lemma \ref{lem:Plane_Separation_Consequence}, A and B are on opposite sides of $l$, so their signed distances $h_A$ and $h_B$ have opposite signs, which means the ratio $\frac{h_A}{h_B}$ is negative.
+        \item Case 2: F is outside the segment AB. By definition \ref{def:Signed_Length}, the ratio $\frac{\overline{AF}}{\overline{FB}}$ is negative. By lemma \ref{lem:Plane_Separation_Consequence}, A and B are on the same side of $l$, so their signed distances $h_A$ and $h_B$ have the same sign, which means the ratio $\frac{h_A}{h_B}$ is positive.
+    \end{itemize}
+    In both cases, the ratio of signed lengths $\frac{\overline{AF}}{\overline{FB}}$ has the opposite sign to the ratio of signed distances $\frac{h_A}{h_B}$. Since their magnitudes are equal, we conclude:
+    $$ \frac{\overline{AF}}{\overline{FB}} = -\frac{h_A}{h_B} $$
+\end{proof}
+
+\begin{theorem}[Menelaus's Theorem]
+    \label{thm:Menelaus}
+    \uses{def:Signed_Length}
+    \uses{def:Transversal}
+    \uses{lem:Segment_Ratio_by_Signed_Perpendiculars}
+    Let $\triangle ABC$ be a triangle, and let a line be a transversal that intersects the lines containing the sides AB, BC, and CA at points F, D, and E, respectively. Then,
+    $$ \frac{\overline{AF}}{\overline{FB}} \cdot \frac{\overline{BD}}{\overline{DC}} \cdot \frac{\overline{CE}}{\overline{EA}} = -1 $$
+\end{theorem}
+
+\begin{proof}
+    \uses{lem:Segment_Ratio_by_Signed_Perpendiculars}
+    Let the transversal line be denoted by $l$. Let $h_A$, $h_B$, and $h_C$ be the signed distances from the vertices A, B, and C to the line $l$.
+    By applying lemma \ref{lem:Segment_Ratio_by_Signed_Perpendiculars} to each side of the triangle, we obtain the following three relations:
+    \begin{align*}
+        \frac{\overline{AF}}{\overline{FB}} &= -\frac{h_A}{h_B} \\
+        \frac{\overline{BD}}{\overline{DC}} &= -\frac{h_B}{h_C} \\
+        \frac{\overline{CE}}{\overline{EA}} &= -\frac{h_C}{h_A}
+    \end{align*}
+    Multiplying these three equations together yields:
+    $$ \frac{\overline{AF}}{\overline{FB}} \cdot \frac{\overline{BD}}{\overline{DC}} \cdot \frac{\overline{CE}}{\overline{EA}} = \left(-\frac{h_A}{h_B}\right) \cdot \left(-\frac{h_B}{h_C}\right) \cdot \left(-\frac{h_C}{h_A}\right) = - \frac{h_A h_B h_C}{h_B h_C h_A} = -1 $$
+    This completes the proof.
+\end{proof}
+
+\begin{lemma}[Uniqueness of a Point Dividing a Segment in a Given Ratio]
+    \label{lem:Uniqueness_of_Division_Point}
+    \uses{def:Signed_Length}
+    Let A and B be two distinct points on a line. For any real number $k \neq -1$, there exists a unique point F on the line AB such that $\frac{\overline{AF}}{\overline{FB}} = k$.
+\end{lemma}
+
+\begin{proof}
+    Let the line be represented by the real number line, with the coordinate of A being $a$ and the coordinate of B being $b$. Let the coordinate of F be $x$. The signed lengths are $\overline{AF} = x-a$ and $\overline{FB} = b-x$. The condition is:
+    $$ \frac{x-a}{b-x} = k $$
+    We solve for $x$:
+    $$ x - a = k(b - x) \implies x - a = kb - kx \implies x(1+k) = a + kb $$
+    Since $k \neq -1$, the term $(1+k)$ is non-zero, and we can divide by it to find a unique value for $x$:
+    $$ x = \frac{a+kb}{1+k} $$
+    This shows that for any $k \neq -1$, there is a unique point F that satisfies the condition.
+\end{proof}
+
+\begin{lemma}[Non-parallelism Condition for Converse Menelaus]
+    \label{lem:Non_Parallelism}
+    \uses{def:Signed_Length}
+    Let $\triangle ABC$ be a triangle and let D, E, F be points on lines BC, CA, AB respectively, satisfying the Menelaus condition $\frac{\overline{AF}}{\overline{FB}} \cdot \frac{\overline{BD}}{\overline{DC}} \cdot \frac{\overline{CE}}{\overline{EA}} = -1$. Then the line DE cannot be parallel to the line AB.
+\end{lemma}
+
+\begin{proof}
+    \uses{def:Signed_Length}
+    Assume for contradiction that the line DE is parallel to the line AB. By the property of similar triangles ($\triangle CDE \sim \triangle CBA$), we have $\frac{\overline{CE}}{\overline{EA}} = \frac{\overline{CD}}{\overline{DB}}$.
+    This can be rewritten as $\frac{\overline{CE}}{\overline{EA}} = \frac{-\overline{DC}}{-\overline{BD}} = \frac{\overline{DC}}{\overline{BD}}$.
+    Therefore, $\frac{\overline{BD}}{\overline{DC}} \cdot \frac{\overline{CE}}{\overline{EA}} = 1$.
+    Substituting this into the given Menelaus condition gives:
+    $$ \frac{\overline{AF}}{\overline{FB}} \cdot \left( \frac{\overline{BD}}{\overline{DC}} \cdot \frac{\overline{CE}}{\overline{EA}} \right) = -1 \implies \frac{\overline{AF}}{\overline{FB}} \cdot (1) = -1 $$
+    This implies $\frac{\overline{AF}}{\overline{FB}} = -1$, which means $\overline{AF} = -\overline{FB}$. By the property of signed lengths, $\overline{AF} = \overline{AB} + \overline{BF} = \overline{AB} - \overline{FB}$.
+    Substituting $\overline{AF} = -\overline{FB}$ gives $\overline{AB} - \overline{FB} = -\overline{FB}$, which simplifies to $\overline{AB} = 0$. This implies that A and B are the same point, which contradicts the definition of a triangle.
+    Thus, our initial assumption that DE is parallel to AB must be false.
+\end{proof}
+
+\begin{theorem}[Converse of Menelaus's Theorem]
+    \label{thm:Converse_of_Menelaus}
+    \uses{def:Signed_Length}
+    \uses{thm:Menelaus}
+    \uses{lem:Uniqueness_of_Division_Point}
+    \uses{lem:Non_Parallelism}
+    Let $\triangle ABC$ be a triangle, and let D, E, and F be points on the lines containing the sides BC, CA, and AB, respectively. If
+    $$ \frac{\overline{AF}}{\overline{FB}} \cdot \frac{\overline{BD}}{\overline{DC}} \cdot \frac{\overline{CE}}{\overline{EA}} = -1 $$
+    then the points D, E, and F are collinear.
+\end{theorem}
+
+\begin{proof}
+    By lemma \ref{lem:Non_Parallelism}, the line DE is not parallel to the line AB. Therefore, the line passing through D and E must intersect the line AB at exactly one point. Let's call this point F'.
+    Since D, E, and F' are collinear, by theorem \ref{thm:Menelaus}, they must satisfy the equation:
+    $$ \frac{\overline{AF'}}{\overline{F'B}} \cdot \frac{\overline{BD}}{\overline{DC}} \cdot \frac{\overline{CE}}{\overline{EA}} = -1 $$
+    We are given that the point F satisfies:
+    $$ \frac{\overline{AF}}{\overline{FB}} \cdot \frac{\overline{BD}}{\overline{DC}} \cdot \frac{\overline{CE}}{\overline{EA}} = -1 $$
+    Since D and E are not vertices, the terms $\frac{\overline{BD}}{\overline{DC}}$ and $\frac{\overline{CE}}{\overline{EA}}$ are well-defined, finite, and non-zero. Comparing the two equations gives:
+    $$ \frac{\overline{AF'}}{\overline{F'B}} = \frac{\overline{AF}}{\overline{FB}} $$
+    Let this ratio be $k$. Lemma \ref{lem:Non_Parallelism} ensures that $k \neq -1$.
+    By lemma \ref{lem:Uniqueness_of_Division_Point}, there is only one point on the line AB that divides the segment AB in a given ratio $k$. Therefore, F and F' must be the same point.
+    Since F' is on the line DE by construction, F must also be on the line DE. Thus, the points D, E, and F are collinear.
+\end{proof} 

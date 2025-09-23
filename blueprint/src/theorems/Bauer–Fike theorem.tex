@@ -1,0 +1,175 @@
+\chapter{Bauer–Fike Theorem}
+
+\begin{lemma}[Squeeze Theorem for Functions]
+\label{lem:squeeze_theorem}
+Let $(X, d)$ be a metric space and $p$ be a limit point of $D \subseteq X$. Let $f, g, h: D \to \mathbb{R}$ be functions. If $f(x) \le g(x) \le h(x)$ for all $x$ in a neighborhood of $p$ (except possibly at $p$), and if $\lim_{x \to p} f(x) = \lim_{x \to p} h(x) = L$, then $\lim_{x \to p} g(x) = L$.
+\end{lemma}
+\begin{proof}
+Let $\epsilon > 0$. By the definition of the limit, there exist $\delta_1 > 0$ and $\delta_2 > 0$ such that:
+\begin{itemize}
+    \item if $0 < d(x,p) < \delta_1$, then $|f(x) - L| < \epsilon$, which implies $L - \epsilon < f(x)$.
+    \item if $0 < d(x,p) < \delta_2$, then $|h(x) - L| < \epsilon$, which implies $h(x) < L + \epsilon$.
+\end{itemize}
+By hypothesis, there exists $\delta_3 > 0$ such that $f(x) \le g(x) \le h(x)$ for all $x$ with $0 < d(x,p) < \delta_3$.
+Let $\delta = \min(\delta_1, \delta_2, \delta_3)$. For any $x$ such that $0 < d(x,p) < \delta$, we have
+\[ L - \epsilon < f(x) \le g(x) \le h(x) < L + \epsilon. \]
+This implies $L - \epsilon < g(x) < L + \epsilon$, which is equivalent to $|g(x) - L| < \epsilon$.
+Therefore, $\lim_{x \to p} g(x) = L$.
+\end{proof}
+
+\begin{lemma}[Continuity and Boundedness of Linear Maps]
+\label{lem:continuous_iff_bounded_linear_map}
+Let $X$ and $Y$ be normed vector spaces. A linear map $T: X \to Y$ is continuous if and only if it is bounded, i.e., there exists a constant $M \ge 0$ such that $\|T(x)\|_Y \le M \|x\|_X$ for all $x \in X$.
+\end{lemma}
+\begin{proof}
+($\Leftarrow$) Assume $T$ is bounded with constant $M$. If $M=0$, $T$ is the zero map, which is trivially continuous. Assume $M>0$. To show continuity at an arbitrary $p \in X$, let $\epsilon > 0$. Choose $\delta = \epsilon/M$. If $\|x-p\|_X < \delta$, then by linearity and boundedness:
+\[ \|T(x) - T(p)\|_Y = \|T(x-p)\|_Y \le M \|x-p\|_X < M \delta = M(\epsilon/M) = \epsilon. \]
+Thus, $T$ is continuous at $p$. Since $p$ was arbitrary, $T$ is continuous on $X$.
+
+($\Rightarrow$) Assume $T$ is continuous. Then it is continuous at $0 \in X$. For $\epsilon=1$, there exists a $\delta > 0$ such that if $\|x\|_X < \delta$, then $\|T(x)\|_Y = \|T(x) - T(0)\|_Y < 1$.
+Now, take any non-zero vector $z \in X$. Consider the vector $x = \frac{\delta}{2\|z\|_X} z$. We have $\|x\|_X = \frac{\delta}{2} < \delta$.
+By continuity at $0$, we must have $\|T(x)\|_Y < 1$. Using the linearity of $T$:
+\[ \left\| T\left(\frac{\delta}{2\|z\|_X} z\right) \right\|_Y = \frac{\delta}{2\|z\|_X} \|T(z)\|_Y < 1. \]
+Rearranging this inequality gives $\|T(z)\|_Y < \frac{2}{\delta} \|z\|_X$.
+Let $M = 2/\delta$. Then for any $z \in X$ (the inequality holds trivially for $z=0$), we have $\|T(z)\|_Y \le M\|z\|_X$. Thus, $T$ is bounded.
+\end{proof}
+
+\begin{lemma}[Composition of Continuous Linear Maps]
+\label{lem:composition_continuous_linear}
+Let $X, Y, Z$ be normed vector spaces. If $A: X \to Y$ and $B: Y \to Z$ are continuous linear maps, then their composition $B \circ A: X \to Z$ is also a continuous linear map.
+\end{lemma}
+\begin{proof}
+First, we check linearity. For $x_1, x_2 \in X$ and scalars $\alpha, \beta$:
+\begin{align*}
+(B \circ A)(\alpha x_1 + \beta x_2) &= B(A(\alpha x_1 + \beta x_2)) = B(\alpha A(x_1) + \beta A(x_2)) \\
+&= \alpha B(A(x_1)) + \beta B(A(x_2)) = \alpha (B \circ A)(x_1) + \beta (B \circ A)(x_2).
+\end{align*}
+So $B \circ A$ is linear. By Lemma \ref{lem:continuous_iff_bounded_linear_map}, $A$ and $B$ are bounded. Let their operator norms be $\|A\|$ and $\|B\|$. Then for any $x \in X$:
+\[ \|(B \circ A)(x)\|_Z = \|B(A(x))\|_Z \le \|B\| \|A(x)\|_Y \le \|B\| (\|A\| \|x\|_X) = (\|A\|\|B\|) \|x\|_X. \]
+Since $B \circ A$ is bounded by the constant $\|A\|\|B\|$, it is continuous by Lemma \ref{lem:continuous_iff_bounded_linear_map}.
+\end{proof}
+
+\begin{lemma}[Sum of Little-o Functions]
+\label{lem:sum_of_little_o}
+Let $X, Y$ be normed vector spaces, and let $f, g: X \to Y$ be two functions defined in a neighborhood of $0 \in X$. If $f(h) = o(\|h\|)$ and $g(h) = o(\|h\|)$ as $h \to 0$, then their sum $(f+g)(h)$ is also $o(\|h\|)$ as $h \to 0$.
+\end{lemma}
+\begin{proof}
+By definition, we are given $\lim_{h \to 0} \frac{\|f(h)\|}{\|h\|} = 0$ and $\lim_{h \to 0} \frac{\|g(h)\|}{\|h\|} = 0$. We want to show $\lim_{h \to 0} \frac{\|f(h)+g(h)\|}{\|h\|} = 0$.
+By the triangle inequality, for $h \ne 0$:
+\[ 0 \le \frac{\|f(h)+g(h)\|}{\|h\|} \le \frac{\|f(h)\| + \|g(h)\|}{\|h\|} = \frac{\|f(h)\|}{\|h\|} + \frac{\|g(h)\|}{\|h\|}. \]
+The right-hand side is a sum of two functions that both approach $0$ as $h \to 0$. Thus, $\lim_{h \to 0} \left( \frac{\|f(h)\|}{\|h\|} + \frac{\|g(h)\|}{\|h\|} \right) = 0 + 0 = 0$.
+By Lemma \ref{lem:squeeze_theorem}, we conclude that $\lim_{h \to 0} \frac{\|f(h)+g(h)\|}{\|h\|} = 0$.
+\end{proof}
+
+%----------------------------------------------------------------------------------------
+% ORIGINAL BLUEPRINT WITH REFINED PROOFS AND EXPLICIT CITATIONS
+%----------------------------------------------------------------------------------------
+
+\begin{definition}[Differentiability]
+Let $X, Y$ be normed vector spaces. A function $f: U \to Y$ defined on an open set $U \subseteq X$ is \emph{differentiable} at $p \in U$ if there exists a continuous linear map $A: X \to Y$ such that
+\[ f(p+h) - f(p) = A(h) + r(h) \]
+where $r(h) = o(\|h\|)$ as $h \to 0$. The linear map $A$ is called the derivative of $f$ at $p$, denoted by $f'(p)$.
+\end{definition}
+
+\begin{lemma}[Reverse Triangle Inequality]
+\label{lem:reverse_triangle_inequality}
+Let $(V, \|\cdot\|)$ be a normed vector space. For any two vectors $x, y \in V$, the following inequality holds:
+\[ |\|x\| - \|y\|| \le \|x-y\|. \]
+\end{lemma}
+\begin{proof}
+By the triangle inequality, we have $\|x\| = \|x-y+y\| \le \|x-y\| + \|y\|$. Rearranging gives $\|x\| - \|y\| \le \|x-y\|$.
+Similarly, $\|y\| = \|y-x+x\| \le \|y-x\| + \|x\|$. Rearranging gives $\|y\| - \|x\| \le \|y-x\| = \|x-y\|$.
+This is equivalent to $-(\|x\| - \|y\|) \le \|x-y\|$.
+Combining the two inequalities, we have $-\|x-y\| \le \|x\| - \|y\| \le \|x-y\|$, which is the definition of $|\|x\| - \|y\|| \le \|x-y\|$.
+\end{proof}
+
+\begin{lemma}[Continuity of Norm]
+\label{lem:norm_continuity}
+Let $(V, \|\cdot\|)$ be a normed vector space. The norm function $\|\cdot\|: V \to \mathbb{R}$ is continuous.
+\end{lemma}
+\begin{proof}
+Let $x \in V$ and $\epsilon > 0$. We want to find a $\delta > 0$ such that if $\|x-y\| < \delta$, then $|\|x\| - \|y\|| < \epsilon$.
+By Lemma \ref{lem:reverse_triangle_inequality}, we have $|\|x\| - \|y\|| \le \|x-y\|$.
+Choose $\delta = \epsilon$. Then if $\|x-y\| < \delta$, we have $|\|x\| - \|y\|| \le \|x-y\| < \delta = \epsilon$.
+This shows that the norm is continuous (in fact, uniformly continuous) on $V$.
+\end{proof}
+
+\begin{lemma}[Local Boundedness from Limit]
+\label{lem:limit_implies_bounded}
+Let $(X, d)$ be a metric space, $p \in X$, and let $g: X \to \mathbb{R}$ be a function. If $\lim_{x \to p} g(x) = M$ for some $M \in \mathbb{R}$, then there exists a neighborhood of $p$ in which $g$ is bounded.
+\end{lemma}
+\begin{proof}
+Let $\lim_{x \to p} g(x) = M$. By the definition of a limit, for $\epsilon = 1$, there exists a $\delta > 0$ such that if $d(x,p) < \delta$, then $|g(x) - M| < 1$.
+Using the triangle inequality, $|g(x)| = |g(x) - M + M| \le |g(x) - M| + |M| < 1 + |M|$.
+Let $B = 1 + |M|$. Then for all $x$ such that $d(x,p) < \delta$, we have $|g(x)| \le B$.
+\end{proof}
+
+\begin{lemma}[Product of Limits]
+\label{lem:product_of_limits}
+Let $(X, d)$ be a metric space, $p \in X$, and let $f, g: X \to \mathbb{R}$ be functions. If $\lim_{x \to p} f(x) = L$ and $\lim_{x \to p} g(x) = M$, then $\lim_{x \to p} (f(x)g(x)) = LM$.
+\end{lemma}
+\begin{proof}
+We want to show $|f(x)g(x) - LM| \to 0$ as $x \to p$.
+\[ |f(x)g(x) - LM| = |f(x)g(x) - Lg(x) + Lg(x) - LM| \le |g(x)(f(x)-L)| + |L(g(x)-M)|. \]
+By Lemma \ref{lem:limit_implies_bounded}, since $\lim_{x \to p} g(x) = M$, there is a $\delta_1 > 0$ and a $B>0$ such that $|g(x)| \le B$ for $d(x,p) < \delta_1$.
+The rest of the proof follows standard limit arguments.
+\end{proof}
+
+\begin{lemma}[Local Bound for Linear Map plus Little-o Term]
+\label{lem:linear_plus_little_o_bound}
+Let $X, Y$ be normed vector spaces, let $A: X \to Y$ be a bounded linear operator, and let $r: X \to Y$ be a function such that $r(h) = o(\|h\|_X)$. Define $k(h) = A(h) + r(h)$. Then there exists $\delta > 0$ such that for $0 < \|h\|_X < \delta$, we have $\|k(h)\|_Y \le (\|A\| + 1)\|h\|_X$.
+\end{lemma}
+\begin{proof}
+Since $r(h) = o(\|h\|_X)$, for $\epsilon = 1$, there exists a $\delta > 0$ such that if $0 < \|h\|_X < \delta$, then $\frac{\|r(h)\|_Y}{\|h\|_X} < 1$, which implies $\|r(h)\|_Y < \|h\|_X$.
+For such $h$:
+\[ \|k(h)\|_Y = \|A(h) + r(h)\|_Y \le \|A(h)\|_Y + \|r(h)\|_Y \le \|A\|\|h\|_X + \|h\|_X = (\|A\| + 1)\|h\|_X. \]
+\end{proof}
+
+\begin{lemma}[Continuous Linear Maps Preserve Little-o]
+\label{lem:linear_map_preserves_little_o}
+Let $X, Y, Z$ be normed spaces. Let $B: Y \to Z$ be a continuous linear map and $r: X \to Y$ be a function such that $r(h) = o(\|h\|_X)$. Then $(B \circ r)(h) = o(\|h\|_X)$.
+\end{lemma}
+\begin{proof}
+By Lemma \ref{lem:continuous_iff_bounded_linear_map}, since $B$ is continuous, it is bounded. Let its norm be $\|B\|$.
+For $h \ne 0$, we have:
+\[ 0 \le \frac{\|B(r(h))\|_Z}{\|h\|_X} \le \frac{\|B\| \|r(h)\|_Y}{\|h\|_X} = \|B\| \left( \frac{\|r(h)\|_Y}{\|h\|_X} \right). \]
+Since $r(h) = o(\|h\|_X)$, we know that $\lim_{h \to 0} \frac{\|r(h)\|_Y}{\|h\|_X} = 0$.
+By Lemma \ref{lem:squeeze_theorem}, it follows that $\lim_{h \to 0} \frac{\|B(r(h))\|_Z}{\|h\|_X} = 0$.
+\end{proof}
+
+\begin{lemma}[Composition with Little-o Functions]
+\label{lem:composition_with_little_o}
+Let $X, Y, Z$ be normed spaces. Let $k: X \to Y$ satisfy $k(h) \to 0$ as $h \to 0$ and $\|k(h)\|_Y \le C\|h\|_X$ for some $C>0$ and small $h$. If $s: Y \to Z$ satisfies $s(y) = o(\|y\|_Y)$, then $(s \circ k)(h) = o(\|h\|_X)$.
+\end{lemma}
+\begin{proof}
+We want to show that $\lim_{h \to 0} \frac{\|s(k(h))\|_Z}{\|h\|_X} = 0$.
+Since $s(y) = o(\|y\|_Y)$, for any $\epsilon > 0$, there exists $\eta > 0$ such that if $0 < \|y\|_Y < \eta$, then $\|s(y)\|_Z < \frac{\epsilon}{C} \|y\|_Y$.
+Since $k(h) \to 0$ as $h \to 0$, we can find $\delta > 0$ such that for $0 < \|h\|_X < \delta$, we have $\|k(h)\|_Y < \eta$.
+For such $h$, if $k(h)=0$, the result is trivial. If $k(h) \ne 0$, then $0 < \|k(h)\|_Y < \eta$, so:
+\[ \frac{\|s(k(h))\|_Z}{\|h\|_X} < \frac{(\epsilon/C) \|k(h)\|_Y}{\|h\|_X} \le \frac{(\epsilon/C) (C \|h\|_X)}{\|h\|_X} = \epsilon. \]
+Thus, the limit is 0.
+\end{proof}
+
+\begin{theorem}[Chain Rule]
+\label{thm:chain_rule}
+Let $X, Y, Z$ be normed vector spaces. Let $f: U \to V$ be differentiable at $p \in U \subseteq X$, and let $g: V \to Z$ be differentiable at $f(p) \in V \subseteq Y$. Then $g \circ f: U \to Z$ is differentiable at $p$, and $(g \circ f)'(p) = g'(f(p)) \circ f'(p)$.
+\end{theorem}
+\begin{proof}
+Let $A = f'(p)$ and $B = g'(f(p))$. We are given
+\begin{align*}
+f(p+h) - f(p) &= A(h) + r(h) \quad \text{where } r(h) = o(\|h\|) \\
+g(f(p)+k) - g(f(p)) &= B(k) + s(k) \quad \text{where } s(k) = o(\|k\|)
+\end{align*}
+Let $k = f(p+h) - f(p) = A(h) + r(h)$. We analyze $(g \circ f)(p+h) - (g \circ f)(p)$:
+\[ g(f(p)+k) - g(f(p)) = B(k) + s(k) = B(A(h) + r(h)) + s(k) = B(A(h)) + B(r(h)) + s(k). \]
+Let $C = B \circ A$. By Lemma \ref{lem:composition_continuous_linear}, since $A$ and $B$ are continuous linear maps, $C$ is also a continuous linear map. We must show the remainder $B(r(h)) + s(k)$ is $o(\|h\|)$.
+\begin{itemize}
+    \item By Lemma \ref{lem:linear_map_preserves_little_o}, since $B$ is a continuous linear map and $r(h)=o(\|h\|)$, we have $B(r(h)) = o(\|h\|)$.
+    \item For the term $s(k)$: by Lemma \ref{lem:linear_plus_little_o_bound}, there exists a constant $M$ such that $\|k\| \le M\|h\|$ for small $h$. This, combined with $s(k) = o(\|k\|)$, allows us to use Lemma \ref{lem:composition_with_little_o} to conclude that $s(k(h)) = o(\|h\|)$.
+\end{itemize}
+The remainder is a sum of two $o(\|h\|)$ terms. By Lemma \ref{lem:sum_of_little_o}, their sum is also $o(\|h\|)$.
+Thus, we have $(g \circ f)(p+h) - (g \circ f)(p) = (B \circ A)(h) + o(\|h\|)$, which proves the theorem.
+\end{proof}
+
+\end{document}
+```

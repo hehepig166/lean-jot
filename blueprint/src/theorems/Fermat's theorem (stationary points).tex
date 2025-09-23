@@ -1,0 +1,103 @@
+\chapter{Fermat's Theorem on Stationary Points}
+
+\begin{definition}[Local Extremum]
+    \label{def:Local_Extremum}
+    A function $f$ has a local maximum at a point $c$ if there exists an open interval $I$ containing $c$ such that $f(x) \leq f(c)$ for all $x \in I$. Similarly, $f$ has a local minimum at $c$ if $f(x) \geq f(c)$ for all $x \in I$. A local extremum is either a local maximum or a local minimum.
+\end{definition}
+
+\begin{definition}[Stationary Point]
+    \label{def:Stationary_Point}
+    A point $c$ in the domain of a differentiable function $f$ is called a stationary point if $f'(c) = 0$.
+\end{definition}
+
+\begin{lemma}[Preservation of Inequality under Limits]
+    \label{lem:Preservation_of_Inequality_under_Limits}
+    Let $g$ be a real-valued function defined on an open interval containing a point $c$.
+    If $g(x) \leq K$ for all $x$ in some open interval around $c$ (excluding possibly $c$ itself), and $\lim_{x \to c} g(x)$ exists, then $\lim_{x \to c} g(x) \leq K$.
+    Similarly, if $g(x) \geq K$, then $\lim_{x \to c} g(x) \geq K$. This holds for one-sided limits as well.
+\end{lemma}
+
+\begin{proof}
+    We prove the first statement by contradiction. Assume $\lim_{x \to c} g(x) = L > K$. Let $\epsilon = L - K > 0$. By the definition of a limit, there exists a $\delta > 0$ such that for all $x$ with $0 < |x-c| < \delta$, we have $|g(x) - L| < \epsilon$. This implies $L - \epsilon < g(x) < L + \epsilon$. Substituting $\epsilon = L - K$, we get $K < g(x)$. This contradicts the hypothesis that $g(x) \leq K$ for all $x$ in a neighborhood of $c$. Thus, our assumption must be false, and $\lim_{x \to c} g(x) \leq K$. The proof for $g(x) \geq K$ is analogous.
+\end{proof}
+
+\begin{lemma}[Existence of a Two-Sided Limit]
+    \label{lem:Two_Sided_Limit_Existence}
+    Let $g$ be a real-valued function defined on an open interval containing a point $c$, except possibly at $c$ itself. The limit $\lim_{x \to c} g(x)$ exists and equals $L$ if and only if both one-sided limits, $\lim_{x \to c^-} g(x)$ and $\lim_{x \to c^+} g(x)$, exist and are equal to $L$.
+\end{lemma}
+
+\begin{proof}
+    ($\Rightarrow$) Assume $\lim_{x \to c} g(x) = L$. By the $\epsilon$-$\delta$ definition of a limit, for every $\epsilon > 0$, there exists a $\delta > 0$ such that if $0 < |x-c| < \delta$, then $|g(x)-L| < \epsilon$. This single $\delta$ works for both $x > c$ and $x < c$. Specifically, if $c < x < c+\delta$, then $|g(x)-L| < \epsilon$, which implies $\lim_{x \to c^+} g(x) = L$. Similarly, if $c-\delta < x < c$, then $|g(x)-L| < \epsilon$, which implies $\lim_{x \to c^-} g(x) = L$.
+    ($\Leftarrow$) Assume $\lim_{x \to c^-} g(x) = L$ and $\lim_{x \to c^+} g(x) = L$. For any $\epsilon > 0$, there exists $\delta_1 > 0$ such that if $c-\delta_1 < x < c$, then $|g(x)-L| < \epsilon$. Also, there exists $\delta_2 > 0$ such that if $c < x < c+\delta_2$, then $|g(x)-L| < \epsilon$. Let $\delta = \min(\delta_1, \delta_2)$. Then for any $x$ such that $0 < |x-c| < \delta$, the condition $|g(x)-L| < \epsilon$ is satisfied. This is precisely the definition of $\lim_{x \to c} g(x) = L$.
+\end{proof}
+
+\begin{lemma}[Condition for Differentiability]
+    \label{lem:Condition_for_Differentiability}
+    A function $f$ is differentiable at a point $c$ if and only if its left-hand derivative $f'_-(c) = \lim_{h \to 0^-} \frac{f(c+h)-f(c)}{h}$ and its right-hand derivative $f'_+(c) = \lim_{h \to 0^+} \frac{f(c+h)-f(c)}{h}$ both exist and are equal. In this case, $f'(c) = f'_-(c) = f'_+(c)$.
+\end{lemma}
+
+\begin{proof}
+    \uses{lem:Two_Sided_Limit_Existence}
+    The derivative of $f$ at $c$ is defined as the limit $f'(c) = \lim_{h \to 0} \frac{f(c+h)-f(c)}{h}$. Let $g(h) = \frac{f(c+h)-f(c)}{h}$. According to lemma \ref{lem:Two_Sided_Limit_Existence}, the two-sided limit $\lim_{h \to 0} g(h)$ exists if and only if the one-sided limits $\lim_{h \to 0^-} g(h)$ (the left-hand derivative) and $\lim_{h \to 0^+} g(h)$ (the right-hand derivative) exist and are equal.
+\end{proof}
+
+\begin{lemma}[Trichotomy Property Consequence]
+    \label{lem:Trichotomy_Property_Consequence}
+    For any real number $x$, if $x \leq 0$ and $x \geq 0$, then $x=0$.
+\end{lemma}
+
+\begin{proof}
+    This follows from the trichotomy property of real numbers, which states that for any real number $x$, exactly one of the following is true: $x < 0$, $x > 0$, or $x = 0$. The conditions $x \leq 0$ and $x \geq 0$ rule out $x < 0$ and $x > 0$, respectively. Therefore, the only remaining possibility is $x=0$.
+\end{proof}
+
+\begin{lemma}[One-Sided Derivatives at a Local Maximum]
+    \label{lem:One_Sided_Derivatives_at_a_Local_Maximum}
+    \uses{def:Local_Extremum}
+    If a function $f$ has a local maximum at a point $c$, and the one-sided derivatives at $c$ exist, then the right-hand derivative $f'_+(c) \leq 0$ and the left-hand derivative $f'_-(c) \geq 0$.
+\end{lemma}
+
+\begin{proof}
+    \uses{def:Local_Extremum}
+    \uses{lem:Preservation_of_Inequality_under_Limits}
+    Since $f$ has a local maximum at $c$, there exists an open interval around $c$ such that for any $x$ in this interval, $f(x) \leq f(c)$.
+    For $h > 0$ small enough such that $c+h$ is in this interval, we have $f(c+h) \leq f(c)$, which implies $f(c+h) - f(c) \leq 0$. Since $h > 0$, the difference quotient is $\frac{f(c+h)-f(c)}{h} \leq 0$. Applying lemma \ref{lem:Preservation_of_Inequality_under_Limits}, we have $f'_+(c) = \lim_{h \to 0^+} \frac{f(c+h)-f(c)}{h} \leq 0$.
+    For $h < 0$ small enough, we have $f(c+h) \leq f(c)$, so $f(c+h) - f(c) \leq 0$. Since $h < 0$, the difference quotient is $\frac{f(c+h)-f(c)}{h} \geq 0$. Applying lemma \ref{lem:Preservation_of_Inequality_under_Limits}, we have $f'_-(c) = \lim_{h \to 0^-} \frac{f(c+h)-f(c)}{h} \geq 0$.
+\end{proof}
+
+\begin{lemma}[One-Sided Derivatives at a Local Minimum]
+    \label{lem:One_Sided_Derivatives_at_a_Local_Minimum}
+    \uses{def:Local_Extremum}
+    If a function $f$ has a local minimum at a point $c$, and the one-sided derivatives at $c$ exist, then the right-hand derivative $f'_+(c) \geq 0$ and the left-hand derivative $f'_-(c) \leq 0$.
+\end{lemma}
+
+\begin{proof}
+    \uses{def:Local_Extremum}
+    \uses{lem:Preservation_of_Inequality_under_Limits}
+    Since $f$ has a local minimum at $c$, for $h > 0$ small enough such that $c+h$ is in the neighborhood of $c$, we have $f(c+h) \geq f(c)$, which implies $f(c+h) - f(c) \geq 0$. As $h > 0$, the difference quotient $\frac{f(c+h)-f(c)}{h} \geq 0$. By lemma \ref{lem:Preservation_of_Inequality_under_Limits}, $f'_+(c) = \lim_{h \to 0^+} \frac{f(c+h)-f(c)}{h} \geq 0$.
+    For $h < 0$ small enough, we have $f(c+h) \geq f(c)$, so $f(c+h) - f(c) \geq 0$. As $h < 0$, the difference quotient $\frac{f(c+h)-f(c)}{h} \leq 0$. By lemma \ref{lem:Preservation_of_Inequality_under_Limits}, $f'_-(c) = \lim_{h \to 0^-} \frac{f(c+h)-f(c)}{h} \leq 0$.
+\end{proof}
+
+\begin{theorem}[Fermat's Theorem on Stationary Points]
+    \label{thm:Fermats_Theorem_on_Stationary_Points}
+    \uses{def:Local_Extremum}
+    \uses{def:Stationary_Point}
+    If a function $f$ has a local extremum at a point $c$ in an open interval, and if $f$ is differentiable at $c$, then $c$ is a stationary point of $f$, i.e., $f'(c) = 0$.
+\end{theorem}
+
+\begin{proof}
+    \uses{lem:Condition_for_Differentiability}
+    \uses{lem:Trichotomy_Property_Consequence}
+    \uses{lem:One_Sided_Derivatives_at_a_Local_Maximum}
+    \uses{lem:One_Sided_Derivatives_at_a_Local_Minimum}
+    Case 1: $f$ has a local maximum at $c$.
+    Since $f$ is differentiable, its one-sided derivatives exist. By lemma \ref{lem:One_Sided_Derivatives_at_a_Local_Maximum}, we know $f'_+(c) \leq 0$ and $f'_-(c) \geq 0$.
+    By lemma \ref{lem:Condition_for_Differentiability}, differentiability at $c$ implies $f'(c) = f'_+(c) = f'_-(c)$.
+    Therefore, we have $f'(c) \leq 0$ and $f'(c) \geq 0$. By lemma \ref{lem:Trichotomy_Property_Consequence}, this implies $f'(c) = 0$.
+
+    Case 2: $f$ has a local minimum at $c$.
+    Since $f$ is differentiable, its one-sided derivatives exist. By lemma \ref{lem:One_Sided_Derivatives_at_a_Local_Minimum}, we know $f'_+(c) \geq 0$ and $f'_-(c) \leq 0$.
+    By lemma \ref{lem:Condition_for_Differentiability}, $f'(c) = f'_+(c) = f'_-(c)$.
+    Therefore, we have $f'(c) \geq 0$ and $f'(c) \leq 0$. By lemma \ref{lem:Trichotomy_Property_Consequence}, this implies $f'(c) = 0$.
+
+    In both cases, $f'(c)=0$, which means $c$ is a stationary point.
+\end{proof}

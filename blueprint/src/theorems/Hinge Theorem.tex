@@ -1,0 +1,125 @@
+\chapter{Hinge Theorem}
+
+\begin{definition}[Law of Cosines]
+    \label{def:Law_of_Cosines}
+    For a triangle with sides of length $a$, $b$, and $c$, and with $\gamma$ as the angle opposite the side of length $c$, the Law of Cosines states that:
+    $$c^2 = a^2 + b^2 - 2ab \cos \gamma$$
+\end{definition}
+
+\begin{lemma}[Triangle Angle Sum Theorem]
+    \label{lem:Triangle_Angle_Sum}
+    In Euclidean geometry, the sum of the measures of the interior angles of any non-degenerate triangle is equal to $\pi$ radians.
+\end{lemma}
+
+\begin{proof}
+    This is a fundamental theorem in Euclidean geometry, derived from the parallel postulate. A formal proof involves constructing a line parallel to one side of the triangle through the opposite vertex and using properties of alternate interior angles.
+\end{proof}
+
+\begin{lemma}[Mean Value Theorem]
+    \label{lem:Mean_Value_Theorem}
+    Let $f$ be a function that is continuous on a closed interval $[a, b]$ and differentiable on the open interval $(a, b)$. Then there exists at least one point $c \in (a, b)$ such that $f'(c) = \frac{f(b) - f(a)}{b - a}$.
+\end{lemma}
+
+\begin{proof}
+    This is a fundamental theorem of differential calculus. Its proof typically relies on Rolle's Theorem, which is a special case of the Mean Value Theorem where $f(a) = f(b)$.
+\end{proof}
+
+\begin{lemma}[Derivative of Cosine]
+    \label{lem:Derivative_of_Cosine}
+    The function $f(\gamma) = \cos \gamma$ is differentiable for all $\gamma \in \mathbb{R}$, and its derivative is given by $f'(\gamma) = -\sin \gamma$.
+\end{lemma}
+
+\begin{proof}
+    This is a standard result from differential calculus, typically proven from the limit definition of the derivative, using the angle addition formula for cosine and the fundamental trigonometric limits $\lim_{h\to 0} \frac{\sin h}{h} = 1$ and $\lim_{h\to 0} \frac{\cos h - 1}{h} = 0$.
+\end{proof}
+
+\begin{lemma}[Inequality Property of Multiplication by a Negative Number]
+    \label{lem:Inequality_Multiplication_Property}
+    Let $x, y, z$ be real numbers. If $x < y$ and $z < 0$, then $zx > zy$.
+\end{lemma}
+
+\begin{proof}
+    Given $x < y$, it follows that $y - x > 0$. Given $z < 0$, it follows that $-z > 0$. The product of two positive real numbers is positive, so $(y - x)(-z) > 0$. Distributing $-z$ gives $-yz + xz > 0$, which is equivalent to $xz > yz$.
+\end{proof}
+
+\begin{lemma}[Properties of Triangle Angles]
+    \label{lem:Triangle_Angle_Properties}
+    \uses{lem:Triangle_Angle_Sum}
+    The measure of any interior angle of a non-degenerate triangle is a real number in the interval $(0, \pi)$.
+\end{lemma}
+
+\begin{proof}
+    \uses{lem:Triangle_Angle_Sum}
+    Let the interior angles of a triangle be $\alpha, \beta, \gamma$. By lemma \ref{lem:Triangle_Angle_Sum}, we have $\alpha + \beta + \gamma = \pi$. In a non-degenerate triangle, the measure of each angle must be positive, so $\alpha > 0$, $\beta > 0$, and $\gamma > 0$. From the sum, we can write $\gamma = \pi - (\alpha + \beta)$. Since $\alpha > 0$ and $\beta > 0$, their sum $(\alpha + \beta)$ is positive. Therefore, $\gamma < \pi$. Combining these results, we have $0 < \gamma < \pi$. The same argument applies to $\alpha$ and $\beta$.
+\end{proof}
+
+\begin{lemma}[Strict Monotonicity and Derivatives]
+    \label{lem:Monotonicity_and_Derivatives}
+    \uses{lem:Mean_Value_Theorem}
+    Let $f$ be a real-valued function that is continuous on an interval $[a, b]$ and differentiable on $(a, b)$. If $f'(x) < 0$ for all $x \in (a, b)$, then $f$ is strictly decreasing on $[a, b]$.
+\end{lemma}
+
+\begin{proof}
+    \uses{lem:Mean_Value_Theorem}
+    Let $x_1, x_2 \in [a, b]$ with $x_1 < x_2$. By lemma \ref{lem:Mean_Value_Theorem} applied to the interval $[x_1, x_2]$, there exists a point $c \in (x_1, x_2)$ such that $f(x_2) - f(x_1) = f'(c)(x_2 - x_1)$. By hypothesis, $f'(c) < 0$. Since $x_1 < x_2$, we have $(x_2 - x_1) > 0$. The product of a negative number and a positive number is negative, so $f'(c)(x_2 - x_1) < 0$. This implies $f(x_2) - f(x_1) < 0$, or $f(x_2) < f(x_1)$. Since this holds for any $x_1 < x_2$ in the interval, the function $f$ is strictly decreasing on $[a, b]$.
+\end{proof}
+
+\begin{lemma}[Positivity of Sine on (0, pi)]
+    \label{lem:Positivity_of_Sine}
+    For any angle $\gamma \in (0, \pi)$, $\sin \gamma > 0$.
+\end{lemma}
+
+\begin{proof}
+    From the unit circle definition of trigonometric functions, $\sin \gamma$ corresponds to the y-coordinate of a point on the circle. For angles $\gamma$ in the interval $(0, \pi)$, the point lies in the first or second quadrant, where the y-coordinate is positive.
+\end{proof}
+
+\begin{lemma}[Order Preservation for Positive Numbers under Squaring]
+    \label{lem:Order_Preservation_Squaring}
+    Let $c$ and $c'$ be positive real numbers. Then $c^2 > c'^2$ if and only if $c > c'$.
+\end{lemma}
+
+\begin{proof}
+    The inequality $c^2 > c'^2$ is equivalent to $c^2 - c'^2 > 0$. Factoring the left side gives $(c - c')(c + c') > 0$. Since $c$ and $c'$ are positive real numbers, their sum $(c + c')$ is positive. For the product of two factors to be positive, if one factor is positive, the other must also be positive. Thus, we must have $(c - c') > 0$, which implies $c > c'$. Since all steps are reversible, the equivalence holds.
+\end{proof}
+
+\begin{lemma}[Monotonicity of the Cosine Function]
+    \label{lem:Monotonicity_of_Cosine}
+    \uses{lem:Derivative_of_Cosine}
+    \uses{lem:Monotonicity_and_Derivatives}
+    \uses{lem:Positivity_of_Sine}
+    The cosine function is a strictly decreasing function on the interval $[0, \pi]$.
+\end{lemma}
+
+\begin{proof}
+    \uses{lem:Derivative_of_Cosine}
+    \uses{lem:Monotonicity_and_Derivatives}
+    \uses{lem:Positivity_of_Sine}
+    Let $f(\gamma) = \cos \gamma$. This function is continuous on $[0, \pi]$ and differentiable on $(0, \pi)$. By lemma \ref{lem:Derivative_of_Cosine}, its derivative is $f'(\gamma) = -\sin \gamma$. By lemma \ref{lem:Positivity_of_Sine}, for any $\gamma \in (0, \pi)$, we have $\sin \gamma > 0$. Consequently, $f'(\gamma) = -\sin \gamma < 0$ for all $\gamma \in (0, \pi)$. By lemma \ref{lem:Monotonicity_and_Derivatives}, the function $\cos \gamma$ is strictly decreasing on the interval $[0, \pi]$.
+\end{proof}
+
+\begin{theorem}[Hinge Theorem]
+    \label{thm:Hinge_Theorem}
+    \uses{def:Law_of_Cosines}
+    \uses{lem:Triangle_Angle_Properties}
+    \uses{lem:Inequality_Multiplication_Property}
+    \uses{lem:Order_Preservation_Squaring}
+    \uses{lem:Monotonicity_of_Cosine}
+    Let $\triangle ABC$ and $\triangle A'B'C'$ be two triangles. If $AC = A'C' = b$, $BC = B'C' = a$, and $\angle C > \angle C'$, then the length of the third side $AB$ is greater than the length of the third side $A'B'$.
+\end{theorem}
+
+\begin{proof}
+    \uses{def:Law_of_Cosines}
+    \uses{lem:Triangle_Angle_Properties}
+    \uses{lem:Monotonicity_of_Cosine}
+    \uses{lem:Inequality_Multiplication_Property}
+    \uses{lem:Order_Preservation_Squaring}
+    Let $c = AB$, $c' = A'B'$, $\gamma = \angle C$, and $\gamma' = \angle C'$. By applying the Law of Cosines from definition \ref{def:Law_of_Cosines} to both triangles, we have:
+    $$c^2 = a^2 + b^2 - 2ab \cos \gamma$$
+    $$c'^2 = a^2 + b^2 - 2ab \cos \gamma'$$
+    By lemma \ref{lem:Triangle_Angle_Properties}, both $\gamma$ and $\gamma'$ are in the interval $(0, \pi)$. We are given that $\gamma > \gamma'$. By lemma \ref{lem:Monotonicity_of_Cosine}, the cosine function is strictly decreasing on $[0, \pi]$, so $\cos \gamma < \cos \gamma'$.
+    Since $a$ and $b$ are side lengths, they are positive, so $-2ab < 0$. Using lemma \ref{lem:Inequality_Multiplication_Property} with $x = \cos \gamma$, $y = \cos \gamma'$, and $z = -2ab$, we can multiply the inequality by $-2ab$ and reverse the sign:
+    $$-2ab \cos \gamma > -2ab \cos \gamma'$$
+    Adding $a^2 + b^2$ to both sides yields:
+    $$a^2 + b^2 - 2ab \cos \gamma > a^2 + b^2 - 2ab \cos \gamma'$$
+    This is equivalent to $c^2 > c'^2$. Since $c$ and $c'$ are positive side lengths, lemma \ref{lem:Order_Preservation_Squaring} implies that $c > c'$. Thus, $AB > A'B'$.
+\end{proof}

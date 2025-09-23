@@ -1,0 +1,163 @@
+\chapter{Ceva's Theorem}
+
+\begin{definition}[Cevian]
+    \label{def:Cevian}
+    Given a triangle $\triangle ABC$, a cevian is a line segment that joins a vertex to a point on the opposite side. Let the lines $AO$, $BO$, $CO$ be drawn from the vertices to a common point $O$ (not on one of the sides of $\triangle ABC$), to meet opposite sides at $D$, $E$, $F$ respectively. The segments $AD$, $BE$, and $CF$ are known as the cevians of the point $O$.
+\end{definition}
+
+\begin{lemma}[Property of Proportions]
+    \label{lem:Property_of_Proportions}
+    Let $a, b, c, d$ be real numbers with $b \neq 0$, $d \neq 0$ and $b \neq d$. If $\frac{a}{b} = \frac{c}{d} = k$, then $\frac{a-c}{b-d} = k$.
+\end{lemma}
+
+\begin{proof}
+    From the given condition $\frac{a}{b} = k$ and $\frac{c}{d} = k$, we can write $a = kb$ and $c = kd$.
+    Substituting these into the expression $\frac{a-c}{b-d}$ gives:
+    \[ \frac{a-c}{b-d} = \frac{kb - kd}{b-d} = \frac{k(b-d)}{b-d} \]
+    Since $b \neq d$, the term $(b-d)$ is non-zero, so we can cancel it from the numerator and denominator, which yields:
+    \[ \frac{k(b-d)}{b-d} = k \]
+    Thus, $\frac{a-c}{b-d} = k = \frac{a}{b} = \frac{c}{d}$.
+\end{proof}
+
+\begin{lemma}[Area Addition Postulate]
+    \label{lem:Area_Addition_Postulate}
+    Let $A$ and $D$ be two distinct points, and let $O$ be a point in the interior of the line segment $AD$. For any point $B$ not on the line $AD$, the area of $\triangle ABD$ is the sum of the areas of $\triangle ABO$ and $\triangle OBD$. That is, $|\triangle ABD| = |\triangle ABO| + |\triangle OBD|$.
+\end{lemma}
+
+\begin{proof}
+    The line segment $BO$ partitions the triangle $\triangle ABD$ into two smaller, non-overlapping triangles: $\triangle ABO$ and $\triangle OBD$. The base $AD$ of $\triangle ABD$ is the sum of the bases $AO$ and $OD$ of $\triangle ABO$ and $\triangle OBD$ respectively. Let $h_B$ be the perpendicular distance from vertex $B$ to the line $AD$. The areas are:
+    $|\triangle ABD| = \frac{1}{2} |\overline{AD}| \cdot h_B$
+    $|\triangle ABO| = \frac{1}{2} |\overline{AO}| \cdot h_B$
+    $|\triangle OBD| = \frac{1}{2} |\overline{OD}| \cdot h_B$
+    Since $|\overline{AD}| = |\overline{AO}| + |\overline{OD}|$, it follows that
+    \[ |\triangle ABD| = \frac{1}{2} (|\overline{AO}| + |\overline{OD}|) \cdot h_B = \frac{1}{2} |\overline{AO}| \cdot h_B + \frac{1}{2} |\overline{OD}| \cdot h_B = |\triangle ABO| + |\triangle OBD| \]
+\end{proof}
+
+\begin{lemma}[Area Subtraction Property]
+    \label{lem:Area_Subtraction_Property}
+    \uses{def:Cevian}
+    \uses{lem:Area_Addition_Postulate}
+    For a triangle $\triangle ABC$, let $D$ be a point on the line containing side $BC$, and let $O$ be a point on the cevian $AD$. The area of $\triangle ABO$ is the difference between the areas of $\triangle ABD$ and $\triangle OBD$. That is, $|\triangle ABO| = |\triangle ABD| - |\triangle OBD|$. Similarly, $|\triangle CAO| = |\triangle ACD| - |\triangle OCD|$.
+\end{lemma}
+
+\begin{proof}
+    \uses{lem:Area_Addition_Postulate}
+    By lemma \ref{lem:Area_Addition_Postulate}, since point $O$ lies on the line segment $AD$, the area of the larger triangle $\triangle ABD$ is the sum of the areas of the two triangles it is partitioned into:
+    \[ |\triangle ABD| = |\triangle ABO| + |\triangle OBD| \]
+    Rearranging the terms, we get:
+    \[ |\triangle ABO| = |\triangle ABD| - |\triangle OBD| \]
+    Similarly, for $\triangle ACD$:
+    \[ |\triangle ACD| = |\triangle CAO| + |\triangle OCD| \]
+    Rearranging gives:
+    \[ |\triangle CAO| = |\triangle ACD| - |\triangle OCD| \]
+\end{proof}
+
+\begin{lemma}[Ratio of Areas of Triangles with a Common Altitude]
+    \label{lem:Ratio_of_Areas_of_Triangles_with_a_Common_Altitude}
+    For a triangle $\triangle ABC$ and a point $D$ on the line containing $BC$, the ratio of the signed lengths of the segments $BD$ and $DC$ is equal to the ratio of the areas of the triangles $\triangle ABD$ and $\triangle ACD$. That is,
+    \[ \frac{\overline{BD}}{\overline{DC}} = \frac{|\triangle ABD|}{|\triangle ACD|} \]
+    Similarly, for any point $O$ not on the line $BC$,
+    \[ \frac{\overline{BD}}{\overline{DC}} = \frac{|\triangle OBD|}{|\triangle OCD|} \]
+\end{lemma}
+
+\begin{proof}
+    The area of a triangle is given by $\frac{1}{2} \times \text{base} \times \text{height}$. Let $h$ be the length of the altitude from vertex $A$ to the line containing side $BC$. Then the areas of $\triangle ABD$ and $\triangle ACD$ are $|\triangle ABD| = \frac{1}{2} |\overline{BD}| \cdot h$ and $|\triangle ACD| = \frac{1}{2} |\overline{DC}| \cdot h$.
+    The ratio of their areas, considering signed lengths for the bases, is
+    \[ \frac{|\triangle ABD|}{|\triangle ACD|} = \frac{\frac{1}{2} \overline{BD} \cdot h}{\frac{1}{2} \overline{DC} \cdot h} = \frac{\overline{BD}}{\overline{DC}} \]
+    A similar argument holds for the triangles $\triangle OBD$ and $\triangle OCD$ with a common vertex $O$ and bases on the same line $BC$. The altitude from $O$ to line $BC$ is common for both triangles.
+\end{proof}
+
+\begin{lemma}[Segment Ratio as a Ratio of Triangle Areas]
+    \label{lem:Segment_Ratio_as_a_Ratio_of_Triangle_Areas}
+    \uses{def:Cevian}
+    \uses{lem:Property_of_Proportions}
+    \uses{lem:Area_Subtraction_Property}
+    \uses{lem:Ratio_of_Areas_of_Triangles_with_a_Common_Altitude}
+    In $\triangle ABC$, let $AD$ be a cevian from $A$ to $BC$, and let $O$ be a point on $AD$. The ratio of the segments $\overline{BD}$ and $\overline{DC}$ is given by the ratio of the areas of $\triangle ABO$ and $\triangle CAO$.
+    \[ \frac{\overline{BD}}{\overline{DC}} = \frac{|\triangle ABO|}{|\triangle CAO|} \]
+\end{lemma}
+
+\begin{proof}
+    \uses{lem:Ratio_of_Areas_of_Triangles_with_a_Common_Altitude}
+    \uses{lem:Property_of_Proportions}
+    \uses{lem:Area_Subtraction_Property}
+    From lemma \ref{lem:Ratio_of_Areas_of_Triangles_with_a_Common_Altitude}, we have two expressions for the ratio $\frac{\overline{BD}}{\overline{DC}}$:
+    \[ \frac{\overline{BD}}{\overline{DC}} = \frac{|\triangle ABD|}{|\triangle ACD|} \quad \text{and} \quad \frac{\overline{BD}}{\overline{DC}} = \frac{|\triangle OBD|}{|\triangle OCD|} \]
+    This implies $\frac{|\triangle ABD|}{|\triangle ACD|} = \frac{|\triangle OBD|}{|\triangle OCD|}$.
+    By lemma \ref{lem:Property_of_Proportions}, we can write:
+    \[ \frac{|\triangle ABD|}{|\triangle ACD|} = \frac{|\triangle ABD| - |\triangle OBD|}{|\triangle ACD| - |\triangle OCD|} \]
+    Using lemma \ref{lem:Area_Subtraction_Property}, we can substitute the numerators and denominators:
+    \[ |\triangle ABD| - |\triangle OBD| = |\triangle ABO| \]
+    \[ |\triangle ACD| - |\triangle OCD| = |\triangle CAO| \]
+    Therefore,
+    \[ \frac{\overline{BD}}{\overline{DC}} = \frac{|\triangle ABO|}{|\triangle CAO|} \]
+\end{proof}
+
+\begin{theorem}[Ceva's Theorem (Direct)]
+    \label{thm:Cevas_Theorem_Direct}
+    \uses{def:Cevian}
+    \uses{lem:Segment_Ratio_as_a_Ratio_of_Triangle_Areas}
+    Let $\triangle ABC$ be a triangle, and let $D, E, F$ be points on the lines containing sides $BC, CA, AB$ respectively. If the cevians $AD, BE, CF$ are concurrent at a point $O$, then
+    \[ \frac{\overline{AF}}{\overline{FB}} \cdot \frac{\overline{BD}}{\overline{DC}} \cdot \frac{\overline{CE}}{\overline{EA}} = 1 \]
+\end{theorem}
+
+\begin{proof}
+    \uses{lem:Segment_Ratio_as_a_Ratio_of_Triangle_Areas}
+    Since the cevians are concurrent at $O$, we can apply lemma \ref{lem:Segment_Ratio_as_a_Ratio_of_Triangle_Areas} to each cevian:
+    \[ \frac{\overline{BD}}{\overline{DC}} = \frac{|\triangle ABO|}{|\triangle CAO|} \]
+    \[ \frac{\overline{CE}}{\overline{EA}} = \frac{|\triangle BCO|}{|\triangle ABO|} \]
+    \[ \frac{\overline{AF}}{\overline{FB}} = \frac{|\triangle CAO|}{|\triangle BCO|} \]
+    Multiplying these three equations together yields:
+    \[ \frac{\overline{AF}}{\overline{FB}} \cdot \frac{\overline{BD}}{\overline{DC}} \cdot \frac{\overline{CE}}{\overline{EA}} = \frac{|\triangle CAO|}{|\triangle BCO|} \cdot \frac{|\triangle ABO|}{|\triangle CAO|} \cdot \frac{|\triangle BCO|}{|\triangle ABO|} \]
+    The terms in the numerator cancel with the terms in the denominator, resulting in:
+    \[ \frac{\overline{AF}}{\overline{FB}} \cdot \frac{\overline{BD}}{\overline{DC}} \cdot \frac{\overline{CE}}{\overline{EA}} = 1 \]
+\end{proof}
+
+\begin{lemma}[Uniqueness of a Point Dividing a Segment]
+    \label{lem:Uniqueness_of_Point_Dividing_a_Segment}
+    Let $A$ and $B$ be two distinct points on a line $L$. For any real number $r$ such that $r \neq -1$, there exists a unique point $F$ on $L$ such that the ratio of signed lengths $\frac{\overline{AF}}{\overline{FB}} = r$.
+\end{lemma}
+
+\begin{proof}
+    Let the line $L$ be the real number line, with $A$ at the origin (0) and $B$ at coordinate $b \neq 0$. Let $F$ be a point on $L$ with coordinate $x$. The signed lengths are $\overline{AF} = x - 0 = x$ and $\overline{FB} = b - x$. The condition is:
+    \[ \frac{x}{b-x} = r \]
+    We solve for $x$:
+    \[ x = r(b-x) \implies x = rb - rx \implies x(1+r) = rb \]
+    Since $r \neq -1$, we have $1+r \neq 0$, so we can divide by it:
+    \[ x = \frac{rb}{1+r} \]
+    This equation gives a single, unique value for the coordinate $x$. Therefore, the point $F$ is uniquely determined.
+\end{proof}
+
+\begin{lemma}[Ray Intersection Lemma]
+    \label{lem:Ray_Intersection_Lemma}
+    In a triangle $\triangle ABC$, if a line enters the triangle at vertex $C$ and passes through an interior point $O$, it must intersect the opposite side $AB$.
+\end{lemma}
+
+\begin{proof}
+    This lemma is a consequence of Pasch's Axiom. The line passing through $C$ and $O$ divides the plane into two half-planes. The vertices $A$ and $B$ lie in opposite half-planes because the point $O$ is interior to $\triangle ABC$, meaning $O$ is on the same side of $AB$ as $C$, the same side of $BC$ as $A$, and the same side of $AC$ as $B$. The line $CO$ passes through vertex $C$ and interior point $O$. Since $A$ and $B$ are on opposite sides of the line $CO$, the segment $AB$ must intersect the line $CO$ at a point. This intersection point lies on the segment $AB$.
+\end{proof}
+
+\begin{theorem}[Ceva's Theorem (Converse)]
+    \label{thm:Cevas_Theorem_Converse}
+    \uses{thm:Cevas_Theorem_Direct}
+    \uses{lem:Uniqueness_of_Point_Dividing_a_Segment}
+    \uses{lem:Ray_Intersection_Lemma}
+    Let $\triangle ABC$ be a triangle, and let $D, E, F$ be points on the lines containing sides $BC, CA, AB$ respectively. If
+    \[ \frac{\overline{AF}}{\overline{FB}} \cdot \frac{\overline{BD}}{\overline{DC}} \cdot \frac{\overline{CE}}{\overline{EA}} = 1 \]
+    then the lines $AD, BE, CF$ are concurrent.
+\end{theorem}
+
+\begin{proof}
+    \uses{thm:Cevas_Theorem_Direct}
+    \uses{lem:Uniqueness_of_Point_Dividing_a_Segment}
+    \uses{lem:Ray_Intersection_Lemma}
+    Let the lines $AD$ and $BE$ intersect at a point $O$. By lemma \ref{lem:Ray_Intersection_Lemma}, the line $CO$ must intersect the line $AB$ at some point. Let this point be $F'$.
+    Since the cevians $AD$, $BE$, and $CF'$ are concurrent at $O$ by construction, we can apply the direct part of Ceva's theorem, theorem \ref{thm:Cevas_Theorem_Direct}, to these cevians:
+    \[ \frac{\overline{AF'}}{\overline{F'B}} \cdot \frac{\overline{BD}}{\overline{DC}} \cdot \frac{\overline{CE}}{\overline{EA}} = 1 \]
+    We are given the condition:
+    \[ \frac{\overline{AF}}{\overline{FB}} \cdot \frac{\overline{BD}}{\overline{DC}} \cdot \frac{\overline{CE}}{\overline{EA}} = 1 \]
+    Comparing the two equations, we can cancel the common non-zero terms to obtain:
+    \[ \frac{\overline{AF'}}{\overline{F'B}} = \frac{\overline{AF}}{\overline{FB}} \]
+    By lemma \ref{lem:Uniqueness_of_Point_Dividing_a_Segment}, there is only one point on the line $AB$ that divides the segment $AB$ in this specific ratio. Since both $F$ and $F'$ satisfy this condition, they must be the same point, i.e., $F=F'$.
+    Therefore, the line $CF$ is the same as the line $CF'$, which passes through the point $O$. This means that the lines $AD, BE, CF$ are concurrent at $O$.
+\end{proof}

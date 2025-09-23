@@ -1,0 +1,132 @@
+\chapter{Casorati–Weierstrass Theorem}
+
+\begin{definition}[Essential Singularity]
+    \label{def:Essential_Singularity}
+    Let $f$ be a function that is holomorphic on a punctured neighborhood $D = U \setminus \{z_0\}$ of a point $z_0$. The point $z_0$ is called an essential singularity of $f$ if it is neither a removable singularity nor a pole.
+\end{definition}
+
+\begin{definition}[Dense Set]
+    \label{def:Dense_Set}
+    A subset $A$ of the complex plane $\mathbb{C}$ is said to be dense in $\mathbb{C}$ if for every point $w \in \mathbb{C}$ and for every $\varepsilon > 0$, there exists a point $a \in A$ such that $|a - w| < \varepsilon$. Equivalently, the closure of $A$ is $\mathbb{C}$.
+\end{definition}
+
+\begin{lemma}[Analyticity of Holomorphic Functions]
+    \label{lem:Holomorphic_Implies_Analytic}
+    If a function $g$ is holomorphic in an open disk $D(z_0, R)$, then it is analytic at $z_0$. This means $g$ can be represented by its Taylor series expansion, $g(z) = \sum_{n=0}^{\infty} a_n (z-z_0)^n$, for all $z \in D(z_0, R)$.
+\end{lemma}
+
+\begin{proof}
+    This is a cornerstone theorem of complex analysis, following from Cauchy's integral formula for derivatives. The proof is omitted.
+\end{proof}
+
+\begin{lemma}[Riemann's Theorem on Removable Singularities]
+    \label{lem:Riemann_Removable_Singularity}
+    Let $f$ be a function that is holomorphic and bounded in a punctured neighborhood $U \setminus \{z_0\}$. Then the singularity at $z_0$ is removable, meaning $f$ can be extended to a holomorphic function on all of $U$.
+\end{lemma}
+
+\begin{proof}
+    This is a fundamental result in complex analysis and its proof is omitted here.
+\end{proof}
+
+\begin{lemma}[Characterization of Removable Singularities by Limit]
+    \label{lem:Characterization_of_Removable_Singularities}
+    Let $f$ be holomorphic on a punctured neighborhood of $z_0$. The singularity at $z_0$ is removable if and only if the limit $\lim_{z \to z_0} f(z)$ exists and is finite.
+\end{lemma}
+
+\begin{proof}
+    This is a standard characterization of removable singularities, presented here without proof.
+\end{proof}
+
+\begin{lemma}[Characterization of Poles by Limit]
+    \label{lem:Characterization_of_Poles}
+    Let $f$ be holomorphic on a punctured neighborhood of $z_0$. The singularity at $z_0$ is a pole if and only if $\lim_{z \to z_0} |f(z)| = \infty$.
+\end{lemma}
+
+\begin{proof}
+    This is a standard characterization of poles, presented here without proof.
+\end{proof}
+
+\begin{lemma}[Algebra of Limits for Complex Functions]
+    \label{lem:Algebra_of_Limits}
+    Let $g(z)$ be a complex function defined on a punctured neighborhood of $z_0$. If $\lim_{z \to z_0} g(z) = L$, where $L \in \mathbb{C}$ and $L \neq 0$, then for any constant $b \in \mathbb{C}$, the limit of $\frac{1}{g(z)} + b$ as $z \to z_0$ exists and is equal to $\frac{1}{L} + b$.
+\end{lemma}
+
+\begin{proof}
+    This follows from the standard properties of limits concerning sums, constants, and reciprocals, which hold for complex-valued functions. The proof is omitted.
+\end{proof}
+
+\begin{lemma}[Limit of Reciprocal Function]
+    \label{lem:Limit_of_Reciprocal}
+    Let $d(z)$ be a complex function defined on a punctured neighborhood of $z_0$ such that $\lim_{z \to z_0} d(z) = 0$. Then $\lim_{z \to z_0} \frac{1}{|d(z)|} = \infty$, and consequently, for any constant $b \in \mathbb{C}$, $\lim_{z \to z_0} \left|\frac{1}{d(z)} + b\right| = \infty$.
+\end{lemma}
+
+\begin{proof}
+    This is a standard property of limits involving infinity. As $z \to z_0$, $|d(z)|$ becomes arbitrarily small and positive, so its reciprocal becomes arbitrarily large. Adding a constant $b$ does not change this behavior for the magnitude of the limit.
+\end{proof}
+
+\begin{lemma}[Factorization at a Zero]
+    \label{lem:Zero_of_Holomorphic_Function}
+    \uses{lem:Holomorphic_Implies_Analytic}
+    Let $g$ be a holomorphic function in a neighborhood of $z_0$ such that $g(z_0) = 0$. If $g$ is not identically zero in this neighborhood, then there exists a unique integer $m \geq 1$ (the order of the zero) and a holomorphic function $h$ defined in a neighborhood of $z_0$ such that $h(z_0) \neq 0$ and $g(z) = (z-z_0)^m h(z)$.
+\end{lemma}
+
+\begin{proof}
+    \uses{lem:Holomorphic_Implies_Analytic}
+    By lemma \ref{lem:Holomorphic_Implies_Analytic}, $g$ has a Taylor series expansion $g(z) = \sum_{n=0}^{\infty} a_n (z-z_0)^n$. Since $g(z_0)=0$, $a_0=0$. As $g$ is not identically zero, not all coefficients are zero. Let $m \geq 1$ be the index of the first non-zero coefficient, so $a_m \neq 0$ and $a_k=0$ for $k < m$. We can then write $g(z) = (z-z_0)^m \sum_{n=m}^{\infty} a_n (z-z_0)^{n-m} = (z-z_0)^m h(z)$, where $h(z) = \sum_{k=0}^{\infty} a_{m+k} (z-z_0)^k$. The function $h(z)$ is holomorphic and $h(z_0) = a_m \neq 0$.
+\end{proof}
+
+\begin{lemma}[Existence of a Bounded Auxiliary Function]
+    \label{lem:Bounded_Auxiliary_Function}
+    Let $f$ be a function that is holomorphic on a punctured neighborhood $V \setminus \{z_0\}$. If the image $f(V \setminus \{z_0\})$ is not dense in $\mathbb{C}$, then there exists a function $g(z)$ which is holomorphic and bounded on $V \setminus \{z_0\}$.
+\end{lemma}
+
+\begin{proof}
+    If the image $f(V \setminus \{z_0\})$ is not dense in $\mathbb{C}$, then there exists a point $b \in \mathbb{C}$ and an open disk $D(b, \varepsilon)$ with radius $\varepsilon > 0$ that is disjoint from the image. This means $|f(z) - b| \geq \varepsilon$ for all $z \in V \setminus \{z_0\}$.
+    Define $g(z) = \frac{1}{f(z) - b}$. Since $f(z) - b$ is holomorphic and never zero on $V \setminus \{z_0\}$, $g(z)$ is also holomorphic there. Furthermore, $|g(z)| = \frac{1}{|f(z) - b|} \leq \frac{1}{\varepsilon}$, so $g(z)$ is bounded.
+\end{proof}
+
+\begin{lemma}[Classification of the Singularity of f]
+    \label{lem:Classification_of_f}
+    \uses{lem:Bounded_Auxiliary_Function}
+    \uses{lem:Riemann_Removable_Singularity}
+    \uses{lem:Characterization_of_Removable_Singularities}
+    \uses{lem:Characterization_of_Poles}
+    \uses{lem:Algebra_of_Limits}
+    \uses{lem:Limit_of_Reciprocal}
+    \uses{lem:Zero_of_Holomorphic_Function}
+    If the image $f(V \setminus \{z_0\})$ is not dense in $\mathbb{C}$, then the singularity of $f$ at $z_0$ is either removable or a pole.
+\end{lemma}
+
+\begin{proof}
+    \uses{lem:Bounded_Auxiliary_Function}
+    \uses{lem:Riemann_Removable_Singularity}
+    \uses{lem:Characterization_of_Removable_Singularities}
+    \uses{lem:Characterization_of_Poles}
+    \uses{lem:Algebra_of_Limits}
+    \uses{lem:Limit_of_Reciprocal}
+    \uses{lem:Zero_of_Holomorphic_Function}
+    By lemma \ref{lem:Bounded_Auxiliary_Function}, we can construct a bounded, holomorphic function $g(z) = \frac{1}{f(z) - b}$ on $V \setminus \{z_0\}$. By lemma \ref{lem:Riemann_Removable_Singularity}, $g(z)$ has a removable singularity at $z_0$, so it can be extended to a holomorphic function on $V$. Let $L = g(z_0) = \lim_{z \to z_0} g(z)$.
+
+    Case 1: $L \neq 0$. Using lemma \ref{lem:Algebra_of_Limits} on $f(z) = \frac{1}{g(z)} + b$, we find $\lim_{z \to z_0} f(z) = \frac{1}{L} + b$, which is finite. By lemma \ref{lem:Characterization_of_Removable_Singularities}, $f$ has a removable singularity at $z_0$.
+
+    Case 2: $L = 0$. Since $g$ is not identically zero, by lemma \ref{lem:Zero_of_Holomorphic_Function}, we can write $g(z) = (z-z_0)^m h(z)$ where $m \geq 1$ and $h(z_0) \neq 0$. Then $f(z) = \frac{1}{(z-z_0)^m h(z)} + b$. The term $(z-z_0)^m h(z)$ approaches $0$ as $z \to z_0$. By lemma \ref{lem:Limit_of_Reciprocal}, $\lim_{z \to z_0} |f(z)| = \infty$. By lemma \ref{lem:Characterization_of_Poles}, $f$ has a pole at $z_0$.
+
+    In either case, the singularity of $f$ is not essential.
+\end{proof}
+
+\begin{theorem}[Casorati–Weierstrass Theorem]
+    \label{thm:Casorati-Weierstrass_Theorem}
+    \uses{def:Essential_Singularity}
+    \uses{def:Dense_Set}
+    Let $f$ be a function that is holomorphic on a punctured neighborhood $V \setminus \{z_0\}$ and has an essential singularity at $z_0$. Then the image of $V \setminus \{z_0\}$ under $f$, denoted $f(V \setminus \{z_0\})$, is dense in the complex plane $\mathbb{C}$.
+\end{theorem}
+
+\begin{proof}
+    \uses{def:Essential_Singularity}
+    \uses{lem:Classification_of_f}
+    We argue by contradiction. Assume that the image $f(V \setminus \{z_0\})$ is not dense in $\mathbb{C}$.
+    
+    According to lemma \ref{lem:Classification_of_f}, if the image is not dense, then the singularity of $f$ at $z_0$ must be either a removable singularity or a pole.
+    
+    This conclusion contradicts the initial hypothesis that $z_0$ is an essential singularity of $f$ (see definition \ref{def:Essential_Singularity}). Therefore, the assumption must be false, which means the image $f(V \setminus \{z_0\})$ must be dense in $\mathbb{C}$.
+\end{proof}

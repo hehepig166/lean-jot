@@ -1,0 +1,125 @@
+\chapter{Thales's Theorem}
+
+\begin{definition}[Angle Inscribed in a Semicircle]
+    \label{def:Angle_Inscribed_in_a_Semicircle}
+    An angle $\angle ACB$ is inscribed in a semicircle if A, B, and C are distinct points on a circle where the line segment AB is a diameter of the circle.
+\end{definition}
+
+\begin{lemma}[Side-Side-Side (SSS) Congruence]
+    \label{lem:SSS_Congruence}
+    If the three sides of one triangle are equal in length to the corresponding three sides of another triangle, then the two triangles are congruent.
+\end{lemma}
+
+\begin{proof}
+    This is a fundamental postulate of Euclidean geometry for determining the congruence of triangles.
+\end{proof}
+
+\begin{lemma}[Corresponding Parts of Congruent Triangles are Congruent (CPCTC)]
+    \label{lem:CPCTC}
+    If two triangles are congruent, then their corresponding angles and sides are equal in measure.
+\end{lemma}
+
+\begin{proof}
+    This follows from the definition of triangle congruence. Congruent triangles can be perfectly superimposed, meaning all their corresponding parts (angles and sides) must be identical.
+\end{proof}
+
+\begin{lemma}[Alternate Interior Angles Theorem]
+    \label{lem:Alternate_Interior_Angles}
+    If two parallel lines are intersected by a transversal, then the alternate interior angles are equal in measure.
+\end{lemma}
+
+\begin{proof}
+    This is a theorem in Euclidean geometry that follows from the parallel postulate.
+\end{proof}
+
+\begin{lemma}[Angles on a Straight Line]
+    \label{lem:Angles_on_a_Straight_Line}
+    The sum of the measures of adjacent angles that form a straight line is $180^\circ$.
+\end{lemma}
+
+\begin{proof}
+    This is a fundamental postulate of geometry, defining a straight angle as having a measure of $180^\circ$.
+\end{proof}
+
+\begin{lemma}[Angle Addition Postulate]
+    \label{lem:Angle_Addition_Postulate}
+    If a point O lies in the interior of an angle $\angle ACB$, then the measure of the angle is the sum of its non-overlapping component parts: $\angle ACB = \angle ACO + \angle OCB$.
+\end{lemma}
+
+\begin{proof}
+    This postulate is a fundamental property of angle measurement in Euclidean geometry. It defines how angles are composed from smaller, adjacent angles sharing a common vertex and a common ray between them.
+\end{proof}
+
+\begin{lemma}[Isosceles Triangle Theorem]
+    \label{lem:Isosceles_Triangle_Theorem}
+    \uses{lem:SSS_Congruence}
+    \uses{lem:CPCTC}
+    If two sides of a triangle are equal in length, then the angles opposite those sides are equal in measure.
+\end{lemma}
+
+\begin{proof}
+    Let $\triangle ABC$ be a triangle with sides $AC = BC$. Let $M$ be the midpoint of the segment $AB$. Then the segment $CM$ is a median. Consider the two triangles $\triangle AMC$ and $\triangle BMC$. We have $AC = BC$ (given), $AM = BM$ (by construction of midpoint), and $CM = CM$ (common side). By the Side-Side-Side congruence criterion stated in lemma \ref{lem:SSS_Congruence}, $\triangle AMC \cong \triangle BMC$. Since the triangles are congruent, their corresponding angles are equal, as per lemma \ref{lem:CPCTC}. In particular, $\angle CAM$ corresponds to $\angle CBM$. Therefore, $\angle CAB = \angle CBA$.
+\end{proof}
+
+\begin{lemma}[Sum of Angles in a Triangle]
+    \label{lem:Sum_of_Angles_in_a_Triangle}
+    \uses{lem:Alternate_Interior_Angles}
+    \uses{lem:Angles_on_a_Straight_Line}
+    The sum of the measures of the interior angles of any triangle in Euclidean geometry is $180^\circ$.
+\end{lemma}
+
+\begin{proof}
+    Given $\triangle ABC$, construct a line $L$ passing through vertex C and parallel to the side $AB$. Let angles $\alpha$ and $\beta$ be the angles that line $L$ makes with segments $AC$ and $BC$, respectively, on the same side of $L$ as the triangle. By the alternate interior angles theorem, lemma \ref{lem:Alternate_Interior_Angles}, we have $\angle CAB = \alpha$ and $\angle CBA = \beta$. The angles $\alpha$, $\beta$, and $\angle ACB$ at vertex C form a straight line. According to lemma \ref{lem:Angles_on_a_Straight_Line}, their sum is $180^\circ$. Therefore, $\alpha + \beta + \angle ACB = 180^\circ$. Substituting back, we get $\angle CAB + \angle CBA + \angle ACB = 180^\circ$.
+\end{proof}
+
+\begin{lemma}[Radii Form Isosceles Triangles]
+    \label{lem:Radii_Form_Isosceles_Triangles}
+    \uses{def:Angle_Inscribed_in_a_Semicircle}
+    Let $\angle ACB$ be an angle inscribed in a semicircle with center O and diameter AB. Then the triangles $\triangle OAC$ and $\triangle OBC$ are isosceles triangles.
+\end{lemma}
+
+\begin{proof}
+    The points A, B, and C lie on the circle, and O is the center. The segments OA, OB, and OC are radii of the circle. By definition, all radii of a circle are equal in length, so $OA = OC$ and $OB = OC$. A triangle with at least two equal sides is an isosceles triangle. Therefore, $\triangle OAC$ (with sides $OA=OC$) and $\triangle OBC$ (with sides $OB=OC$) are isosceles.
+\end{proof}
+
+\begin{lemma}[Equality of Base Angles in Constructed Triangles]
+    \label{lem:Equality_of_Base_Angles}
+    \uses{lem:Isosceles_Triangle_Theorem}
+    \uses{lem:Radii_Form_Isosceles_Triangles}
+    If $\angle ACB$ is an angle inscribed in a semicircle with center O, then the base angles of the constructed triangles $\triangle OAC$ and $\triangle OBC$ are equal. Specifically, $\angle OAC = \angle OCA$ and $\angle OBC = \angle OCB$.
+\end{lemma}
+
+\begin{proof}
+    From lemma \ref{lem:Radii_Form_Isosceles_Triangles}, we know that $\triangle OAC$ and $\triangle OBC$ are isosceles triangles. According to lemma \ref{lem:Isosceles_Triangle_Theorem}, the angles opposite the equal sides are equal. In $\triangle OAC$, since $OA=OC$, we have $\angle OCA = \angle OAC$. In $\triangle OBC$, since $OB=OC$, we have $\angle OCB = \angle OBC$.
+\end{proof}
+
+\begin{lemma}[Sum of Angles as a Multiple of the Inscribed Angle]
+    \label{lem:Sum_as_Multiple_of_Inscribed_Angle}
+    \uses{lem:Angle_Addition_Postulate}
+    \uses{lem:Equality_of_Base_Angles}
+    If $\angle ACB$ is an angle inscribed in a semicircle, then the sum of the interior angles of $\triangle ABC$ is equal to $2 \times \angle ACB$.
+\end{lemma}
+
+\begin{proof}
+    The sum of the interior angles of $\triangle ABC$ is $\angle CAB + \angle ABC + \angle BCA$.
+    From lemma \ref{lem:Equality_of_Base_Angles}, we have $\angle CAB = \angle OCA$ and $\angle ABC = \angle OCB$.
+    Substituting these into the sum gives: $\angle OCA + \angle OCB + \angle BCA$.
+    According to lemma \ref{lem:Angle_Addition_Postulate}, $\angle BCA = \angle OCA + \angle OCB$.
+    Substituting this gives $\angle BCA + \angle BCA = 2 \times \angle BCA$, also denoted as $2 \times \angle ACB$.
+\end{proof}
+
+\begin{theorem}[Thales's Theorem]
+    \label{thm:Thales_Theorem}
+    \uses{def:Angle_Inscribed_in_a_Semicircle}
+    \uses{lem:Sum_of_Angles_in_a_Triangle}
+    \uses{lem:Sum_as_Multiple_of_Inscribed_Angle}
+    If A, B, and C are distinct points on a circle where the line segment AB is a diameter, then the angle $\angle ACB$ is a right angle.
+\end{theorem}
+
+\begin{proof}
+    According to lemma \ref{lem:Sum_of_Angles_in_a_Triangle}, the sum of the interior angles of $\triangle ABC$ is $180^\circ$.
+    From lemma \ref{lem:Sum_as_Multiple_of_Inscribed_Angle}, this same sum is equal to $2 \times \angle ACB$.
+    By equating these two expressions, we obtain the equation $2 \times \angle ACB = 180^\circ$.
+    Dividing both sides of the equation by 2 gives $\angle ACB = 90^\circ$.
+    Therefore, $\angle ACB$ is a right angle.
+\end{proof}

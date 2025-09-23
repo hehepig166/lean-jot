@@ -1,0 +1,148 @@
+\chapter{Kolmogorov-Arnold Representation Theorem}
+
+\begin{definition}[Continuous Functions on the Unit Hypercube]
+    \label{def:Continuous_Functions}
+    Let $I = [0, 1]$. The space of all continuous functions from the $n$-dimensional unit hypercube $I^n$ to the real numbers $\mathbb{R}$ is denoted by $C(I^n)$. This is a normed vector space equipped with the supremum norm $\|f\| = \sup_{\mathbf{x} \in I^n} |f(\mathbf{x})|$.
+\end{definition}
+
+\begin{lemma}[Bolzano-Weierstrass Theorem for Sequence Compactness]
+    \label{lem:Bolzano_Weierstrass}
+    A set $K \subset \mathbb{R}^n$ is compact if and only if every sequence in $K$ has a subsequence that converges to a point in $K$.
+\end{lemma}
+
+\begin{proof}
+    We prove the "if" direction for a closed and bounded set $K=I^n$. Let $\{\mathbf{x}_k\}$ be a sequence in $I^n$. Since $I^n$ is bounded, the sequence is bounded. We apply the bisection method. Let $C_0 = I^n$. Divide $C_0$ into $2^n$ closed sub-hypercubes. At least one, call it $C_1$, must contain infinitely many terms of the sequence. We select $\mathbf{x}_{k_1} \in C_1$. We repeat this process, constructing a nested sequence of non-empty compact sets $C_0 \supset C_1 \supset C_2 \supset \dots$ such that the diameter of $C_j$ tends to zero, and each $C_j$ contains infinitely many points of the sequence. We can then pick a subsequence $\{\mathbf{x}_{k_j}\}$ with $\mathbf{x}_{k_j} \in C_j$. This is a Cauchy sequence, and since $I^n$ is a complete metric space, the sequence converges to a limit $\mathbf{x}$. As each $C_j$ is closed, $\mathbf{x} \in C_j$ for all $j$, and thus $\mathbf{x} \in I^n$.
+\end{proof}
+
+\begin{lemma}[Uniform Continuity on a Compact Set]
+    \label{lem:Uniform_Continuity}
+    \uses{def:Continuous_Functions}
+    \uses{lem:Bolzano_Weierstrass}
+    Every function $f \in C(I^n)$ is uniformly continuous on the compact set $I^n$.
+\end{lemma}
+
+\begin{proof}
+    Assume for contradiction that $f$ is not uniformly continuous. Then there exists an $\epsilon_0 > 0$ such that for every $k \in \mathbb{N}$, we can find points $\mathbf{x}_k, \mathbf{y}_k \in I^n$ with $\|\mathbf{x}_k - \mathbf{y}_k\|_\infty < 1/k$ but $|f(\mathbf{x}_k) - f(\mathbf{y}_k)| \ge \epsilon_0$.
+    Since $I^n$ is compact, by Lemma \ref{lem:Bolzano_Weierstrass}, the sequence $\{\mathbf{x}_k\}$ has a convergent subsequence $\{\mathbf{x}_{k_j}\}$ with limit $\mathbf{x} \in I^n$. As $\|\mathbf{x}_{k_j} - \mathbf{y}_{k_j}\|_\infty < 1/k_j \to 0$, the corresponding subsequence $\{\mathbf{y}_{k_j}\}$ also converges to $\mathbf{x}$.
+    By the continuity of $f$ at $\mathbf{x}$, we have $\lim_{j\to\infty} |f(\mathbf{x}_{k_j}) - f(\mathbf{y}_{k_j})| = |f(\mathbf{x}) - f(\mathbf{x})| = 0$. This contradicts that $|f(\mathbf{x}_{k_j}) - f(\mathbf{y}_{k_j})| \ge \epsilon_0$ for all $j$. Thus, $f$ must be uniformly continuous.
+\end{proof}
+
+\begin{lemma}[Piecewise-Constant Approximation]
+    \label{lem:Piecewise_Constant_Approximation}
+    The set of continuous, piecewise-constant functions on a compact interval $I = [a,b]$ is dense in $C(I)$. For any $f \in C(I)$ and any $\epsilon > 0$, there exists a continuous, piecewise-constant function $g$ such that $\|f - g\|_{\sup} < \epsilon$.
+\end{lemma}
+
+\begin{proof}
+    Since $I$ is compact, $f$ is uniformly continuous. For a given $\epsilon > 0$, there exists a $\delta > 0$ such that $|x-y| < \delta$ implies $|f(x)-f(y)| < \epsilon/2$. Choose a partition of $I$, $a=x_0 < x_1 < \dots < x_m=b$, such that $\max_i(x_i - x_{i-1}) < \delta$. Define a piecewise-constant function $g_0(x) = f(x_i)$ for $x \in [x_i, x_{i+1})$. For any $x \in [x_i, x_{i+1})$, we have $|x - x_i| < \delta$, so $|f(x) - g_0(x)| = |f(x) - f(x_i)| < \epsilon/2$. Thus $\|f - g_0\|_{\sup} \le \epsilon/2$. To make the approximant continuous, we can modify it at the partition points to connect the constant segments with short linear ramps, ensuring the total deviation from $f$ remains less than $\epsilon$.
+\end{proof}
+
+\begin{lemma}[Linear Independence over Rationals]
+    \label{lem:Linear_Independence_Over_Rationals}
+    For any positive integer $m$, there exists a set of $m$ real numbers $\{\lambda_1, \dots, \lambda_m\}$ that is linearly independent over the field of rational numbers $\mathbb{Q}$.
+\end{lemma}
+
+\begin{proof}
+    The real numbers $\mathbb{R}$ form a vector space over the field $\mathbb{Q}$. This vector space is of uncountable dimension. Any basis for this vector space must be uncountable. Therefore, we can always choose $m$ elements from this basis, which by definition are linearly independent over $\mathbb{Q}$. For a constructive example, one can choose numbers whose algebraic properties ensure independence, e.g., $\{1, \sqrt{p_1}, \sqrt{p_2}, \dots\}$ where $p_i$ are distinct primes.
+\end{proof}
+
+\begin{lemma}[Discretization into Addressable Grids]
+    \label{lem:Addressable_Grids}
+    \uses{def:Continuous_Functions}
+    \uses{lem:Piecewise_Constant_Approximation}
+    \uses{lem:Linear_Independence_Over_Rationals}
+    For any set of continuous functions $\{\psi_q\}_{q=0}^{2n}$ in $C(I)$ and any $\epsilon > 0$, there exists a set of continuous, piecewise-constant functions $\{\phi_{q,p}\}_{q=0, p=1}^{2n, n}$ such that:
+    \begin{enumerate}
+        \item For each $q, p$, $\|\psi_q - \phi_{q,p}\| < \epsilon$.
+        \item The sum $y_q(\mathbf{x}) = \lambda_q + \sum_{p=1}^n \phi_{q,p}(x_p)$, where $\{\lambda_q\}$ are linearly independent over $\mathbb{Q}$, defines a unique address for each rectangular block across all $2n+1$ grid systems.
+    \end{enumerate}
+\end{lemma}
+
+\begin{proof}
+    By Lemma \ref{lem:Piecewise_Constant_Approximation}, for each $\psi_q$, we can find a continuous, piecewise-constant function $\phi_{q,p}$ such that $\|\psi_q - \phi_{q,p}\| < \epsilon$. We choose the constant values taken by $\phi_{q,p}$ to be rational numbers.
+    For each $q$, the sum $\sum_{p=1}^n \phi_{q,p}(x_p)$ is a rational value that is constant on each rectangular block of the $q$-th grid. By Lemma \ref{lem:Linear_Independence_Over_Rationals}, we can choose a set of $2n+1$ real numbers $\{\lambda_q\}_{q=0}^{2n}$ that are linearly independent over $\mathbb{Q}$.
+    Define the address of a block as $y_q(\mathbf{x}) = \lambda_q + \sum_{p=1}^n \phi_{q,p}(x_p)$. Suppose two addresses are equal: $y_q(\mathbf{x}) = y_{q'}(\mathbf{x'})$. This implies $\lambda_q - \lambda_{q'} = \sum_{p=1}^n \phi_{q',p}(x'_p) - \sum_{p=1}^n \phi_{q,p}(x_p)$. The right side is a rational number. Due to the linear independence of $\{\lambda_q\}$, this equality can only hold if $q=q'$ (making $\lambda_q - \lambda_{q'} = 0$) and the rational parts are equal, which implies $\mathbf{x}$ and $\mathbf{x'}$ belong to the same block. Thus, each block across all grids has a unique address.
+\end{proof}
+
+\begin{lemma}[Grid Covering Property]
+    \label{lem:Grid_Covering_Property}
+    For any point $\mathbf{x} \in I^n$ and any $\delta > 0$, it is possible to construct $2n+1$ rectangular grid partitions of $I^n$ such that at least $n+1$ of the $2n+1$ unique grid blocks containing $\mathbf{x}$ (one from each partition) are fully contained within the open ball $B(\mathbf{x}, \delta)$.
+\end{lemma}
+
+\begin{proof}
+    This is a non-trivial combinatorial geometric result central to Arnold's proof. The construction involves choosing the grid lines for the $2n+1$ partitions in a sufficiently independent or generic manner. A detailed proof is beyond the scope of this blueprint but is a foundational assumption for the subsequent steps.
+\end{proof}
+
+\begin{lemma}[Grid Sign Agreement Property]
+    \label{lem:Grid_Sign_Agreement}
+    \uses{lem:Uniform_Continuity}
+    \uses{lem:Grid_Covering_Property}
+    Let $f \in C(I^n)$ and $\mathbf{x} \in I^n$. For any $\epsilon > 0$ such that $|f(\mathbf{x})| > \epsilon$, one can construct $2n+1$ grid systems such that for at least $n+1$ indices $q$, the sign of $f$ is constant on the block containing $\mathbf{x}$.
+\end{lemma}
+
+\begin{proof}
+    By Lemma \ref{lem:Uniform_Continuity}, $f$ is uniformly continuous. Given $\epsilon > 0$, we can find a $\delta > 0$ such that for all $\mathbf{y}$ in the ball $B(\mathbf{x}, \delta)$, we have $|f(\mathbf{y}) - f(\mathbf{x})| < \epsilon$. Since we assume $|f(\mathbf{x})| > \epsilon$, this implies that $\text{sgn}(f(\mathbf{y})) = \text{sgn}(f(\mathbf{x}))$ for all $\mathbf{y} \in B(\mathbf{x}, \delta)$.
+    We then apply Lemma \ref{lem:Grid_Covering_Property}. We can construct $2n+1$ grids such that at least $n+1$ of the blocks containing $\mathbf{x}$ are fully contained within $B(\mathbf{x}, \delta)$. For these $n+1$ blocks, the sign of $f$ is therefore constant.
+\end{proof}
+
+\begin{lemma}[Single-Step Approximation]
+    \label{lem:Single_Step_Approximation}
+    \uses{def:Continuous_Functions}
+    \uses{lem:Addressable_Grids}
+    \uses{lem:Grid_Sign_Agreement}
+    Let $f \in C(I^n)$ with $\|f\|=1$. For any $\delta \in (0, 1)$, there exist inner functions $\{\phi_{q,p}\}$ and a continuous outer function $\Phi$ such that $\left\|f - \sum_{q=0}^{2n} \Phi\left(\sum_{p=1}^n \phi_{q,p}(x_p)\right)\right\| \le 1 - \delta$.
+\end{lemma}
+
+\begin{proof}
+    Choose a constant $C > 1/\delta$. Let $\epsilon_f = (C-1)/C$. For any point $\mathbf{x}$ with $|f(\mathbf{x})| \ge \epsilon_f$, we use Lemma \ref{lem:Grid_Sign_Agreement} to construct grids where at least $n+1$ blocks containing $\mathbf{x}$ have a constant sign for $f$. Let the unique addresses be defined as in Lemma \ref{lem:Addressable_Grids}. We define $\Phi$ at these addresses $a_{q,R}$:
+    \[ \Phi(a_{q,R}) = \begin{cases} +1/C & \text{if } f(\mathbf{y}) > 0 \text{ for all } \mathbf{y} \in R \\ -1/C & \text{if } f(\mathbf{y}) < 0 \text{ for all } \mathbf{y} \in R \\ 0 & \text{otherwise} \end{cases} \]
+    Extend $\Phi$ to a continuous function on $\mathbb{R}$ by linear interpolation. Let $F(\mathbf{x}) = \sum_{q=0}^{2n} \Phi\left(\sum_{p=1}^n \phi_{q,p}(x_p)\right)$. For any $\mathbf{x}$ where $f(\mathbf{x}) \ge \epsilon_f$, at least $n+1$ terms in the sum for $F(\mathbf{x})$ are $+1/C$ and at most $n$ are $-1/C$. So $F(\mathbf{x}) \ge (n+1)/C - n/C = 1/C$. The error is $|f(\mathbf{x}) - F(\mathbf{x})| \le 1 - 1/C < 1 - \delta$. A symmetric argument holds for $f(\mathbf{x}) \le -\epsilon_f$. The bound holds for all $\mathbf{x}$, thus $\|f - F\| \le 1 - \delta$.
+\end{proof}
+
+\begin{lemma}[Banach Space of Continuous Functions]
+    \label{lem:Banach_Space_of_Continuous_Functions}
+    \uses{def:Continuous_Functions}
+    The space $C(I^n)$ of continuous functions on the compact set $I^n$ with the supremum norm is a complete metric space (a Banach space).
+\end{lemma}
+
+\begin{proof}
+    Let $\{f_k\}$ be a Cauchy sequence in $C(I^n)$. For any $\epsilon > 0$, there exists an $N$ such that for $k,m > N$, $\|f_k - f_m\| < \epsilon$. For any fixed $\mathbf{x} \in I^n$, $|f_k(\mathbf{x}) - f_m(\mathbf{x})| < \epsilon$, so $\{f_k(\mathbf{x})\}$ is a Cauchy sequence of real numbers, which converges to a limit $f(\mathbf{x})$. This defines a function $f: I^n \to \mathbb{R}$.
+    We must show convergence is uniform. Taking the limit as $m \to \infty$, we have $|f_k(\mathbf{x}) - f(\mathbf{x})| \le \epsilon$ for all $k>N$ and all $\mathbf{x} \in I^n$. This means $\|f_k - f\| \le \epsilon$ for $k>N$, so $f_k \to f$ uniformly.
+    Finally, we show $f$ is continuous. Since $f$ is the uniform limit of a sequence of continuous functions, $f$ must be continuous. Therefore, $C(I^n)$ is complete.
+\end{proof}
+
+\begin{lemma}[Weierstrass M-Test]
+    \label{lem:Weierstrass_M_Test}
+    \uses{lem:Banach_Space_of_Continuous_Functions}
+    Let $\{g_k\}$ be a sequence of functions in $C(X)$ where $X$ is a compact set. If there is a sequence of non-negative real numbers $\{M_k\}$ with $\|g_k\| \le M_k$ and $\sum M_k$ converges, then the series $\sum g_k$ converges uniformly to a continuous function.
+\end{lemma}
+
+\begin{proof}
+    Let $S_N(\mathbf{x}) = \sum_{k=0}^N g_k(\mathbf{x})$ be the partial sum. For $M > N$, $\|S_M - S_N\| = \left\|\sum_{k=N+1}^M g_k\right\| \le \sum_{k=N+1}^M \|g_k\| \le \sum_{k=N+1}^M M_k$. Since $\sum M_k$ converges, its tail sum tends to 0. Thus, for any $\epsilon > 0$, there exists $N_0$ such that for $M > N > N_0$, $\sum_{k=N+1}^M M_k < \epsilon$. This shows that $\{S_N\}$ is a Cauchy sequence in $C(X)$. By Lemma \ref{lem:Banach_Space_of_Continuous_Functions}, $C(X)$ is a complete space, so the sequence of partial sums converges to a limit $S \in C(X)$.
+\end{proof}
+
+\begin{lemma}[Iterative Refinement to Exact Representation]
+    \label{lem:Iterative_Refinement}
+    \uses{lem:Single_Step_Approximation}
+    \uses{lem:Weierstrass_M_Test}
+    For any $f \in C(I^n)$, there exist inner functions $\{\phi_{q,p}\}$ and a continuous outer function $\Phi$ such that $f(\mathbf{x}) = \sum_{q=0}^{2n} \Phi\left(\sum_{p=1}^n \phi_{q,p}(x_p)\right)$.
+\end{lemma}
+
+\begin{proof}
+    Let $f_0 = f$. Using Lemma \ref{lem:Single_Step_Approximation} with $\delta=1/2$, find $\Phi_0$ and $\{\phi_{q,p}\}$ such that $f_1 = f_0 - \sum_{q=0}^{2n} \Phi_0\left(\sum_{p=1}^n \phi_{q,p}(x_p)\right)$ has $\|f_1\| \le (1/2)\|f_0\|$. Repeat this process for $f_k$, defining $f_{k+1} = f_k - \sum_{q=0}^{2n} \Phi_k\left(\sum_{p=1}^n \phi_{q,p}(x_p)\right)$, yielding $\|f_{k+1}\| \le (1/2)\|f_k\|$. We get $\|f_k\| \le (1/2)^k \|f_0\| \to 0$.
+    The construction of $\Phi_k$ in Lemma \ref{lem:Single_Step_Approximation} gives $\|\Phi_k\| \le \|f_k\|/C$ for some constant $C$. So, $\|\Phi_k\| \le M_k = (1/C)(1/2)^k \|f_0\|$. The series $\sum M_k$ converges. By Lemma \ref{lem:Weierstrass_M_Test}, the series $\Phi = \sum_{k=0}^{\infty} \Phi_k$ converges uniformly to a continuous function $\Phi$.
+    The original function is a telescoping sum: $f = \sum_{k=0}^{\infty} (f_k - f_{k+1}) = \sum_{k=0}^{\infty} \sum_{q=0}^{2n} \Phi_k\left(\sum_{p=1}^n \phi_{q,p}(x_p)\right)$. Interchanging the sums gives $\sum_{q=0}^{2n} \left(\sum_{k=0}^{\infty} \Phi_k\right)\left(\sum_{p=1}^n \phi_{q,p}(x_p)\right) = \sum_{q=0}^{2n} \Phi\left(\sum_{p=1}^n \phi_{q,p}(x_p)\right)$.
+\end{proof}
+
+\begin{theorem}[Kolmogorov-Arnold Representation Theorem]
+    \label{thm:Kolmogorov_Arnold}
+    \uses{def:Continuous_Functions}
+    \uses{lem:Iterative_Refinement}
+    Every continuous function $f \in C(I^n)$ can be represented in the form:
+    $$ f(x_1, \dots, x_n) = \sum_{q=0}^{2n} \Phi_q\left(\sum_{p=1}^n \phi_{q,p}(x_p)\right) $$
+    where $\Phi_q$ are continuous functions of one variable, and $\phi_{q,p}$ are continuous functions of one variable.
+\end{theorem}
+
+\begin{proof}
+    Lemma \ref{lem:Iterative_Refinement} proves that for any continuous function $f \in C(I^n)$, there exist a set of inner functions $\{\phi_{q,p}\}$ and a single continuous outer function $\Phi$ that provide an exact representation of the form $f(\mathbf{x}) = \sum_{q=0}^{2n} \Phi\left(\sum_{p=1}^n \phi_{q,p}(x_p)\right)$.
+    This is a specific instance of the theorem's statement. By setting $\Phi_q = \Phi$ for all $q \in \{0, \dots, 2n\}$, we satisfy the conditions of the theorem. This establishes the existence of such a representation for any continuous function of $n$ variables.
+\end{proof}

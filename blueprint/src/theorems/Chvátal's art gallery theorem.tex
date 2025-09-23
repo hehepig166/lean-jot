@@ -1,0 +1,165 @@
+\chapter{Chvátal's Art Gallery Theorem}
+
+\begin{definition}[Guard Set]
+    \label{def:Guard_Set}
+    Let $P$ be a simple polygon. A set of points $S$ is said to be a guard set for $P$ if for every point $p \in P$, there exists a point $q \in S$ such that the line segment $\overline{pq}$ is entirely contained within $P$.
+\end{definition}
+
+\begin{definition}[Polygon Triangulation]
+    \label{def:Polygon_Triangulation}
+    A triangulation of a simple polygon $P$ with $n$ vertices is a decomposition of $P$ into $n-2$ triangles by a set of non-intersecting diagonals connecting pairs of vertices of $P$.
+\end{definition}
+
+\begin{definition}[3-Coloring of a Graph]
+    \label{def:3-Coloring_of_a_Graph}
+    A 3-coloring of a graph $G = (V, E)$ is a function $c: V \to \{1, 2, 3\}$ such that for any edge $(u, v) \in E$, we have $c(u) \neq c(v)$. A graph that admits a 3-coloring is called 3-colorable.
+\end{definition}
+
+\begin{lemma}[Finding a Specific Internal Diagonal]
+    \label{lem:Finding_a_Specific_Internal_Diagonal}
+    Let $v$ be a convex vertex of a simple polygon $P$ with adjacent vertices $u$ and $w$. If the interior of the triangle $\triangle uvw$ contains other vertices of $P$, let $p$ be one such vertex that is furthest from the line segment $\overline{uw}$. Then the line segment $\overline{vp}$ is an internal diagonal of $P$.
+\end{lemma}
+
+\begin{proof}
+    The segment $\overline{vp}$ connects two vertices of the polygon. To be an internal diagonal, it must lie entirely in the interior of $P$, except for its endpoints. Assume for contradiction that $\overline{vp}$ intersects an edge of the polygon, say $\overline{ab}$. This edge $\overline{ab}$ cannot be incident to $v$. The line segment $\overline{vp}$ is contained within the triangle $\triangle uvw$. Therefore, the intersecting edge $\overline{ab}$ must have at least one endpoint, say $a$, inside $\triangle uvw$.
+    
+    The vertex $p$ was chosen as the vertex inside $\triangle uvw$ furthest from the line containing $\overline{uw}$. However, if we consider the triangle formed by $v$ and the line $\overline{uw}$, any vertex $a$ on an edge intersecting $\overline{vp}$ must lie further from $\overline{uw}$ than $p$ does. This contradicts the choice of $p$. Thus, no edge of the polygon can intersect the interior of $\overline{vp}$. Therefore, $\overline{vp}$ is an internal diagonal.
+\end{proof}
+
+\begin{lemma}[Existence of an Internal Diagonal]
+    \label{lem:Existence_of_an_Internal_Diagonal}
+    Any simple polygon with $n > 3$ vertices has at least one diagonal that lies entirely within its interior.
+\end{lemma}
+
+\begin{proof}
+    \uses{lem:Finding_a_Specific_Internal_Diagonal}
+    Let $v$ be a vertex of the polygon with a convex interior angle. Let $u$ and $w$ be the vertices adjacent to $v$. Consider the line segment $\overline{uw}$.
+    
+    Case 1: The segment $\overline{uw}$ lies entirely within the polygon and no other vertices lie on it. In this case, $\overline{uw}$ is an internal diagonal.
+    
+    Case 2: The segment $\overline{uw}$ does not lie entirely within the polygon, or other vertices lie on it. This implies that the interior of the triangle $\triangle uvw$ contains one or more vertices of the polygon. By lemma \ref{lem:Finding_a_Specific_Internal_Diagonal}, we can find a vertex $p$ inside $\triangle uvw$ such that $\overline{vp}$ is an internal diagonal.
+    
+    In either case, an internal diagonal exists. Since every simple polygon must have at least one convex vertex, this condition can always be met.
+\end{proof}
+
+\begin{lemma}[Polygon Splitting by Diagonal]
+    \label{lem:Polygon_Splitting_by_Diagonal}
+    Let $P$ be a simple polygon with $n$ vertices. An internal diagonal partitions $P$ into two smaller simple polygons, whose vertex counts, $n_1$ and $n_2$, satisfy $n_1 + n_2 = n+2$.
+\end{lemma}
+\begin{proof}
+    Let the diagonal connect vertices $v_i$ and $v_j$. This diagonal splits the boundary of the original polygon into two polygonal chains. The first smaller polygon, $P_1$, is formed by the diagonal $\overline{v_i v_j}$ and the chain of vertices from $v_i$ to $v_j$. The second smaller polygon, $P_2$, is formed by the same diagonal and the remaining chain of vertices from $v_j$ back to $v_i$. The vertices $v_i$ and $v_j$ are part of both new polygons. All other $n-2$ vertices of the original polygon belong to exactly one of the new polygons. Therefore, the total number of vertices in the two new polygons is $(n-2) + 2 + 2 = n+2$.
+\end{proof}
+
+\begin{lemma}[Existence of Triangulation]
+    \label{lem:Existence_of_Triangulation}
+    \uses{def:Polygon_Triangulation}
+    Any simple polygon with $n$ vertices can be triangulated.
+\end{lemma}
+
+\begin{proof}
+    \uses{lem:Existence_of_an_Internal_Diagonal}
+    \uses{lem:Polygon_Splitting_by_Diagonal}
+    The proof is by induction on the number of vertices $n$. The base case is $n=3$, a triangle, which is already triangulated.
+    For $n > 3$, lemma \ref{lem:Existence_of_an_Internal_Diagonal} guarantees the existence of an internal diagonal. This diagonal splits the polygon into two smaller simple polygons. By lemma \ref{lem:Polygon_Splitting_by_Diagonal}, these polygons have $n_1$ and $n_2$ vertices, where $n_1, n_2 < n$. By the induction hypothesis, both smaller polygons can be triangulated. The union of these two triangulations forms a triangulation of the original polygon.
+\end{proof}
+
+\begin{lemma}[Dual Graph of Triangulation is a Tree]
+    \label{lem:Dual_Graph_is_a_Tree}
+    \uses{def:Polygon_Triangulation}
+    \uses{lem:Existence_of_Triangulation}
+    Let $P$ be a simple polygon and let $T$ be a triangulation of $P$. The dual graph of $T$, which has a vertex for each triangle and an edge connecting vertices corresponding to adjacent triangles, is a tree.
+\end{lemma}
+
+\begin{proof}
+    The dual graph is connected because the polygon is a single connected region. Any path between two triangles in the triangulation corresponds to a path in the dual graph. A cycle in the dual graph would correspond to a set of triangles that enclose a region not belonging to the polygon, forming a hole. Since $P$ is a simple polygon, it has no holes. Therefore, the dual graph is connected and acyclic, which means it is a tree.
+\end{proof}
+
+\begin{lemma}[Existence of Leaves in a Tree]
+    \label{lem:Existence_of_Leaves_in_a_Tree}
+    Any finite tree with at least two vertices has at least two leaves (vertices of degree 1).
+\end{lemma}
+
+\begin{proof}
+    Consider a longest path in the tree. Let the endpoints of this path be $u$ and $v$. If the degree of $u$ were greater than 1, it would be adjacent to some vertex $w$ not on the path. The edge $(u,w)$ cannot create a cycle, as the graph is a tree. Thus, $w$ could be used to extend the path, contradicting the assumption that the path was the longest. Therefore, the degree of $u$ must be 1. The same argument applies to $v$.
+\end{proof}
+
+\begin{lemma}[Dual Graph Leaf corresponds to Polygon Ear]
+    \label{lem:Dual_Graph_Leaf_is_Ear}
+    \uses{def:Polygon_Triangulation}
+    \uses{lem:Dual_Graph_is_a_Tree}
+    Let $\mathcal{T}$ be a triangulation of a simple polygon $P$, and let $G$ be the dual graph of $\mathcal{T}$. A vertex of $G$ is a leaf if and only if the corresponding triangle in $\mathcal{T}$ is an "ear" of $P$ (a triangle formed by two polygon edges and one internal diagonal).
+\end{lemma}
+
+\begin{proof}
+    A vertex in the dual graph $G$ corresponds to a triangle in the triangulation $\mathcal{T}$. The degree of a vertex in $G$ is the number of adjacent triangles, which is the number of sides of the corresponding triangle that are internal diagonals.
+    
+    If a vertex in $G$ is a leaf, its degree is 1. This means its corresponding triangle has exactly one side that is an internal diagonal, shared with another triangle. The other two sides cannot be diagonals, so they must be edges of the original polygon. This is the definition of a polygon ear.
+    
+    Conversely, if a triangle is an ear, it is bounded by two polygon edges and one internal diagonal. It shares only this one diagonal with the rest of the triangulation. Therefore, its corresponding vertex in the dual graph $G$ has degree 1 and is a leaf.
+\end{proof}
+
+\begin{lemma}[3-Colorability of a Triangulated Polygon]
+    \label{lem:3-Colorability_of_a_Triangulated_Polygon}
+    \uses{def:Polygon_Triangulation}
+    \uses{def:3-Coloring_of_a_Graph}
+    \uses{lem:Existence_of_Triangulation}
+    The vertices of any triangulated simple polygon can be 3-colored.
+\end{lemma}
+
+\begin{proof}
+    \uses{lem:Dual_Graph_is_a_Tree}
+    \uses{lem:Existence_of_Leaves_in_a_Tree}
+    \uses{lem:Dual_Graph_Leaf_is_Ear}
+    The proof is by induction on $n$, the number of vertices. The base case $n=3$ is trivial. For $n>3$, consider the dual graph of the triangulation, which is a tree by lemma \ref{lem:Dual_Graph_is_a_Tree}. By lemma \ref{lem:Existence_of_Leaves_in_a_Tree}, this tree has a leaf. By lemma \ref{lem:Dual_Graph_Leaf_is_Ear}, this leaf corresponds to an ear triangle of the polygon. Let this ear be $\triangle v_1v_2v_3$, where $\overline{v_1v_3}$ is the diagonal.
+    
+    Removing this ear (and vertex $v_2$) leaves a smaller polygon with $n-1$ vertices. By the induction hypothesis, this smaller polygon is 3-colorable. In any such coloring, vertices $v_1$ and $v_3$ are adjacent and thus have different colors. We can then color the vertex $v_2$ with the third color not used by $v_1$ or $v_3$. This yields a valid 3-coloring for the entire polygon.
+\end{proof}
+
+\begin{lemma}[Vertices of a Triangle in a 3-Colored Triangulation]
+    \label{lem:Vertices_of_a_Triangle_in_a_3_Colored_Triangulation}
+    \uses{def:3-Coloring_of_a_Graph}
+    \uses{def:Polygon_Triangulation}
+    In any 3-coloring of the graph of a triangulated polygon, the three vertices of any triangle in the triangulation must have distinct colors.
+\end{lemma}
+\begin{proof}
+    In a triangulation, the three vertices of any triangle are pairwise connected by edges (either edges of the original polygon or diagonals of the triangulation). By the definition of a 3-coloring, any two adjacent vertices must have different colors. Therefore, the three vertices of a triangle, being all mutually adjacent, must be assigned three distinct colors.
+\end{proof}
+
+\begin{lemma}[Existence of a Small Color Class]
+    \label{lem:Existence_of_a_Small_Color_Class}
+    For any 3-coloring of a set of $n$ vertices, there is at least one color class with at most $\lfloor n/3 \rfloor$ vertices.
+\end{lemma}
+
+\begin{proof}
+    Let the sizes of the three color classes be $n_1, n_2,$ and $n_3$. We have $n_1 + n_2 + n_3 = n$. Assume for contradiction that $n_i > \lfloor n/3 \rfloor$ for all $i \in \{1, 2, 3\}$. Since $n_i$ must be an integer, this means $n_i \ge \lfloor n/3 \rfloor + 1$ for all $i$. Summing these inequalities gives $n_1 + n_2 + n_3 \ge 3(\lfloor n/3 \rfloor + 1)$. This sum is greater than $n$, which contradicts $n_1 + n_2 + n_3 = n$. Thus, at least one class must have size at most $\lfloor n/3 \rfloor$.
+\end{proof}
+
+\begin{lemma}[Guards on Vertices of a Triangle]
+    \label{lem:Guards_on_Vertices_of_a_Triangle}
+    A guard placed at any vertex of a triangle can see the entire triangle.
+\end{lemma}
+
+\begin{proof}
+    A triangle is a convex set. By definition of convexity, for any two points $p, q$ in a triangle, the line segment $\overline{pq}$ is entirely contained within the triangle. Therefore, a guard placed at a vertex can see all other points in the triangle.
+\end{proof}
+
+\begin{theorem}[Chvátal's Art Gallery Theorem]
+    \label{thm:Chvatals_Art_Gallery_Theorem}
+    \uses{def:Guard_Set}
+    For any simple polygon with $n$ vertices, $\lfloor n/3 \rfloor$ guards are sufficient to guard the entire polygon.
+\end{theorem}
+
+\begin{proof}
+    \uses{lem:Existence_of_Triangulation}
+    \uses{lem:3-Colorability_of_a_Triangulated_Polygon}
+    \uses{lem:Existence_of_a_Small_Color_Class}
+    \uses{lem:Vertices_of_a_Triangle_in_a_3_Colored_Triangulation}
+    \uses{lem:Guards_on_Vertices_of_a_Triangle}
+    First, we triangulate the simple polygon according to lemma \ref{lem:Existence_of_Triangulation}. Next, we apply a 3-coloring to the vertices of the triangulated polygon, which is guaranteed to exist by lemma \ref{lem:3-Colorability_of_a_Triangulated_Polygon}. This coloring partitions the $n$ vertices into three color classes.
+    
+    By lemma \ref{lem:Existence_of_a_Small_Color_Class}, there exists a color class with size at most $\lfloor n/3 \rfloor$. We place guards at all vertices belonging to this smallest color class.
+    
+    Now consider any triangle in the triangulation. By lemma \ref{lem:Vertices_of_a_Triangle_in_a_3_Colored_Triangulation}, its three vertices must have distinct colors. Therefore, every triangle contains exactly one vertex from our chosen color class, and thus has exactly one guard.
+    
+    By lemma \ref{lem:Guards_on_Vertices_of_a_Triangle}, this single guard is sufficient to see the entire triangle. Since the union of all triangles in the triangulation is the polygon itself, the entire polygon is guarded. Thus, $\lfloor n/3 \rfloor$ guards are sufficient.
+\end{proof}

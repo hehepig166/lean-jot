@@ -1,0 +1,150 @@
+\chapter{Rouch\'{e}--Capelli Theorem}
+
+\begin{definition}[Coefficient Matrix]
+    \label{def:Coefficient_Matrix}
+    For a system of linear equations with $n$ variables and $m$ equations,
+    $$
+    \begin{cases}
+        a_{11}x_1 + a_{12}x_2 + \dots + a_{1n}x_n = b_1 \\
+        a_{21}x_1 + a_{22}x_2 + \dots + a_{2n}x_n = b_2 \\
+        \vdots \\
+        a_{m1}x_1 + a_{m2}x_2 + \dots + a_{mn}x_n = b_m
+    \end{cases}
+    $$
+    the coefficient matrix, denoted by $A$, is the $m \times n$ matrix containing the coefficients of the variables:
+    $$ A = \begin{bmatrix} a_{11} & a_{12} & \dots & a_{1n} \\ a_{21} & a_{22} & \dots & a_{2n} \\ \vdots & \vdots & \ddots & \vdots \\ a_{m1} & a_{m2} & \dots & a_{mn} \end{bmatrix} $$
+\end{definition}
+
+\begin{definition}[Augmented Matrix]
+    \label{def:Augmented_Matrix}
+    \uses{def:Coefficient_Matrix}
+    Given a system of linear equations, its augmented matrix, denoted by $[A|b]$, is the coefficient matrix $A$ appended with a column vector $b$ representing the constant terms:
+    $$ [A|b] = \left[\begin{array}{cccc|c} a_{11} & a_{12} & \dots & a_{1n} & b_1 \\ a_{21} & a_{22} & \dots & a_{2n} & b_2 \\ \vdots & \vdots & \ddots & \vdots & \vdots \\ a_{m1} & a_{m2} & \dots & a_{mn} & b_m \end{array}\right] $$
+\end{definition}
+
+\begin{definition}[Rank of a Matrix]
+    \label{def:Rank_of_a_Matrix}
+    The rank of a matrix is the maximum number of linearly independent row vectors in the matrix. It is also the number of non-zero rows in its reduced row echelon form.
+\end{definition}
+
+\begin{lemma}[Invariance of Solution Set under Row Operations]
+    \label{lem:Invariance_of_Solution_Set}
+    Applying elementary row operations to an augmented matrix does not change the set of solutions of the corresponding system of linear equations.
+\end{lemma}
+
+\begin{proof}
+    Elementary row operations (swapping rows, multiplying a row by a non-zero scalar, adding a multiple of one row to another) correspond to reversible transformations of the equations in the system. Since each operation can be undone, the set of variable values satisfying the system remains unchanged.
+\end{proof}
+
+\begin{lemma}[Rank Invariance under Row Operations]
+    \label{lem:Rank_Invariance_under_Row_Operations}
+    \uses{def:Rank_of_a_Matrix}
+    Let $M$ be a matrix and let $M'$ be a matrix obtained from $M$ by a finite sequence of elementary row operations. Then the row space of $M$ is identical to the row space of $M'$, and consequently, $\text{rank}(M) = \text{rank}(M')$.
+\end{lemma}
+
+\begin{proof}
+    Elementary row operations do not change the span of the row vectors of a matrix. Swapping rows does not change the set of row vectors. Multiplying a row by a non-zero scalar scales one of the basis vectors of the row space, but the span remains the same. Adding a multiple of one row to another creates a new vector that is a linear combination of existing vectors, which does not leave the original span. Since these operations are reversible, the row space is preserved. As rank is the dimension of the row space, the rank remains invariant.
+\end{proof}
+
+\begin{lemma}[Consistency Condition for RREF Systems]
+    \label{lem:Consistency_Condition_RREF}
+    A system of linear equations whose augmented matrix is in reduced row echelon form is consistent if and only if it does not contain a row of the form $[0 \ 0 \ \dots \ 0 \ | \ 1]$.
+\end{lemma}
+
+\begin{proof}
+    If the augmented matrix contains a row of the form $[0 \ 0 \ \dots \ 0 \ | \ 1]$, this corresponds to the contradictory equation $0=1$, so the system is inconsistent. Conversely, if no such row exists, we can express each pivot variable in terms of the non-pivot (free) variables and constants. Assigning arbitrary values to the free variables provides a valid solution, so the system is consistent.
+\end{proof}
+
+\begin{lemma}[System Consistency and RREF Structure]
+    \label{lem:System_Consistency_and_RREF}
+    \uses{lem:Invariance_of_Solution_Set}
+    \uses{lem:Consistency_Condition_RREF}
+    A system of linear equations is consistent if and only if the reduced row echelon form of its augmented matrix does not contain a row of the form $[0 \ 0 \ \dots \ 0 \ | \ 1]$.
+\end{lemma}
+
+\begin{proof}
+    \uses{lem:Invariance_of_Solution_Set}
+    \uses{lem:Consistency_Condition_RREF}
+    Let $S$ be the original system. By lemma \ref{lem:Invariance_of_Solution_Set}, the solution set of $S$ is identical to that of the system $S'$ corresponding to its reduced row echelon form. Thus, $S$ is consistent if and only if $S'$ is consistent. By lemma \ref{lem:Consistency_Condition_RREF}, $S'$ is consistent if and only if its augmented matrix has no row of the form $[0 \ 0 \ \dots \ 0 \ | \ 1]$.
+\end{proof}
+
+\begin{lemma}[Rank Equality and RREF Structure]
+    \label{lem:Rank_Equality_and_RREF}
+    \uses{def:Augmented_Matrix}
+    \uses{def:Rank_of_a_Matrix}
+    \uses{lem:Rank_Invariance_under_Row_Operations}
+    Let $A$ be a coefficient matrix and $[A|b]$ be the corresponding augmented matrix. Then $\text{rank}(A) = \text{rank}([A|b])$ if and only if the reduced row echelon form of $[A|b]$ contains no row of the form $[0 \ 0 \ \dots \ 0 \ | \ 1]$.
+\end{lemma}
+
+\begin{proof}
+    \uses{def:Rank_of_a_Matrix}
+    \uses{lem:Rank_Invariance_under_Row_Operations}
+    Let $[A'|b']$ be the reduced row echelon form of $[A|b]$. By lemma \ref{lem:Rank_Invariance_under_Row_Operations}, $\text{rank}(A) = \text{rank}(A')$ and $\text{rank}([A|b]) = \text{rank}([A'|b'])$. The rank is the number of non-zero rows. A row in $[A'|b']$ can be non-zero while the corresponding row in $A'$ is zero only if it is of the form $[0 \ 0 \ \dots \ 0 \ | \ c]$ with $c \ne 0$. In RREF, this means $c=1$. Thus, $\text{rank}(A') < \text{rank}([A'|b'])$ if and only if such a row exists. Consequently, $\text{rank}(A) = \text{rank}([A|b])$ if and only if no such row exists.
+\end{proof}
+
+\begin{theorem}[Rouch\'{e}--Capelli Theorem on Existence of Solutions]
+    \label{thm:Rouche-Capelli_Existence}
+    \uses{def:Coefficient_Matrix}
+    \uses{def:Augmented_Matrix}
+    \uses{def:Rank_of_a_Matrix}
+    A system of linear equations has at least one solution if and only if the rank of its coefficient matrix $A$ is equal to the rank of its augmented matrix $[A|b]$.
+\end{theorem}
+
+\begin{proof}
+    \uses{lem:System_Consistency_and_RREF}
+    \uses{lem:Rank_Equality_and_RREF}
+    A system is consistent (has a solution) if and only if the reduced row echelon form of its augmented matrix has no row of the form $[0 \ 0 \ \dots \ 0 \ | \ 1]$, by lemma \ref{lem:System_Consistency_and_RREF}. By lemma \ref{lem:Rank_Equality_and_RREF}, this condition is equivalent to $\text{rank}(A) = \text{rank}([A|b])$.
+\end{proof}
+
+\begin{lemma}[General Solution Structure]
+    \label{lem:General_Solution_Structure}
+    Let $A\mathbf{x}=\mathbf{b}$ be a consistent system of linear equations. If $\mathbf{x}_p$ is a particular solution, then the complete solution set is the set $S = \{ \mathbf{x}_p + \mathbf{x}_h \mid A\mathbf{x}_h = \mathbf{0} \}$.
+\end{lemma}
+
+\begin{proof}
+    Let $\mathbf{x}$ be any solution to $A\mathbf{x}=\mathbf{b}$. Let $\mathbf{x}_h = \mathbf{x} - \mathbf{x}_p$. Then $A\mathbf{x}_h = A(\mathbf{x} - \mathbf{x}_p) = A\mathbf{x} - A\mathbf{x}_p = \mathbf{b} - \mathbf{b} = \mathbf{0}$. So $\mathbf{x}_h$ is a solution to the homogeneous system. Thus, any solution $\mathbf{x}$ can be written as $\mathbf{x}_p + \mathbf{x}_h$. Conversely, let $\mathbf{x}_h$ be any solution to $A\mathbf{x}_h = \mathbf{0}$. Then $A(\mathbf{x}_p + \mathbf{x}_h) = A\mathbf{x}_p + A\mathbf{x}_h = \mathbf{b} + \mathbf{0} = \mathbf{b}$, so $\mathbf{x}_p + \mathbf{x}_h$ is a solution.
+\end{proof}
+
+\begin{lemma}[Rank-Nullity Theorem]
+    \label{lem:Rank_Nullity_Theorem}
+    \uses{def:Rank_of_a_Matrix}
+    For an $m \times n$ matrix $A$, the dimension of its column space (rank) plus the dimension of its null space (nullity) equals the number of columns $n$. That is, $\text{rank}(A) + \dim(N(A)) = n$.
+\end{lemma}
+
+\begin{proof}
+    Let $r = \text{rank}(A)$. The rank of $A$ is the dimension of its column space, which is also the dimension of its row space. In the reduced row echelon form of $A$, there are $r$ pivot columns and $n-r$ non-pivot columns. The non-pivot columns correspond to free variables in the solution to $A\mathbf{x}=\mathbf{0}$. The null space $N(A)$ is the solution set of $A\mathbf{x}=\mathbf{0}$. We can construct a basis for $N(A)$ by setting one free variable to 1 and all others to 0, and solving for the pivot variables. This can be done for each of the $n-r$ free variables, yielding $n-r$ linearly independent vectors that span $N(A)$. Thus, $\dim(N(A)) = n-r$. The theorem follows.
+\end{proof}
+
+\begin{lemma}[Structure of the Solution Set]
+    \label{lem:Structure_of_Solution_Set}
+    \uses{lem:General_Solution_Structure}
+    \uses{lem:Rank_Nullity_Theorem}
+    If a consistent system of linear equations in $n$ variables has a coefficient matrix $A$ with $\text{rank}(A) = r$, then the solution set is an affine subspace of dimension $n-r$.
+\end{lemma}
+
+\begin{proof}
+    \uses{lem:General_Solution_Structure}
+    \uses{lem:Rank_Nullity_Theorem}
+    By lemma \ref{lem:General_Solution_Structure}, the solution set is a translation of the null space $N(A)$ by a particular solution vector $\mathbf{x}_p$. This is the definition of an affine subspace. The dimension of this affine subspace is the dimension of the vector space $N(A)$. By the Rank-Nullity Theorem (lemma \ref{lem:Rank_Nullity_Theorem}), $\dim(N(A)) = n - \text{rank}(A) = n-r$.
+\end{proof}
+
+\begin{theorem}[Rouch\'{e}--Capelli Theorem on the Number of Solutions]
+    \label{thm:Rouche-Capelli_Number_of_Solutions}
+    \uses{def:Rank_of_a_Matrix}
+    \uses{thm:Rouche-Capelli_Existence}
+    \uses{lem:Structure_of_Solution_Set}
+    If a system of linear equations is consistent, with $n$ variables and coefficient matrix rank $r = \text{rank}(A)$, then:
+    \begin{enumerate}
+        \item If $r=n$, the system has a unique solution.
+        \item If $r<n$, the system has infinitely many solutions (assuming the underlying field is infinite).
+    \end{enumerate}
+\end{theorem}
+
+\begin{proof}
+    \uses{lem:Structure_of_Solution_Set}
+    As the system is consistent, we can apply lemma \ref{lem:Structure_of_Solution_Set}. The solution set is an affine subspace of dimension $n-r$.
+    \begin{enumerate}
+        \item If $r=n$, the dimension is $n-n=0$. A zero-dimensional affine subspace is a single point, hence a unique solution.
+        \item If $r<n$, the dimension $n-r$ is positive. An affine subspace of positive dimension over an infinite field contains infinitely many points, hence infinitely many solutions.
+    \end{enumerate}
+\end{proof}

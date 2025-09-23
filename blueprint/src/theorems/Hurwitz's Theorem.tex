@@ -1,0 +1,177 @@
+\chapter{Hurwitz's Theorem}
+
+\begin{definition}[Holomorphic Function]
+    \label{def:Holomorphic_Function}
+    A function $f: U \to \mathbb{C}$, where $U$ is an open subset of the complex plane $\mathbb{C}$, is said to be \textit{holomorphic} on $U$ if it is complex differentiable at every point $z_0 \in U$.
+\end{definition}
+
+\begin{definition}[Uniform Convergence on Compact Subsets]
+    \label{def:Uniform_Convergence_on_Compact_Subsets}
+    \uses{def:Holomorphic_Function}
+    A sequence of functions $\{f_n\}$ is said to converge uniformly on compact subsets of a domain $G$ to a function $f$ if for every compact set $K \subset G$, the sequence of functions $\{f_n|_K\}$ converges uniformly to $f|_K$.
+\end{definition}
+
+\begin{lemma}[Green's Theorem]
+    \label{lem:Greens_Theorem}
+    Let $C$ be a positively oriented, piecewise smooth, simple closed curve in a plane, and let $D$ be the region bounded by $C$. If $L(x,y)$ and $M(x,y)$ have continuous first partial derivatives on an open region containing $D$, then
+    $$ \oint_C (L \, dx + M \, dy) = \iint_D \left(\frac{\partial M}{\partial x} - \frac{\partial L}{\partial y}\right) dA. $$
+\end{lemma}
+
+\begin{proof}
+    This is a fundamental theorem of vector calculus. The proof for a simple rectangular region is straightforward. For a general region $D$, it can be approximated by a grid of small rectangles, and the line integrals over the interior boundaries cancel out, leaving the integral over the boundary $C$.
+\end{proof}
+
+\begin{lemma}[Cauchy's Integral Theorem]
+    \label{lem:Cauchy_Integral_Theorem}
+    \uses{def:Holomorphic_Function}
+    \uses{lem:Greens_Theorem}
+    Let $U$ be a simply connected open subset of $\mathbb{C}$, let $f: U \to \mathbb{C}$ be a holomorphic function, and let $\gamma$ be a simple closed contour in $U$. Then $\oint_\gamma f(z) dz = 0$.
+\end{lemma}
+
+\begin{proof}
+    Let $f(z) = u(x,y) + i v(x,y)$ and $dz = dx + i dy$. The integral is $\oint_\gamma (u+iv)(dx+idy) = \oint_\gamma (u \, dx - v \, dy) + i \oint_\gamma (v \, dx + u \, dy)$.
+    Applying Green's Theorem, lemma \ref{lem:Greens_Theorem}, to the real and imaginary parts, we get:
+    $$ \oint_\gamma (u \, dx - v \, dy) = \iint_D \left(\frac{\partial(-v)}{\partial x} - \frac{\partial u}{\partial y}\right) dA = \iint_D \left(-\frac{\partial v}{\partial x} - \frac{\partial u}{\partial y}\right) dA $$
+    $$ \oint_\gamma (v \, dx + u \, dy) = \iint_D \left(\frac{\partial u}{\partial x} - \frac{\partial v}{\partial y}\right) dA $$
+    Since $f$ is holomorphic, its real and imaginary parts $u$ and $v$ satisfy the Cauchy-Riemann equations: $\frac{\partial u}{\partial x} = \frac{\partial v}{\partial y}$ and $\frac{\partial u}{\partial y} = -\frac{\partial v}{\partial x}$. Substituting these equations into the double integrals shows that both integrands are zero. Therefore, the integral $\oint_\gamma f(z) dz$ is zero.
+\end{proof}
+
+\begin{lemma}[Deformation Invariance]
+    \label{lem:Deformation_Invariance}
+    \uses{def:Holomorphic_Function}
+    \uses{lem:Cauchy_Integral_Theorem}
+    Let $f$ be a holomorphic function in a domain $G$. If $\gamma_0$ and $\gamma_1$ are two simple closed contours in $G$ that are homotopic (can be continuously deformed into one another) within $G$, then $\oint_{\gamma_0} f(z) dz = \oint_{\gamma_1} f(z) dz$.
+\end{lemma}
+
+\begin{proof}
+    Consider the closed contour $\Gamma = \gamma_0 - \gamma_1$ (where $-\gamma_1$ denotes the curve $\gamma_1$ with opposite orientation). Since $\gamma_0$ and $\gamma_1$ are homotopic in $G$, the region enclosed by $\Gamma$ is contained in $G$. We can construct a contour that connects $\gamma_0$ and $\gamma_1$, traverses $\gamma_0$, goes back along the connection, traverses $\gamma_1$ in reverse, and returns along the connection. The integrals along the connecting path cancel. The region enclosed by this new composite contour is simply connected and lies within $G$. By Cauchy's Integral Theorem, lemma \ref{lem:Cauchy_Integral_Theorem}, the integral of $f$ over this composite contour is zero. This implies $\oint_{\gamma_0} f(z) dz - \oint_{\gamma_1} f(z) dz = 0$.
+\end{proof}
+
+\begin{lemma}[Cauchy's Integral Formula for a Simple Pole]
+    \label{lem:Cauchy_Integral_Formula_for_a_Simple_Pole}
+    \uses{lem:Cauchy_Integral_Theorem}
+    \uses{lem:Deformation_Invariance}
+    Let $\gamma$ be a simple closed contour traversed counter-clockwise, and let $a$ be a point not on $\gamma$. Then
+    $$ \oint_\gamma \frac{dz}{z-a} = \begin{cases} 2\pi i & \text{if } a \text{ is inside } \gamma \\ 0 & \text{if } a \text{ is outside } \gamma \end{cases}. $$
+\end{lemma}
+
+\begin{proof}
+    If $a$ is outside $\gamma$, the function $f(z) = 1/(z-a)$ is holomorphic inside and on $\gamma$. By Cauchy's Integral Theorem, lemma \ref{lem:Cauchy_Integral_Theorem}, the integral is 0.
+    If $a$ is inside $\gamma$, let $C_r$ be a small circle of radius $r$ centered at $a$, entirely inside $\gamma$. The contours $\gamma$ and $C_r$ are homotopic in the domain $\mathbb{C} \setminus \{a\}$. By the Deformation Invariance, lemma \ref{lem:Deformation_Invariance}, $\oint_\gamma \frac{dz}{z-a} = \oint_{C_r} \frac{dz}{z-a}$. Parametrizing $C_r$ by $z(t) = a + re^{it}$ for $t \in [0, 2\pi]$, we have $dz = ire^{it}dt$. The integral becomes $\int_0^{2\pi} \frac{ire^{it}}{re^{it}} dt = \int_0^{2\pi} i dt = 2\pi i$.
+\end{proof}
+
+\begin{lemma}[Residue of Logarithmic Derivative]
+    \label{lem:Residue_of_Logarithmic_Derivative}
+    \uses{def:Holomorphic_Function}
+    Let $f$ be a function analytic at $z_0$. If $f$ has a zero of order $m$ at $z_0$, the logarithmic derivative $f'(z)/f(z)$ has a simple pole with residue $m$ at $z_0$. If $f$ has a pole of order $n$ at $z_0$, the residue is $-n$.
+\end{lemma}
+
+\begin{proof}
+    If $f$ has a zero of order $m$ at $z_0$, we can write $f(z)=(z-z_0)^m g(z)$ where $g(z)$ is analytic and non-zero at $z_0$. Taking the derivative, $f'(z) = m(z-z_0)^{m-1}g(z) + (z-z_0)^m g'(z)$. The logarithmic derivative is $\frac{f'(z)}{f(z)} = \frac{m(z-z_0)^{m-1}g(z) + (z-z_0)^m g'(z)}{(z-z_0)^m g(z)} = \frac{m}{z-z_0} + \frac{g'(z)}{g(z)}$. Since $g(z_0)\neq 0$, the term $g'(z)/g(z)$ is analytic at $z_0$. Thus, $f'(z)/f(z)$ has a simple pole at $z_0$ with residue $m$.
+    If $f$ has a pole of order $n$, $f(z)=(z-z_0)^{-n} h(z)$ with $h(z_0)\neq 0$. A similar calculation yields $\frac{f'(z)}{f(z)} = \frac{-n}{z-z_0} + \frac{h'(z)}{h(z)}$, showing the residue is $-n$.
+\end{proof}
+
+\begin{lemma}[Argument Principle]
+    \label{lem:Argument_Principle}
+    \uses{def:Holomorphic_Function}
+    \uses{lem:Cauchy_Integral_Theorem}
+    \uses{lem:Cauchy_Integral_Formula_for_a_Simple_Pole}
+    \uses{lem:Residue_of_Logarithmic_Derivative}
+    Let $f$ be a meromorphic function on a domain $G$, and let $\gamma$ be a simple closed contour in $G$ that does not pass through any zeros or poles of $f$. Let $Z$ be the number of zeros and $P$ be the number of poles of $f$ inside $\gamma$, counted with multiplicity. Then
+    $$ \frac{1}{2\pi i} \oint_\gamma \frac{f'(z)}{f(z)} dz = Z - P. $$
+\end{lemma}
+
+\begin{proof}
+    Let the zeros be $z_j$ with multiplicity $m_j$ and poles be $p_k$ with multiplicity $n_k$. By lemma \ref{lem:Residue_of_Logarithmic_Derivative}, the function $h(z) = f'(z)/f(z)$ has simple poles at each $z_j$ and $p_k$ with residues $m_j$ and $-n_k$ respectively. We can write $h(z) = \sum_j \frac{m_j}{z-z_j} - \sum_k \frac{n_k}{z-p_k} + g(z)$, where $g(z)$ is holomorphic inside $\gamma$. Integrating over $\gamma$ gives $\oint_\gamma h(z) dz = \sum_j m_j \oint_\gamma \frac{dz}{z-z_j} - \sum_k n_k \oint_\gamma \frac{dz}{z-p_k} + \oint_\gamma g(z) dz$. By lemma \ref{lem:Cauchy_Integral_Formula_for_a_Simple_Pole}, the integrals involving zeros and poles evaluate to $2\pi i$. By lemma \ref{lem:Cauchy_Integral_Theorem}, the integral of $g(z)$ is zero. Thus, $\oint_\gamma \frac{f'(z)}{f(z)} dz = 2\pi i (\sum_j m_j - \sum_k n_k) = 2\pi i (Z - P)$.
+\end{proof}
+
+\begin{lemma}[Taylor Series Expansion of Holomorphic Functions]
+    \label{lem:Taylor_Series_Expansion}
+    \uses{def:Holomorphic_Function}
+    If a function $f$ is holomorphic in a disk $D(z_0, R)$, then $f$ can be represented by a power series $f(z) = \sum_{n=0}^\infty a_n (z-z_0)^n$ for all $z \in D(z_0, R)$. If $f$ is not the zero function, there exists a smallest integer $m \ge 0$ such that $a_m \neq 0$.
+\end{lemma}
+
+\begin{proof}
+    The coefficients of the Taylor series are given by Cauchy's integral formula for derivatives: $a_n = \frac{f^{(n)}(z_0)}{n!} = \frac{1}{2\pi i} \oint_C \frac{f(w)}{(w-z_0)^{n+1}} dw$. The convergence of this series to $f(z)$ within the disk is a standard result in complex analysis. If $f$ is not identically zero, not all coefficients can be zero. Thus, there must be a smallest index $m$ for which $a_m \neq 0$.
+\end{proof}
+
+\begin{lemma}[Isolation of Zeros]
+    \label{lem:Isolation_of_Zeros}
+    \uses{def:Holomorphic_Function}
+    \uses{lem:Taylor_Series_Expansion}
+    If $f$ is a non-zero holomorphic function on a connected open set $G \subset \mathbb{C}$, then its zeros are isolated.
+\end{lemma}
+
+\begin{proof}
+    Let $z_0$ be a zero of $f$. Since $f$ is not identically zero, by lemma \ref{lem:Taylor_Series_Expansion}, there is a Taylor expansion $f(z) = \sum_{k=m}^\infty a_k (z-z_0)^k$ with $m \ge 1$ and $a_m \neq 0$. We can factor this as $f(z) = (z-z_0)^m \left(a_m + a_{m+1}(z-z_0) + \dots\right) = (z-z_0)^m g(z)$. The function $g(z)$ is holomorphic in a neighborhood of $z_0$ and $g(z_0) = a_m \neq 0$. Since $g$ is continuous, there is a disk $D(z_0, r)$ where $g(z) \neq 0$. In this disk, for $z \neq z_0$, $f(z) = (z-z_0)^m g(z) \neq 0$. Thus, $z_0$ is an isolated zero.
+\end{proof}
+
+\begin{lemma}[Extreme Value Theorem]
+    \label{lem:Extreme_Value_Theorem}
+    If $K$ is a compact topological space and $h: K \to \mathbb{R}$ is a continuous function, then $h$ attains its maximum and minimum values on $K$.
+\end{lemma}
+
+\begin{proof}
+    Let $S = h(K)$ be the image of $K$. Since $h$ is continuous and $K$ is compact, $S$ is a compact subset of $\mathbb{R}$. As a compact subset of $\mathbb{R}$, $S$ is closed and bounded. Being bounded, it has a supremum and an infimum. Being closed, it contains its supremum and infimum. Therefore, there exist points $x_{\mathrm{max}}, x_{\mathrm{min}} \in K$ such that $h(x_{\mathrm{max}}) = \sup S$ and $h(x_{\mathrm{min}}) = \inf S$.
+\end{proof}
+
+\begin{lemma}[Minimum Modulus on a Compact Set]
+    \label{lem:Minimum_Modulus_on_Compact_Set}
+    \uses{lem:Extreme_Value_Theorem}
+    Let $K \subset \mathbb{C}$ be a compact set and let $g: K \to \mathbb{C}$ be a continuous function. If $g(z) \neq 0$ for all $z \in K$, then there exists a constant $\delta > 0$ such that $|g(z)| \ge \delta$ for all $z \in K$.
+\end{lemma}
+
+\begin{proof}
+    The function $|g(z)|$ is a continuous real-valued function on the compact set $K$. By the Extreme Value Theorem, lemma \ref{lem:Extreme_Value_Theorem}, $|g(z)|$ attains its minimum value on $K$. Let this minimum be $\delta = \min_{z \in K} |g(z)|$. Since $g(z) \neq 0$ for all $z \in K$, we have $|g(z)| > 0$ for all $z \in K$. Therefore, the minimum value $\delta$ must be strictly positive.
+\end{proof}
+
+\begin{lemma}[Continuity of Parametric Integral]
+    \label{lem:Continuity_of_Parametric_Integral}
+    Let $\gamma$ be a contour and let $F(t,z)$ be a function that is continuous in both variables $t \in [a,b]$ and $z \in \gamma$. Then the function $I(t) = \oint_\gamma F(t,z) dz$ is a continuous function of $t$ on $[a,b]$.
+\end{lemma}
+
+\begin{proof}
+    Since the domain $[a,b] \times \gamma$ is compact, the continuous function $F(t,z)$ is uniformly continuous. Thus, for any $\epsilon > 0$, there exists a $\delta > 0$ such that if $|t_1 - t_2| < \delta$, then $|F(t_1, z) - F(t_2, z)| < \frac{\epsilon}{\mathrm{length}(\gamma)}$ for all $z \in \gamma$. Then $|I(t_1) - I(t_2)| = \left|\oint_\gamma (F(t_1,z) - F(t_2,z)) dz\right| \le \oint_\gamma |F(t_1,z) - F(t_2,z)| |dz| < \frac{\epsilon}{\mathrm{length}(\gamma)} \mathrm{length}(\gamma) = \epsilon$. This shows $I(t)$ is continuous.
+\end{proof}
+
+\begin{lemma}[Continuity of Integer-Valued Function]
+    \label{lem:Continuity_of_Integer_Valued_Function}
+    Let $f: X \to Y$ be a continuous function where $X$ is a connected topological space and $Y$ is a discrete topological space (e.g., $\mathbb{Z}$). Then $f$ must be a constant function.
+\end{lemma}
+
+\begin{proof}
+    The image $f(X)$ of a connected space under a continuous map is connected. The only connected subsets of a discrete space like $\mathbb{Z}$ are single points. Therefore, $f(X)$ must be a single point, which means $f$ is constant.
+\end{proof}
+
+\begin{lemma}[Rouché's Theorem]
+    \label{lem:Rouche's_Theorem}
+    \uses{def:Holomorphic_Function}
+    \uses{lem:Argument_Principle}
+    \uses{lem:Continuity_of_Parametric_Integral}
+    \uses{lem:Continuity_of_Integer_Valued_Function}
+    Let $f$ and $g$ be holomorphic functions on a domain $G$. Let $\gamma$ be a simple closed contour in $G$, and suppose that for all $z \in \gamma$, we have $|f(z) - g(z)| < |f(z)|$. Then $f$ and $g$ have the same number of zeros inside $\gamma$.
+\end{lemma}
+
+\begin{proof}
+    The condition $|f(z) - g(z)| < |f(z)|$ implies $f(z) \neq 0$ and $g(z) \neq 0$ on $\gamma$. Let $h(t, z) = f(z) + t(g(z)-f(z))$ for $t \in [0, 1]$. For any $t \in [0, 1]$ and $z \in \gamma$, $|h(t, z) - f(z)| = t|g(z)-f(z)| < t|f(z)| \le |f(z)|$, which implies $h(t,z) \neq 0$ on $\gamma$.
+    Let $N(t)$ be the number of zeros of $h(t, \cdot)$ inside $\gamma$. By lemma \ref{lem:Argument_Principle}, $N(t) = \frac{1}{2\pi i} \oint_\gamma \frac{1}{h(t,z)}\frac{\partial h}{\partial z}(t,z) dz$. The integrand is continuous in $(t,z)$, so by lemma \ref{lem:Continuity_of_Parametric_Integral}, $N(t)$ is a continuous function of $t$. Since $N(t)$ must be an integer, lemma \ref{lem:Continuity_of_Integer_Valued_Function} implies $N(t)$ is constant on the connected interval $[0,1]$. Thus, $N(0) = N(1)$. $N(0)$ is the number of zeros of $h(0,z)=f(z)$, and $N(1)$ is the number of zeros of $h(1,z)=g(z)$. Hence, they are equal.
+\end{proof}
+
+\begin{theorem}[Hurwitz's Theorem]
+    \label{thm:Hurwitzs_Theorem}
+    \uses{def:Holomorphic_Function}
+    \uses{def:Uniform_Convergence_on_Compact_Subsets}
+    \uses{lem:Isolation_of_Zeros}
+    \uses{lem:Minimum_Modulus_on_Compact_Set}
+    \uses{lem:Rouche's_Theorem}
+    Let $\{f_n\}$ be a sequence of holomorphic functions on a connected open set $G$ that converge uniformly on compact subsets of $G$ to a holomorphic function $f$ which is not constantly zero on $G$. If $f$ has a zero of order $m$ at $z_0$, then for every small enough $\rho > 0$ and for sufficiently large $k \in \mathbb{N}$, $f_k$ has precisely $m$ zeros in the disk defined by $|z - z_0| < \rho$, including multiplicity.
+\end{theorem}
+
+\begin{proof}
+    Let $z_0$ be a zero of order $m$ of $f$. Since $f$ is not identically zero, lemma \ref{lem:Isolation_of_Zeros} ensures that we can choose $\rho > 0$ such that $f(z) \neq 0$ for $0 < |z-z_0| \le \rho$. Let $C$ be the circle $|z-z_0| = \rho$. $C$ is a compact set.
+    As $f(z) \neq 0$ on $C$, by lemma \ref{lem:Minimum_Modulus_on_Compact_Set}, there exists a $\delta > 0$ such that $|f(z)| \ge \delta$ for all $z \in C$.
+    The sequence $\{f_n\}$ converges to $f$ uniformly on $C$. Thus, there is an integer $N$ such that for all $n \ge N$ and $z \in C$, we have $|f_n(z) - f(z)| < \delta$.
+    This gives the condition $|f_n(z) - f(z)| < \delta \le |f(z)|$ for all $n \ge N$ and $z \in C$.
+    By Rouché's Theorem, lemma \ref{lem:Rouche's_Theorem}, the functions $f_n$ and $f$ have the same number of zeros inside the circle $C$ for all $n \ge N$.
+    Since $f$ has a zero of order $m$ at $z_0$ and no other zeros within this disk, $f$ has exactly $m$ zeros inside $C$. Therefore, for all $n \ge N$, $f_n$ also has exactly $m$ zeros inside the disk $|z-z_0|<\rho$.
+\end{proof}

@@ -1,0 +1,105 @@
+\chapter{Skolem-Noether Theorem}
+
+\begin{definition}[Simple Ring]
+    \label{def:Simple_Ring}
+    A ring $R$ is called simple if it has no two-sided ideals other than the zero ideal and itself.
+\end{definition}
+
+\begin{definition}[Central Simple Algebra]
+    \label{def:Central_Simple_Algebra}
+    \uses{def:Simple_Ring}
+    A finite-dimensional associative algebra $A$ over a field $k$ is a central simple algebra (CSA) if it is a simple ring and its center is precisely the field $k$.
+\end{definition}
+
+\begin{definition}[Opposite Algebra]
+    \label{def:Opposite_Algebra}
+    Let $(A, \cdot)$ be an algebra over a field $k$. The opposite algebra, denoted $A^{\text{op}}$, has the same underlying vector space as $A$ but with multiplication $*$ defined by $a * b = b \cdot a$ for all $a, b \in A$.
+\end{definition}
+
+\begin{lemma}[Opposite of a CSA is a CSA]
+    \label{lem:Opposite_of_CSA_is_CSA}
+    \uses{def:Central_Simple_Algebra}
+    \uses{def:Opposite_Algebra}
+    Let $B$ be a central simple algebra over a field $k$. Then its opposite algebra $B^{\text{op}}$ is also a central simple algebra over $k$.
+\end{lemma}
+
+\begin{proof}
+    The center of an algebra is defined by the multiplication operation. An element $z$ is in the center of $B^{\text{op}}$ if $z * b = b * z$ for all $b \in B^{\text{op}}$. By definition of the opposite algebra, this is equivalent to $b \cdot z = z \cdot b$ for all $b \in B$. This is the condition for $z$ to be in the center of $B$. Therefore, $Z(B^{\text{op}}) = Z(B) = k$.
+    Furthermore, a two-sided ideal in $B^{\text{op}}$ is a subset $I$ such that for all $i \in I$ and $b \in B$, $i*b \in I$ and $b*i \in I$. This translates to $b \cdot i \in I$ and $i \cdot b \in I$, which means $I$ is a two-sided ideal in $B$. Since $B$ is simple, its only ideals are $\{0\}$ and $B$. Thus, the only ideals of $B^{\text{op}}$ are $\{0\}$ and $B^{\text{op}}$.
+    Since $B^{\text{op}}$ is simple and its center is $k$, it is a central simple algebra.
+\end{proof}
+
+\begin{lemma}[Tensor Product of Simple Algebras]
+    \label{lem:Tensor_Product_is_Simple}
+    \uses{def:Simple_Ring}
+    \uses{def:Central_Simple_Algebra}
+    If $A$ is a simple algebra and $B$ is a central simple algebra over a field $k$, then the tensor product algebra $A \otimes_k B$ is a simple $k$-algebra.
+\end{lemma}
+
+\begin{proof}
+    This is a standard theorem in the theory of algebras. The proof relies on showing that any non-zero ideal in the tensor product must contain an element of the form $1 \otimes b$ with $b \neq 0$, from which it can be shown the ideal is the entire algebra.
+\end{proof}
+
+\begin{lemma}[Module Structure over Simple Algebras]
+    \label{lem:Module_Structure_over_Simple_Algebras}
+    \uses{def:Simple_Ring}
+    Let $C$ be a finite-dimensional simple algebra over a field $k$. Then there exists a unique simple $C$-module $S$ (up to isomorphism). Furthermore, every finite-dimensional $C$-module $V$ is completely reducible, that is, it is isomorphic to a direct sum of a finite number of copies of $S$, written as $V \cong S^n$ for some unique integer $n \ge 0$.
+\end{lemma}
+
+\begin{proof}
+    This is a fundamental result from the Artin-Wedderburn theorem, which states that a finite-dimensional simple algebra $C$ is isomorphic to a matrix algebra $\operatorname{M}_d(D)$ over a division ring $D$. The vector space $D^d$ is a simple $C$-module, and it is the unique simple module up to isomorphism. The complete reducibility is a property of modules over semisimple algebras, and every simple algebra is semisimple.
+\end{proof}
+
+\begin{lemma}[Isomorphism of Equidimensional Modules]
+    \label{lem:Isomorphism_of_Equidimensional_Modules}
+    \uses{lem:Module_Structure_over_Simple_Algebras}
+    Let $C$ be a finite-dimensional simple algebra over a field $k$. Any two finite-dimensional $C$-modules with the same dimension over $k$ are isomorphic.
+\end{lemma}
+
+\begin{proof}
+    Let $V_1$ and $V_2$ be two finite-dimensional $C$-modules such that $\dim_k(V_1) = \dim_k(V_2)$. By lemma \ref{lem:Module_Structure_over_Simple_Algebras}, there exists a unique simple module $S$, and we can write $V_1 \cong S^{n_1}$ and $V_2 \cong S^{n_2}$ for unique integers $n_1, n_2$.
+    Taking dimensions, we have $\dim_k(V_1) = n_1 \cdot \dim_k(S)$ and $\dim_k(V_2) = n_2 \cdot \dim_k(S)$. Since $\dim_k(V_1) = \dim_k(V_2)$ and $\dim_k(S) > 0$, we must have $n_1 = n_2$. Therefore, $V_1 \cong S^{n_1} \cong V_2$, and the modules are isomorphic.
+\end{proof}
+
+\begin{lemma}[Structure of Right Module Homomorphisms on an Algebra]
+    \label{lem:Right_Module_Homomorphisms_on_Algebra}
+    Let $B$ be a unital algebra over a field $k$. Any right $B$-module homomorphism $u: B \to B$ is given by left multiplication by an element of $B$.
+\end{lemma}
+
+\begin{proof}
+    Let $u: B \to B$ be a right $B$-module homomorphism. This means $u(b_1 b_2) = u(b_1) b_2$ for all $b_1, b_2 \in B$. Let $c = u(1_B)$, where $1_B$ is the multiplicative identity in $B$. For any element $b \in B$, we can write $b = 1_B \cdot b$. Applying the homomorphism property, we get $u(b) = u(1_B \cdot b) = u(1_B) b = c b$. Thus, the action of $u$ is equivalent to left multiplication by the element $c = u(1_B)$.
+\end{proof}
+
+\begin{lemma}[Invertibility of Left Multiplication Map]
+    \label{lem:Invertibility_of_Left_Multiplication_Map}
+    Let $B$ be a finite-dimensional unital algebra over a field $k$. An element $c \in B$ is invertible if and only if the left multiplication map $L_c: B \to B$ defined by $L_c(b) = cb$ is a vector space isomorphism.
+\end{lemma}
+
+\begin{proof}
+    For a finite-dimensional vector space, a linear map is an isomorphism if and only if it is injective. The map $L_c$ is injective if its kernel is trivial, i.e., $\ker(L_c) = \{b \in B \mid cb = 0\} = \{0\}$.
+    If $c$ is invertible, then $cb = 0$ implies $c^{-1}(cb) = c^{-1}0$, which gives $b=0$. So $L_c$ is injective and thus an isomorphism.
+    Conversely, if $L_c$ is an isomorphism, it is surjective. Thus, there exists an element $d \in B$ such that $L_c(d) = cd = 1_B$. This shows $c$ has a right inverse. In a finite-dimensional algebra, an element with a right inverse is invertible.
+\end{proof}
+
+\begin{theorem}[Skolem-Noether]
+    \label{thm:Skolem-Noether}
+    \uses{def:Simple_Ring}
+    \uses{def:Central_Simple_Algebra}
+    Let $A$ be a simple algebra and $B$ be a central simple algebra over a field $k$. If $f, g: A \to B$ are two $k$-algebra homomorphisms, then there exists an invertible element $c \in B$ such that $g(a) = c f(a) c^{-1}$ for all $a \in A$.
+\end{theorem}
+
+\begin{proof}
+    \uses{def:Opposite_Algebra}
+    \uses{lem:Opposite_of_CSA_is_CSA}
+    \uses{lem:Tensor_Product_is_Simple}
+    \uses{lem:Isomorphism_of_Equidimensional_Modules}
+    \uses{lem:Right_Module_Homomorphisms_on_Algebra}
+    \uses{lem:Invertibility_of_Left_Multiplication_Map}
+    By lemma \ref{lem:Opposite_of_CSA_is_CSA}, $B^{\text{op}}$ is a central simple algebra. By lemma \ref{lem:Tensor_Product_is_Simple}, the algebra $C = A \otimes_k B^{\text{op}}$ is simple.
+    We define two right $C$-module structures on the vector space $B$, denoted $B_f$ and $B_g$, via the actions:
+    $b \cdot_f (a \otimes y) = f(a) b y$ and $b \cdot_g (a \otimes y) = g(a) b y$ for $b \in B, a \in A, y \in B^{\text{op}}$.
+    Since $B_f$ and $B_g$ have the same finite dimension over $k$, lemma \ref{lem:Isomorphism_of_Equidimensional_Modules} guarantees the existence of a $C$-module isomorphism $u: B_f \to B_g$.
+    The condition that $u$ is a $C$-module isomorphism is $u(b \cdot_f x) = u(b) \cdot_g x$ for all $x \in C$.
+    Let $x = 1_A \otimes y$ for $y \in B^{\text{op}}$. Then $u(b y) = u(b) y$ for all $b, y \in B$. This shows $u$ is a right $B$-module homomorphism on $B$. By lemma \ref{lem:Right_Module_Homomorphisms_on_Algebra}, there is a $c \in B$ such that $u(b) = cb$ for all $b \in B$. Since $u$ is an isomorphism, lemma \ref{lem:Invertibility_of_Left_Multiplication_Map} implies that $c$ is an invertible element of $B$.
+    Now let $x = a \otimes 1_{B^{\text{op}}}$ for $a \in A$. The isomorphism condition is $u(f(a)b) = g(a)u(b)$. Substituting $u(b) = cb$, we get $c(f(a)b) = g(a)(cb)$. This holds for all $b \in B$. For $b=1_B$, we have $cf(a) = g(a)c$. Since $c$ is invertible, we can write $g(a) = c f(a) c^{-1}$.
+\end{proof}
