@@ -1,172 +1,155 @@
 \chapter{Bauer–Fike Theorem}
 
-\begin{lemma}[Squeeze Theorem for Functions]
-\label{lem:squeeze_theorem}
-Let $(X, d)$ be a metric space and $p$ be a limit point of $D \subseteq X$. Let $f, g, h: D \to \mathbb{R}$ be functions. If $f(x) \le g(x) \le h(x)$ for all $x$ in a neighborhood of $p$ (except possibly at $p$), and if $\lim_{x \to p} f(x) = \lim_{x \to p} h(x) = L$, then $\lim_{x \to p} g(x) = L$.
-\end{lemma}
-\begin{proof}
-Let $\epsilon > 0$. By the definition of the limit, there exist $\delta_1 > 0$ and $\delta_2 > 0$ such that:
-\begin{itemize}
-    \item if $0 < d(x,p) < \delta_1$, then $|f(x) - L| < \epsilon$, which implies $L - \epsilon < f(x)$.
-    \item if $0 < d(x,p) < \delta_2$, then $|h(x) - L| < \epsilon$, which implies $h(x) < L + \epsilon$.
-\end{itemize}
-By hypothesis, there exists $\delta_3 > 0$ such that $f(x) \le g(x) \le h(x)$ for all $x$ with $0 < d(x,p) < \delta_3$.
-Let $\delta = \min(\delta_1, \delta_2, \delta_3)$. For any $x$ such that $0 < d(x,p) < \delta$, we have
-\[ L - \epsilon < f(x) \le g(x) \le h(x) < L + \epsilon. \]
-This implies $L - \epsilon < g(x) < L + \epsilon$, which is equivalent to $|g(x) - L| < \epsilon$.
-Therefore, $\lim_{x \to p} g(x) = L$.
-\end{proof}
-
-\begin{lemma}[Continuity and Boundedness of Linear Maps]
-\label{lem:continuous_iff_bounded_linear_map}
-Let $X$ and $Y$ be normed vector spaces. A linear map $T: X \to Y$ is continuous if and only if it is bounded, i.e., there exists a constant $M \ge 0$ such that $\|T(x)\|_Y \le M \|x\|_X$ for all $x \in X$.
-\end{lemma}
-\begin{proof}
-($\Leftarrow$) Assume $T$ is bounded with constant $M$. If $M=0$, $T$ is the zero map, which is trivially continuous. Assume $M>0$. To show continuity at an arbitrary $p \in X$, let $\epsilon > 0$. Choose $\delta = \epsilon/M$. If $\|x-p\|_X < \delta$, then by linearity and boundedness:
-\[ \|T(x) - T(p)\|_Y = \|T(x-p)\|_Y \le M \|x-p\|_X < M \delta = M(\epsilon/M) = \epsilon. \]
-Thus, $T$ is continuous at $p$. Since $p$ was arbitrary, $T$ is continuous on $X$.
-
-($\Rightarrow$) Assume $T$ is continuous. Then it is continuous at $0 \in X$. For $\epsilon=1$, there exists a $\delta > 0$ such that if $\|x\|_X < \delta$, then $\|T(x)\|_Y = \|T(x) - T(0)\|_Y < 1$.
-Now, take any non-zero vector $z \in X$. Consider the vector $x = \frac{\delta}{2\|z\|_X} z$. We have $\|x\|_X = \frac{\delta}{2} < \delta$.
-By continuity at $0$, we must have $\|T(x)\|_Y < 1$. Using the linearity of $T$:
-\[ \left\| T\left(\frac{\delta}{2\|z\|_X} z\right) \right\|_Y = \frac{\delta}{2\|z\|_X} \|T(z)\|_Y < 1. \]
-Rearranging this inequality gives $\|T(z)\|_Y < \frac{2}{\delta} \|z\|_X$.
-Let $M = 2/\delta$. Then for any $z \in X$ (the inequality holds trivially for $z=0$), we have $\|T(z)\|_Y \le M\|z\|_X$. Thus, $T$ is bounded.
-\end{proof}
-
-\begin{lemma}[Composition of Continuous Linear Maps]
-\label{lem:composition_continuous_linear}
-Let $X, Y, Z$ be normed vector spaces. If $A: X \to Y$ and $B: Y \to Z$ are continuous linear maps, then their composition $B \circ A: X \to Z$ is also a continuous linear map.
-\end{lemma}
-\begin{proof}
-First, we check linearity. For $x_1, x_2 \in X$ and scalars $\alpha, \beta$:
-\begin{align*}
-(B \circ A)(\alpha x_1 + \beta x_2) &= B(A(\alpha x_1 + \beta x_2)) = B(\alpha A(x_1) + \beta A(x_2)) \\
-&= \alpha B(A(x_1)) + \beta B(A(x_2)) = \alpha (B \circ A)(x_1) + \beta (B \circ A)(x_2).
-\end{align*}
-So $B \circ A$ is linear. By Lemma \ref{lem:continuous_iff_bounded_linear_map}, $A$ and $B$ are bounded. Let their operator norms be $\|A\|$ and $\|B\|$. Then for any $x \in X$:
-\[ \|(B \circ A)(x)\|_Z = \|B(A(x))\|_Z \le \|B\| \|A(x)\|_Y \le \|B\| (\|A\| \|x\|_X) = (\|A\|\|B\|) \|x\|_X. \]
-Since $B \circ A$ is bounded by the constant $\|A\|\|B\|$, it is continuous by Lemma \ref{lem:continuous_iff_bounded_linear_map}.
-\end{proof}
-
-\begin{lemma}[Sum of Little-o Functions]
-\label{lem:sum_of_little_o}
-Let $X, Y$ be normed vector spaces, and let $f, g: X \to Y$ be two functions defined in a neighborhood of $0 \in X$. If $f(h) = o(\|h\|)$ and $g(h) = o(\|h\|)$ as $h \to 0$, then their sum $(f+g)(h)$ is also $o(\|h\|)$ as $h \to 0$.
-\end{lemma}
-\begin{proof}
-By definition, we are given $\lim_{h \to 0} \frac{\|f(h)\|}{\|h\|} = 0$ and $\lim_{h \to 0} \frac{\|g(h)\|}{\|h\|} = 0$. We want to show $\lim_{h \to 0} \frac{\|f(h)+g(h)\|}{\|h\|} = 0$.
-By the triangle inequality, for $h \ne 0$:
-\[ 0 \le \frac{\|f(h)+g(h)\|}{\|h\|} \le \frac{\|f(h)\| + \|g(h)\|}{\|h\|} = \frac{\|f(h)\|}{\|h\|} + \frac{\|g(h)\|}{\|h\|}. \]
-The right-hand side is a sum of two functions that both approach $0$ as $h \to 0$. Thus, $\lim_{h \to 0} \left( \frac{\|f(h)\|}{\|h\|} + \frac{\|g(h)\|}{\|h\|} \right) = 0 + 0 = 0$.
-By Lemma \ref{lem:squeeze_theorem}, we conclude that $\lim_{h \to 0} \frac{\|f(h)+g(h)\|}{\|h\|} = 0$.
-\end{proof}
-
-%----------------------------------------------------------------------------------------
-% ORIGINAL BLUEPRINT WITH REFINED PROOFS AND EXPLICIT CITATIONS
-%----------------------------------------------------------------------------------------
-
-\begin{definition}[Differentiability]
-Let $X, Y$ be normed vector spaces. A function $f: U \to Y$ defined on an open set $U \subseteq X$ is \emph{differentiable} at $p \in U$ if there exists a continuous linear map $A: X \to Y$ such that
-\[ f(p+h) - f(p) = A(h) + r(h) \]
-where $r(h) = o(\|h\|)$ as $h \to 0$. The linear map $A$ is called the derivative of $f$ at $p$, denoted by $f'(p)$.
+\begin{definition}[Condition Number of a Matrix]
+    \label{def:Condition_Number}
+    Let $X \in \mathbb{C}^{n \times n}$ be an invertible matrix. Its condition number in the $p$-norm, denoted by $\kappa_p(X)$, is defined as:
+    \[ \kappa_p(X) = \|X\|_p \|X^{-1}\|_p \]
+    where $\|\cdot\|_p$ is an induced matrix norm.
 \end{definition}
 
-\begin{lemma}[Reverse Triangle Inequality]
-\label{lem:reverse_triangle_inequality}
-Let $(V, \|\cdot\|)$ be a normed vector space. For any two vectors $x, y \in V$, the following inequality holds:
-\[ |\|x\| - \|y\|| \le \|x-y\|. \]
+\begin{lemma}[P-Norm of a Diagonal Matrix]
+    \label{lem:P_Norm_of_Diagonal_Matrix}
+    Let $D = \text{diag}(d_1, \dots, d_n) \in \mathbb{C}^{n \times n}$ be a diagonal matrix. For any induced matrix $p$-norm, where $1 \le p \le \infty$, its value is given by $\|D\|_p = \max_{1 \le i \le n} |d_i|$.
 \end{lemma}
+
 \begin{proof}
-By the triangle inequality, we have $\|x\| = \|x-y+y\| \le \|x-y\| + \|y\|$. Rearranging gives $\|x\| - \|y\| \le \|x-y\|$.
-Similarly, $\|y\| = \|y-x+x\| \le \|y-x\| + \|x\|$. Rearranging gives $\|y\| - \|x\| \le \|y-x\| = \|x-y\|$.
-This is equivalent to $-(\|x\| - \|y\|) \le \|x-y\|$.
-Combining the two inequalities, we have $-\|x-y\| \le \|x\| - \|y\| \le \|x-y\|$, which is the definition of $|\|x\| - \|y\|| \le \|x-y\|$.
+    By the definition of an induced matrix norm, $\|D\|_p = \sup_{x \neq 0} \frac{\|Dx\|_p}{\|x\|_p}$.
+    For any vector $x = (x_1, \dots, x_n)^T$, the vector $Dx$ is $(d_1x_1, \dots, d_nx_n)^T$.
+    The $p$-norm of $Dx$ is $\|Dx\|_p = \left( \sum_{i=1}^n |d_i x_i|^p \right)^{1/p}$.
+    We can bound this as follows:
+    \[ \sum_{i=1}^n |d_i x_i|^p \le \sum_{i=1}^n (\max_{j} |d_j|)^p |x_i|^p = (\max_{j} |d_j|)^p \sum_{i=1}^n |x_i|^p = (\max_{j} |d_j|)^p \|x\|_p^p \]
+    Taking the $p$-th root, we get $\|Dx\|_p \le (\max_{j} |d_j|) \|x\|_p$. Thus, $\|D\|_p \le \max_{j} |d_j|$.
+    To show equality, let $k$ be an index such that $|d_k| = \max_{j} |d_j|$. Consider the standard basis vector $x = e_k$, for which $\|e_k\|_p = 1$.
+    Then $De_k$ is a vector with $d_k$ in the $k$-th position and zeros elsewhere, so $\|De_k\|_p = |d_k|$.
+    This shows that the supremum is at least $|d_k|$, so $\|D\|_p \ge |d_k| = \max_{j} |d_j|$.
+    Combining the inequalities, we conclude that $\|D\|_p = \max_{i} |d_i|$.
 \end{proof}
 
-\begin{lemma}[Continuity of Norm]
-\label{lem:norm_continuity}
-Let $(V, \|\cdot\|)$ be a normed vector space. The norm function $\|\cdot\|: V \to \mathbb{R}$ is continuous.
+\begin{lemma}[Eigenvalue Bound by Matrix Norm]
+    \label{lem:Eigenvalue_Bound_by_Norm}
+    Let $M \in \mathbb{C}^{n \times n}$ and let $\|\cdot\|$ be any matrix norm induced by a vector norm. If $\eta$ is an eigenvalue of $M$, then its modulus is bounded by the norm of the matrix: $|\eta| \le \|M\|$.
 \end{lemma}
+
 \begin{proof}
-Let $x \in V$ and $\epsilon > 0$. We want to find a $\delta > 0$ such that if $\|x-y\| < \delta$, then $|\|x\| - \|y\|| < \epsilon$.
-By Lemma \ref{lem:reverse_triangle_inequality}, we have $|\|x\| - \|y\|| \le \|x-y\|$.
-Choose $\delta = \epsilon$. Then if $\|x-y\| < \delta$, we have $|\|x\| - \|y\|| \le \|x-y\| < \delta = \epsilon$.
-This shows that the norm is continuous (in fact, uniformly continuous) on $V$.
+    Let $\eta$ be an eigenvalue of $M$ with a corresponding eigenvector $v \neq 0$. By definition, $Mv = \eta v$.
+    Let $\|\cdot\|$ also denote the vector norm that induces the matrix norm. Taking the norm of both sides gives $\|Mv\| = \|\eta v\|$.
+    Using the properties of norms, we have $\|\eta v\| = |\eta| \|v\|$. By the definition of an induced matrix norm, $\|Mv\| \le \|M\| \|v\|$.
+    Combining these, we get $|\eta| \|v\| \le \|M\| \|v\|$. Since $v$ is an eigenvector, it is non-zero, so $\|v\| > 0$. We can divide by $\|v\|$ to obtain the result: $|\eta| \le \|M\|$.
 \end{proof}
 
-\begin{lemma}[Local Boundedness from Limit]
-\label{lem:limit_implies_bounded}
-Let $(X, d)$ be a metric space, $p \in X$, and let $g: X \to \mathbb{R}$ be a function. If $\lim_{x \to p} g(x) = M$ for some $M \in \mathbb{R}$, then there exists a neighborhood of $p$ in which $g$ is bounded.
+\begin{lemma}[Sub-multiplicativity of Induced Matrix Norms]
+    \label{lem:Sub_Multiplicativity_of_Matrix_Norms}
+    For any induced matrix norm $\|\cdot\|_p$, and for any matrices $A, B \in \mathbb{C}^{n \times n}$, the following inequality holds: $\|AB\|_p \le \|A\|_p \|B\|_p$.
 \end{lemma}
+
 \begin{proof}
-Let $\lim_{x \to p} g(x) = M$. By the definition of a limit, for $\epsilon = 1$, there exists a $\delta > 0$ such that if $d(x,p) < \delta$, then $|g(x) - M| < 1$.
-Using the triangle inequality, $|g(x)| = |g(x) - M + M| \le |g(x) - M| + |M| < 1 + |M|$.
-Let $B = 1 + |M|$. Then for all $x$ such that $d(x,p) < \delta$, we have $|g(x)| \le B$.
+    By the definition of an induced norm, for any vector $x \in \mathbb{C}^n$, we have $\|Ax\|_p \le \|A\|_p \|x\|_p$.
+    Applying this property twice:
+    \[ \|ABx\|_p = \|A(Bx)\|_p \le \|A\|_p \|Bx\|_p \le \|A\|_p (\|B\|_p \|x\|_p) = (\|A\|_p \|B\|_p) \|x\|_p \]
+    By the definition of the induced norm for $AB$:
+    \[ \|AB\|_p = \sup_{x \neq 0} \frac{\|ABx\|_p}{\|x\|_p} \le \sup_{x \neq 0} \frac{(\|A\|_p \|B\|_p) \|x\|_p}{\|x\|_p} = \|A\|_p \|B\|_p \]
+    Thus, $\|AB\|_p \le \|A\|_p \|B\|_p$.
 \end{proof}
 
-\begin{lemma}[Product of Limits]
-\label{lem:product_of_limits}
-Let $(X, d)$ be a metric space, $p \in X$, and let $f, g: X \to \mathbb{R}$ be functions. If $\lim_{x \to p} f(x) = L$ and $\lim_{x \to p} g(x) = M$, then $\lim_{x \to p} (f(x)g(x)) = LM$.
+\begin{lemma}[Determinant of a Matrix Product]
+    \label{lem:Determinant_of_Product}
+    For any square matrices $A, B \in \mathbb{C}^{n \times n}$, the determinant of their product is the product of their determinants: $\det(AB) = \det(A)\det(B)$. Consequently, a product of matrices is singular if and only if at least one of the matrices is singular.
 \end{lemma}
+
 \begin{proof}
-We want to show $|f(x)g(x) - LM| \to 0$ as $x \to p$.
-\[ |f(x)g(x) - LM| = |f(x)g(x) - Lg(x) + Lg(x) - LM| \le |g(x)(f(x)-L)| + |L(g(x)-M)|. \]
-By Lemma \ref{lem:limit_implies_bounded}, since $\lim_{x \to p} g(x) = M$, there is a $\delta_1 > 0$ and a $B>0$ such that $|g(x)| \le B$ for $d(x,p) < \delta_1$.
-The rest of the proof follows standard limit arguments.
+    This is a standard result from linear algebra. If $A$ is singular, then $\det(A) = 0$. The rank of $AB$ is no greater than the rank of $A$, so $AB$ is also singular, meaning $\det(AB) = 0$. The equality holds.
+    If $A$ is invertible, it can be written as a product of elementary matrices $A = E_k \dots E_1$. For any elementary matrix $E$ and any matrix $B$, $\det(EB) = \det(E)\det(B)$. Applying this repeatedly gives $\det(AB) = \det(E_k \dots E_1 B) = \det(E_k) \dots \det(E_1) \det(B) = \det(A) \det(B)$.
+    Therefore, if a product $M_1 \dots M_k$ is singular, its determinant is 0, which implies $\det(M_1)\dots\det(M_k)=0$. This occurs if and only if $\det(M_i)=0$ for at least one $i$.
 \end{proof}
 
-\begin{lemma}[Local Bound for Linear Map plus Little-o Term]
-\label{lem:linear_plus_little_o_bound}
-Let $X, Y$ be normed vector spaces, let $A: X \to Y$ be a bounded linear operator, and let $r: X \to Y$ be a function such that $r(h) = o(\|h\|_X)$. Define $k(h) = A(h) + r(h)$. Then there exists $\delta > 0$ such that for $0 < \|h\|_X < \delta$, we have $\|k(h)\|_Y \le (\|A\| + 1)\|h\|_X$.
+\begin{lemma}[Similarity Invariance of the Determinant]
+    \label{lem:Similarity_Invariance_of_Determinant}
+    \uses{lem:Determinant_of_Product}
+    The determinant is invariant under similarity transformations. For any matrix $M \in \mathbb{C}^{n \times n}$ and any invertible matrix $S \in \mathbb{C}^{n \times n}$, we have $\det(S^{-1}MS) = \det(M)$.
 \end{lemma}
+
 \begin{proof}
-Since $r(h) = o(\|h\|_X)$, for $\epsilon = 1$, there exists a $\delta > 0$ such that if $0 < \|h\|_X < \delta$, then $\frac{\|r(h)\|_Y}{\|h\|_X} < 1$, which implies $\|r(h)\|_Y < \|h\|_X$.
-For such $h$:
-\[ \|k(h)\|_Y = \|A(h) + r(h)\|_Y \le \|A(h)\|_Y + \|r(h)\|_Y \le \|A\|\|h\|_X + \|h\|_X = (\|A\| + 1)\|h\|_X. \]
+    \uses{lem:Determinant_of_Product}
+    Using the multiplicative property of determinants from lemma \ref{lem:Determinant_of_Product}:
+    \[ \det(S^{-1}MS) = \det(S^{-1}) \det(M) \det(S) \]
+    Since $S$ is invertible, $SS^{-1}=I$, so $\det(S)\det(S^{-1})=\det(I)=1$. This implies $\det(S^{-1}) = \frac{1}{\det(S)}$.
+    Substituting this back gives:
+    \[ \det(S^{-1}MS) = \left(\frac{1}{\det(S)}\right) \det(M) \det(S) = \det(M) \]
 \end{proof}
 
-\begin{lemma}[Continuous Linear Maps Preserve Little-o]
-\label{lem:linear_map_preserves_little_o}
-Let $X, Y, Z$ be normed spaces. Let $B: Y \to Z$ be a continuous linear map and $r: X \to Y$ be a function such that $r(h) = o(\|h\|_X)$. Then $(B \circ r)(h) = o(\|h\|_X)$.
+\begin{lemma}[Eigenvalues of a Diagonalizable Matrix and Invertibility]
+    \label{lem:Eigenvalues_and_Invertibility}
+    Let $A \in \mathbb{C}^{n \times n}$ be a diagonalizable matrix with eigendecomposition $A=V\Lambda V^{-1}$. The set of eigenvalues of $A$ is precisely the set of diagonal entries of $\Lambda$. Consequently, for any scalar $\mu \in \mathbb{C}$, the matrix $A - \mu I$ is invertible if and only if $\mu$ is not an eigenvalue of $A$.
 \end{lemma}
+
 \begin{proof}
-By Lemma \ref{lem:continuous_iff_bounded_linear_map}, since $B$ is continuous, it is bounded. Let its norm be $\|B\|$.
-For $h \ne 0$, we have:
-\[ 0 \le \frac{\|B(r(h))\|_Z}{\|h\|_X} \le \frac{\|B\| \|r(h)\|_Y}{\|h\|_X} = \|B\| \left( \frac{\|r(h)\|_Y}{\|h\|_X} \right). \]
-Since $r(h) = o(\|h\|_X)$, we know that $\lim_{h \to 0} \frac{\|r(h)\|_Y}{\|h\|_X} = 0$.
-By Lemma \ref{lem:squeeze_theorem}, it follows that $\lim_{h \to 0} \frac{\|B(r(h))\|_Z}{\|h\|_X} = 0$.
+    The matrix $A$ is similar to $\Lambda$, so they have the same eigenvalues. The eigenvalues of a diagonal matrix $\Lambda$ are its diagonal entries.
+    A matrix $M$ is invertible if and only if $\det(M) \neq 0$. The condition $\det(A - \mu I) = 0$ is the characteristic equation for the eigenvalues of $A$. Thus, $A - \mu I$ is singular (not invertible) if and only if $\mu$ is an eigenvalue of $A$.
 \end{proof}
 
-\begin{lemma}[Composition with Little-o Functions]
-\label{lem:composition_with_little_o}
-Let $X, Y, Z$ be normed spaces. Let $k: X \to Y$ satisfy $k(h) \to 0$ as $h \to 0$ and $\|k(h)\|_Y \le C\|h\|_X$ for some $C>0$ and small $h$. If $s: Y \to Z$ satisfies $s(y) = o(\|y\|_Y)$, then $(s \circ k)(h) = o(\|h\|_X)$.
+\begin{lemma}[Eigenvalue Perturbation Identity]
+    \label{lem:Eigenvalue_Perturbation_Identity}
+    \uses{lem:Determinant_of_Product}
+    \uses{lem:Similarity_Invariance_of_Determinant}
+    \uses{lem:Eigenvalues_and_Invertibility}
+    Let $A, \delta A \in \mathbb{C}^{n \times n}$, where $A$ is a diagonalizable matrix with $A = V\Lambda V^{-1}$. Let $\mu$ be an eigenvalue of $A + \delta A$ such that $\mu$ is not an eigenvalue of $A$. Then $-1$ is an eigenvalue of the matrix $(\Lambda - \mu I)^{-1} V^{-1} \delta A V$.
 \end{lemma}
+
 \begin{proof}
-We want to show that $\lim_{h \to 0} \frac{\|s(k(h))\|_Z}{\|h\|_X} = 0$.
-Since $s(y) = o(\|y\|_Y)$, for any $\epsilon > 0$, there exists $\eta > 0$ such that if $0 < \|y\|_Y < \eta$, then $\|s(y)\|_Z < \frac{\epsilon}{C} \|y\|_Y$.
-Since $k(h) \to 0$ as $h \to 0$, we can find $\delta > 0$ such that for $0 < \|h\|_X < \delta$, we have $\|k(h)\|_Y < \eta$.
-For such $h$, if $k(h)=0$, the result is trivial. If $k(h) \ne 0$, then $0 < \|k(h)\|_Y < \eta$, so:
-\[ \frac{\|s(k(h))\|_Z}{\|h\|_X} < \frac{(\epsilon/C) \|k(h)\|_Y}{\|h\|_X} \le \frac{(\epsilon/C) (C \|h\|_X)}{\|h\|_X} = \epsilon. \]
-Thus, the limit is 0.
+    \uses{lem:Determinant_of_Product}
+    \uses{lem:Similarity_Invariance_of_Determinant}
+    \uses{lem:Eigenvalues_and_Invertibility}
+    Since $\mu$ is an eigenvalue of $A + \delta A$, we have $\det(A + \delta A - \mu I) = 0$. Using the fact that $A = V\Lambda V^{-1}$ and applying lemma \ref{lem:Similarity_Invariance_of_Determinant}, we can write:
+    \begin{align*}
+        0 &= \det(A + \delta A - \mu I) \\
+          &= \det\left(V^{-1}(A + \delta A - \mu I)V\right) \\
+          &= \det\left(V^{-1}AV + V^{-1}\delta A V - \mu I\right) \\
+          &= \det\left(\Lambda + V^{-1}\delta A V - \mu I\right) \\
+          &= \det\left((\Lambda - \mu I) + V^{-1}\delta A V\right)
+    \end{align*}
+    From lemma \ref{lem:Eigenvalues_and_Invertibility}, since $\mu$ is not an eigenvalue of $A$, the matrix $\Lambda - \mu I$ is invertible. We can factor it out:
+    \[ \det\left((\Lambda - \mu I) \left(I + (\Lambda - \mu I)^{-1}V^{-1}\delta A V\right)\right) = 0 \]
+    Using lemma \ref{lem:Determinant_of_Product}, this becomes:
+    \[ \det(\Lambda - \mu I) \det\left(I + (\Lambda - \mu I)^{-1}V^{-1}\delta A V\right) = 0 \]
+    Since $\Lambda - \mu I$ is invertible, $\det(\Lambda - \mu I) \neq 0$. Therefore, we must have:
+    \[ \det\left(I + (\Lambda - \mu I)^{-1}V^{-1}\delta A V\right) = 0 \]
+    This is the characteristic equation for the matrix $(\Lambda - \mu I)^{-1}V^{-1}\delta A V$ with eigenvalue $-1$.
 \end{proof}
 
-\begin{theorem}[Chain Rule]
-\label{thm:chain_rule}
-Let $X, Y, Z$ be normed vector spaces. Let $f: U \to V$ be differentiable at $p \in U \subseteq X$, and let $g: V \to Z$ be differentiable at $f(p) \in V \subseteq Y$. Then $g \circ f: U \to Z$ is differentiable at $p$, and $(g \circ f)'(p) = g'(f(p)) \circ f'(p)$.
+\begin{lemma}[Norm of Inverse Diagonal Matrix]
+    \label{lem:Norm_of_Inverse_Diagonal_Matrix}
+    \uses{lem:P_Norm_of_Diagonal_Matrix}
+    Let $\Lambda = \text{diag}(\lambda_1, \dots, \lambda_n)$ be a diagonal matrix and $\mu \in \mathbb{C}$ such that $\mu \neq \lambda_i$ for all $i=1, \dots, n$. Then for any $p$-norm, the norm of the matrix $(\Lambda - \mu I)^{-1}$ is given by:
+    \[ \|(\Lambda - \mu I)^{-1}\|_p = \frac{1}{\min_{\lambda \in \Lambda(A)} |\lambda - \mu|} \]
+\end{lemma}
+
+\begin{proof}
+    \uses{lem:P_Norm_of_Diagonal_Matrix}
+    The matrix $(\Lambda - \mu I)^{-1}$ is a diagonal matrix with diagonal entries $\frac{1}{\lambda_i - \mu}$. Applying lemma \ref{lem:P_Norm_of_Diagonal_Matrix}, its $p$-norm is the maximum of the absolute values of its diagonal entries:
+    \[ \|(\Lambda - \mu I)^{-1}\|_p = \max_{i} \left| \frac{1}{\lambda_i - \mu} \right| = \frac{1}{\min_{i} |\lambda_i - \mu|} = \frac{1}{\min_{\lambda \in \Lambda(A)} |\lambda - \mu|} \]
+\end{proof}
+
+\begin{theorem}[Bauer–Fike Theorem]
+    \label{thm:Bauer-Fike}
+    \uses{def:Condition_Number}
+    Let $A \in \mathbb{C}^{n \times n}$ be a diagonalizable matrix, and let $\mu$ be an eigenvalue of the perturbed matrix $A + \delta A$. Then there exists an eigenvalue $\lambda$ of $A$ such that:
+    \[ |\lambda - \mu| \leq \kappa_p(V) \|\delta A\|_p \]
+    where $V$ is the matrix of eigenvectors of $A$.
 \end{theorem}
+
 \begin{proof}
-Let $A = f'(p)$ and $B = g'(f(p))$. We are given
-\begin{align*}
-f(p+h) - f(p) &= A(h) + r(h) \quad \text{where } r(h) = o(\|h\|) \\
-g(f(p)+k) - g(f(p)) &= B(k) + s(k) \quad \text{where } s(k) = o(\|k\|)
-\end{align*}
-Let $k = f(p+h) - f(p) = A(h) + r(h)$. We analyze $(g \circ f)(p+h) - (g \circ f)(p)$:
-\[ g(f(p)+k) - g(f(p)) = B(k) + s(k) = B(A(h) + r(h)) + s(k) = B(A(h)) + B(r(h)) + s(k). \]
-Let $C = B \circ A$. By Lemma \ref{lem:composition_continuous_linear}, since $A$ and $B$ are continuous linear maps, $C$ is also a continuous linear map. We must show the remainder $B(r(h)) + s(k)$ is $o(\|h\|)$.
-\begin{itemize}
-    \item By Lemma \ref{lem:linear_map_preserves_little_o}, since $B$ is a continuous linear map and $r(h)=o(\|h\|)$, we have $B(r(h)) = o(\|h\|)$.
-    \item For the term $s(k)$: by Lemma \ref{lem:linear_plus_little_o_bound}, there exists a constant $M$ such that $\|k\| \le M\|h\|$ for small $h$. This, combined with $s(k) = o(\|k\|)$, allows us to use Lemma \ref{lem:composition_with_little_o} to conclude that $s(k(h)) = o(\|h\|)$.
-\end{itemize}
-The remainder is a sum of two $o(\|h\|)$ terms. By Lemma \ref{lem:sum_of_little_o}, their sum is also $o(\|h\|)$.
-Thus, we have $(g \circ f)(p+h) - (g \circ f)(p) = (B \circ A)(h) + o(\|h\|)$, which proves the theorem.
+    \uses{def:Condition_Number}
+    \uses{lem:Eigenvalue_Bound_by_Norm}
+    \uses{lem:Sub_Multiplicativity_of_Matrix_Norms}
+    \uses{lem:Eigenvalue_Perturbation_Identity}
+    \uses{lem:Norm_of_Inverse_Diagonal_Matrix}
+    If $\mu$ is an eigenvalue of $A$, the inequality holds trivially as $|\mu - \mu| = 0$.
+    Assume $\mu$ is not an eigenvalue of $A$. By lemma \ref{lem:Eigenvalue_Perturbation_Identity}, $-1$ is an eigenvalue of $M = (\Lambda - \mu I)^{-1} V^{-1} \delta A V$.
+    By lemma \ref{lem:Eigenvalue_Bound_by_Norm}, we have $1 = |-1| \leq \|M\|_p$.
+    Using the sub-multiplicative property from lemma \ref{lem:Sub_Multiplicativity_of_Matrix_Norms}:
+    \[ 1 \leq \|(\Lambda - \mu I)^{-1}\|_p \|V^{-1}\|_p \|\delta A\|_p \|V\|_p \]
+    Using definition \ref{def:Condition_Number}, this becomes $1 \leq \|(\Lambda - \mu I)^{-1}\|_p \kappa_p(V) \|\delta A\|_p$.
+    Applying lemma \ref{lem:Norm_of_Inverse_Diagonal_Matrix}:
+    \[ 1 \leq \frac{1}{\min_{\lambda \in \Lambda(A)} |\lambda - \mu|} \kappa_p(V) \|\delta A\|_p \]
+    Rearranging gives the desired result: $\min_{\lambda \in \Lambda(A)} |\lambda - \mu| \leq \kappa_p(V) \|\delta A\|_p$.
 \end{proof}
