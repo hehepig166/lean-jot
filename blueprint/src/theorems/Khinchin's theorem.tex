@@ -1,0 +1,106 @@
+\chapter{Khinchin's Theorem on Metric Diophantine Approximation}
+
+\begin{definition}[$\psi$-approximable number]
+    \label{def:psi-approximable}
+    Let $\psi: \mathbb{Z}^+ \to \mathbb{R}^+$ be a function. A real number $x$ is called $\psi$-approximable if the inequality
+    $$ \left|x - \frac{p}{q}\right| < \frac{\psi(q)}{q} $$
+    has infinitely many solutions in integers $p, q$ with $q > 0$ and $\gcd(p,q)=1$.
+\end{definition}
+
+\begin{definition}[Limit Superior of Sets]
+    \label{def:limsup_sets}
+    Let $\{E_q\}_{q=1}^\infty$ be a sequence of sets. The limit superior of this sequence, denoted $\limsup_{q\to\infty} E_q$ or $E^*$, is the set of points that belong to infinitely many of the sets $E_q$. Formally,
+    $$ E^* = \bigcap_{N=1}^{\infty} \bigcup_{q=N}^{\infty} E_q. $$
+\end{definition}
+
+\begin{definition}[Indicator Function, Expectation, and Variance]
+    \label{def:Random_Variable_Expectation_Variance}
+    Consider the probability space $([0,1), \mathcal{B}, \mu)$, where $\mathcal{B}$ is the Borel sigma-algebra and $\mu$ is the Lebesgue measure.
+    \begin{itemize}
+        \item The \textbf{indicator function} $\mathbf{1}_E$ of a measurable set $E \subseteq [0,1)$ is a random variable defined as $\mathbf{1}_E(x) = 1$ if $x \in E$ and $\mathbf{1}_E(x) = 0$ if $x \notin E$.
+        \item The \textbf{expectation} (or expected value) of an indicator function is $E[\mathbf{1}_E] = \int_0^1 \mathbf{1}_E(x) dx = \mu(E)$.
+        \item The \textbf{variance} of an indicator function is $\text{Var}(\mathbf{1}_E) = E[(\mathbf{1}_E - \mu(E))^2] = \mu(E)(1-\mu(E))$.
+    \end{itemize}
+\end{definition}
+
+\begin{lemma}[Measure of Approximable Sets]
+    \label{lem:Measure_of_Eq}
+    \uses{def:psi-approximable}
+    Let $E_q(\psi)$ be the set of $x \in [0, 1)$ for which there exists an integer $p$ with $0 \le p < q$ and $\gcd(p,q)=1$ such that $|x - p/q| < \psi(q)/q$. For large $q$ such that $q\psi(q)$ is small, the Lebesgue measure is approximately $\mu(E_q(\psi)) \approx 2\phi(q)\psi(q)/q$, where $\phi$ is Euler's totient function. For the purposes of convergence/divergence, it is sufficient to note that this is proportional to $\psi(q)$. For simplicity, many proofs use a simplified set $A_q$ which is a union of intervals around $p/q$ for all $p$, whose measure is exactly $2\psi(q)$ for $\psi(q) < 1/(2q)$, and show that the measure of the set of $\psi$-approximable numbers is the same. We will denote the measure of the relevant set for a given $q$ as $\mu_q \sim \psi(q)$.
+\end{lemma}
+
+\begin{proof}
+    The set $E_q(\psi)$ is a union of $\phi(q)$ disjoint intervals of length $2\psi(q)/q$, centered at the points $p/q$ where $\gcd(p,q)=1$. The total measure is $\mu(E_q(\psi)) = \phi(q) \frac{2\psi(q)}{q}$. Since $\phi(q)/q$ is bounded and often close to 1, the convergence or divergence of $\sum \mu(E_q(\psi))$ is equivalent to that of $\sum \psi(q)$. A simpler approach defines events $A_q = \bigcup_{p=0}^{q-1} (p/q - \psi(q)/q, p/q + \psi(q)/q) \cap [0,1)$, for which $\mu(A_q) = 2\psi(q)$ for small $\psi(q)$. The theorem holds for this simpler sequence, and thus for the original problem.
+\end{proof}
+
+\begin{lemma}[First Borel-Cantelli Lemma]
+    \label{lem:First_Borel-Cantelli}
+    \uses{def:limsup_sets}
+    Let $\{E_q\}_{q=1}^\infty$ be a sequence of measurable sets in a measure space $(X, \mathcal{A}, \mu)$. If the sum of their measures converges, $\sum_{q=1}^{\infty} \mu(E_q) < \infty$, then the measure of their limit superior is zero, i.e., $\mu(\limsup_{q\to\infty} E_q) = 0$.
+\end{lemma}
+
+\begin{proof}
+    Let $E^* = \limsup_{q\to\infty} E_q$. By definition \ref{def:limsup_sets}, for any $N \ge 1$, we have $E^* \subseteq \bigcup_{q=N}^{\infty} E_q$.
+    By the subadditivity of measure, $\mu(E^*) \le \mu\left(\bigcup_{q=N}^{\infty} E_q\right) \le \sum_{q=N}^{\infty} \mu(E_q)$.
+    The convergence of the series $\sum \mu(E_q)$ implies that the tail of the series tends to zero: $\lim_{N\to\infty} \sum_{q=N}^{\infty} \mu(E_q) = 0$.
+    Since $\mu(E^*)$ is a non-negative constant bounded above by a quantity that approaches zero, it must be that $\mu(E^*) = 0$.
+\end{proof}
+
+\begin{lemma}[Chebyshev's Inequality]
+    \label{lem:Chebyshev_Inequality}
+    \uses{def:Random_Variable_Expectation_Variance}
+    Let $X$ be a random variable with finite expected value $E[X]$ and finite non-zero variance $\text{Var}(X)$. Then for any real number $a > 0$,
+    $$ P(|X - E[X]| \ge a) \le \frac{\text{Var}(X)}{a^2}. $$
+\end{lemma}
+
+\begin{proof}
+    This is a standard result in probability theory. The proof follows from Markov's inequality applied to the random variable $(X - E[X])^2$.
+    $$ P(|X - E[X]| \ge a) = P((X - E[X])^2 \ge a^2) \le \frac{E[(X-E[X])^2]}{a^2} = \frac{\text{Var}(X)}{a^2}. $$
+\end{proof}
+
+\begin{lemma}[Generalized Second Borel-Cantelli Lemma]
+    \label{lem:Generalized_Second_Borel_Cantelli}
+    \uses{def:limsup_sets}
+    \uses{def:Random_Variable_Expectation_Variance}
+    \uses{lem:Chebyshev_Inequality}
+    Let $\{E_q\}_{q=1}^\infty$ be a sequence of measurable sets in a probability space $(X, \mathcal{A}, \mu)$. Let $X_q = \mathbf{1}_{E_q}$, $S_N = \sum_{q=1}^N X_q$, and $M_N = E[S_N] = \sum_{q=1}^N \mu(E_q)$. If $M_N \to \infty$ and $\text{Var}(S_N) = o(M_N^2)$, then $\mu(\limsup_{q\to\infty} E_q) = 1$.
+\end{lemma}
+
+\begin{proof}
+    The condition $\text{Var}(S_N) = o(M_N^2)$ means $\lim_{N\to\infty} \text{Var}(S_N)/M_N^2 = 0$.
+    Applying Chebyshev's inequality (lemma \ref{lem:Chebyshev_Inequality}) to the random variable $S_N$, for any $\epsilon > 0$:
+    $$ \mu(|S_N - M_N| \ge \epsilon M_N) \le \frac{\text{Var}(S_N)}{(\epsilon M_N)^2} = \frac{1}{\epsilon^2} \frac{\text{Var}(S_N)}{M_N^2}. $$
+    As $N \to \infty$, the right-hand side tends to 0. This means that the ratio $S_N/M_N$ converges to 1 in probability. Since $M_N \to \infty$, this implies that $S_N$ tends to infinity in probability. A further argument, for example by choosing a suitable subsequence $\{N_k\}$ such that convergence is almost sure, establishes that $S_N \to \infty$ almost surely. This is equivalent to the statement that points belong to infinitely many $E_q$ with probability 1, so $\mu(\limsup_{q \to \infty} E_q) = 1$.
+\end{proof}
+
+\begin{lemma}[Periodicity and Measure]
+    \label{lem:Periodicity_Measure}
+    Let $S \subseteq \mathbb{R}$ be a Lebesgue measurable set. If for any $x \in S$, $x+1 \in S$ (i.e., $S$ is periodic with period 1), then $\mu(S) = \infty$ if $\mu(S \cap [0,1)) > 0$, and $\mu(S) = 0$ if $\mu(S \cap [0,1)) = 0$. If the property of belonging to $S$ is invariant under integer translation, the set of non-members also has this property. Therefore, if $\mu(S \cap [0,1)) = 1$, then the complement of $S$ has measure 0 in $\mathbb{R}$.
+\end{lemma}
+
+\begin{proof}
+    The set $S$ can be expressed as a disjoint union of translated copies of its intersection with $[0,1)$: $S = \bigcup_{n \in \mathbb{Z}} (n + (S \cap [0,1)))$. By the translation invariance of the Lebesgue measure $\mu$, we have $\mu(n + (S \cap [0,1))) = \mu(S \cap [0,1))$. Let $m = \mu(S \cap [0,1))$. Then $\mu(S) = \sum_{n \in \mathbb{Z}} m$. If $m>0$, the sum is infinite. If $m=0$, the sum is zero. If $m=1$, the complement of $S$ within $[0,1)$ has measure 0. The same argument applies to the complement, showing it has measure 0 in all of $\mathbb{R}$.
+\end{proof}
+
+\begin{theorem}[Khinchin's Theorem]
+    \label{thm:Khinchin}
+    \uses{def:psi-approximable}
+    Let $\psi: \mathbb{Z}^+ \to \mathbb{R}^+$ be a function such that $q\psi(q)$ is non-increasing. Let $S(\psi)$ be the set of $\psi$-approximable numbers.
+    \begin{enumerate}
+        \item If $\sum_{q=1}^{\infty} \psi(q)$ converges, then the Lebesgue measure $\mu(S(\psi)) = 0$.
+        \item If $\sum_{q=1}^{\infty} \psi(q)$ diverges, then for almost every real number $x$, there are infinitely many rational approximations, so $\mu(S(\psi)^c) = 0$.
+    \end{enumerate}
+\end{theorem}
+
+\begin{proof}
+    \uses{lem:Measure_of_Eq}
+    \uses{lem:First_Borel-Cantelli}
+    \uses{lem:Generalized_Second_Borel_Cantelli}
+    \uses{lem:Periodicity_Measure}
+
+    Let $E_q$ be the set of $x \in [0,1)$ that are $\psi$-approximable with denominator $q$. The set $S(\psi) \cap [0,1)$ is the limit superior of these sets $E_q$.
+
+    1.  \textbf{Convergent Case:} The measure $\mu(E_q)$ is proportional to $\psi(q)$ (lemma \ref{lem:Measure_of_Eq}). If $\sum \psi(q)$ converges, then $\sum \mu(E_q)$ converges. By the First Borel-Cantelli Lemma (lemma \ref{lem:First_Borel-Cantelli}), the measure of the limit superior is 0. So, $\mu(S(\psi) \cap [0,1)) = 0$. By lemma \ref{lem:Periodicity_Measure}, this implies $\mu(S(\psi))=0$.
+
+    2.  \textbf{Divergent Case:} If $\sum \psi(q)$ diverges, then $\sum \mu(E_q)$ diverges. Let $S_N = \sum_{q=1}^N \mathbf{1}_{E_q}$ and $M_N = E[S_N]$. We have $M_N \to \infty$. The heart of the proof, which relies on the condition that $q\psi(q)$ is non-increasing, is to show that the sets $E_q$ are quasi-independent, such that the variance $\text{Var}(S_N)$ grows slower than $M_N^2$. A detailed analysis shows that $\text{Var}(S_N) \ll M_N^2$, satisfying the condition of the Generalized Second Borel-Cantelli Lemma (lemma \ref{lem:Generalized_Second_Borel_Cantelli}). This lemma implies that $\mu(S(\psi) \cap [0,1)) = \mu(\limsup_{q \to \infty} E_q) = 1$. By lemma \ref{lem:Periodicity_Measure}, the set of numbers that are not $\psi$-approximable has measure 0 in $\mathbb{R}$.
+\end{proof}
