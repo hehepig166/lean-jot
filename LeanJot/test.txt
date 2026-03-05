@@ -1,3 +1,4 @@
 - /mnt/nvme1/jacky/workspace/claude_base/deploy/data/run_test_20260305_024712/repo/aaa
 chinese remainder theorem: ZMod.chineseRemainder - For a pair of coprime natural numbers m and n, the rings ZMod (m * n) and ZMod m × ZMod n are isomorphic.
 fermats little theorem: fermatLastTheoremThree - Fermat's Last Theorem for n = 3: if a b c : ℕ are all non-zero then a ^ 3 + b ^ 3 ≠ c ^ 3.
+1 + 1 = 2: one_add_one_eq_two - In any additive monoid with a multiplicative identity element R, the sum of the multiplicative identity element with itself equals the element corresponding to the natural number 2.
