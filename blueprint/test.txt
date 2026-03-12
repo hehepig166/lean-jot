@@ -5,3 +5,5 @@ ZMod.units_pow_card_sub_one_eq_one (Fermat's Little Theorem): for prime p, a^(p-
 Ideal.quotientMulEquivQuotientProd (Mathlib/RingTheory/Ideal/Quotient/Operations.lean): Chinese remainder theorem for two coprime ideals. R ⧸ I * J ≃+* (R ⧸ I) × R ⧸ J
 ZMod.chineseRemainder (Mathlib/Data/ZMod/Basic.lean): For coprime m n, ZMod (m * n) ≃+* ZMod m × ZMod n
 ZMod.equivPi (Mathlib/Data/ZMod/QuotientRing.lean): ZMod n ≃+* Π (p : n.primeFactors), ZMod (p ^ (n.factorization p))
+1 + 1 = 2
+one_add_one_eq_two (Mathlib/Data/Nat/Cast/Defs.lean): theorem one_add_one_eq_two [AddMonoidWithOne R] : 1 + 1 = (2 : R) — In any additive monoid with a multiplicative identity element R, the sum of the multiplicative identity element with itself equals the element corresponding to the natural number 2.

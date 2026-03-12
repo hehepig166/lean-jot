@@ -1,0 +1,18 @@
+{
+  "round_number": 4,
+  "end_reason": "LIMIT",
+  "returncode": 0,
+  "duration_seconds": 32.628262996673584,
+  "statement_changes": [],
+  "line_counts": {},
+  "claude_usage": {
+    "total_cost_usd": 0.1036401,
+    "input_tokens": 12,
+    "output_tokens": 1491,
+    "cache_read_input_tokens": 130947,
+    "cache_creation_input_tokens": 11188,
+    "num_turns": 8,
+    "duration_api_ms": 28067,
+    "session_id": "e533c04a-44cd-4ee8-83cd-1e3e88f12a50"
+  }
+}
