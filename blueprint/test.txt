@@ -1,0 +1,8 @@
+chinese remainder theorem
+ZMod.chineseRemainder: def chineseRemainder {m n : ℕ} (h : m.Coprime n) : ZMod (m * n) ≃+* ZMod m × ZMod n
+Source: Mathlib/Data/ZMod/Basic.lean
+Docstring: The Chinese remainder theorem. For a pair of coprime natural numbers, m and n, the rings ZMod (m * n) and ZMod m × ZMod n are isomorphic.
+
+Ideal.quotientInfEquivQuotientProd: noncomputable def quotientInfEquivQuotientProd (I J : Ideal R) (coprime : IsCoprime I J) : R ⧸ I ⊓ J ≃+* (R ⧸ I) × R ⧸ J
+Source: Mathlib/RingTheory/Ideal/Quotient/Operations.lean
+Docstring: Chinese remainder theorem, specialized to two ideals.
