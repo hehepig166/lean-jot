@@ -1,0 +1,16 @@
+defaults:
+  task_type: folder
+  prompt_file: "/workspace/projects/autosearch_20260312_080550/lean-jot/.numina/config/main_entry.md"
+  cwd: "/workspace/projects/autosearch_20260312_080550/lean-jot"
+  check_after_complete: true
+  permission_mode: bypassPermissions
+  result_dir: "/workspace/projects/autosearch_20260312_080550/lean-jot/.numina/results"
+  mcp_log_dir: "/workspace/projects/autosearch_20260312_080550/lean-jot/.numina/logs/mcp"
+  track_statements: true
+  on_statement_change: warn
+  max_rounds: 1
+  git_commit: true
+
+tasks:
+  - target_path: "/workspace/projects/autosearch_20260312_080550/lean-jot/blueprint"
+    mcp_log_name: "blueprint"
