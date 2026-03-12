@@ -1,4 +1,7 @@
 chinese remainder theorem
+fermats little theorem
+FermatLastTheorem (Mathlib/NumberTheory/FLT/Basic.lean): ∀ n ≥ 3, FermatLastTheoremFor n — no nontrivial natural solution to a^n + b^n = c^n for n ≥ 3
+ZMod.units_pow_card_sub_one_eq_one (Fermat's Little Theorem): for prime p, a^(p-1) ≡ 1 (mod p) for a not divisible by p
 Ideal.quotientMulEquivQuotientProd (Mathlib/RingTheory/Ideal/Quotient/Operations.lean): Chinese remainder theorem for two coprime ideals. R ⧸ I * J ≃+* (R ⧸ I) × R ⧸ J
 ZMod.chineseRemainder (Mathlib/Data/ZMod/Basic.lean): For coprime m n, ZMod (m * n) ≃+* ZMod m × ZMod n
 ZMod.equivPi (Mathlib/Data/ZMod/QuotientRing.lean): ZMod n ≃+* Π (p : n.primeFactors), ZMod (p ^ (n.factorization p))
