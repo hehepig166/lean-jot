@@ -6,3 +6,12 @@ Source: Mathlib/Data/ZMod/Basic.lean
 Ideal.quotientInfEquivQuotientProd: noncomputable def quotientInfEquivQuotientProd (I J : Ideal R) (coprime : IsCoprime I J) : R ⧸ I ⊓ J ≃+* (R ⧸ I) × R ⧸ J
 Chinese remainder theorem, specialized to two ideals.
 Source: Mathlib/RingTheory/Ideal/Quotient/Operations.lean
+
+fermats little theorem
+ZMod.units_pow_card_sub_one_eq_one: theorem units_pow_card_sub_one_eq_one (p : ℕ) [Fact p.Prime] (a : (ZMod p)ˣ) : a ^ (p - 1) = 1
+Fermat's Little Theorem: for every unit a of ZMod p, we have a ^ (p - 1) = 1.
+Source: Mathlib/FieldTheory/Finite/Basic.lean
+
+Nat.ModEq.pow_card_sub_one_eq_one: theorem Nat.ModEq.pow_card_sub_one_eq_one {p : ℕ} (hp : p.Prime) {n : ℕ} (hpn : n.Coprime p) : n ^ (p - 1) ≡ 1 [MOD p]
+Fermat's Little Theorem: for all n : ℕ coprime to p, we have n ^ (p - 1) ≡ 1 [MOD p].
+Source: Mathlib/FieldTheory/Finite/Basic.lean
