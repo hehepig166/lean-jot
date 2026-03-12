@@ -7,6 +7,11 @@ Ideal.quotientInfEquivQuotientProd: noncomputable def quotientInfEquivQuotientPr
 Chinese remainder theorem, specialized to two ideals.
 Source: Mathlib/RingTheory/Ideal/Quotient/Operations.lean
 
+1 + 1 = 2
+one_add_one_eq_two: theorem one_add_one_eq_two [AddMonoidWithOne R] : 1 + 1 = (2 : R)
+In any additive monoid with a multiplicative identity element R, the sum of the multiplicative identity element with itself equals the element corresponding to the natural number 2.
+Source: Mathlib/Data/Nat/Cast/Defs.lean
+
 fermats little theorem
 ZMod.units_pow_card_sub_one_eq_one: theorem units_pow_card_sub_one_eq_one (p : ℕ) [Fact p.Prime] (a : (ZMod p)ˣ) : a ^ (p - 1) = 1
 Fermat's Little Theorem: for every unit a of ZMod p, we have a ^ (p - 1) = 1.
