@@ -6,3 +6,12 @@ Docstring: The Chinese remainder theorem. For a pair of coprime natural numbers,
 Ideal.quotientInfEquivQuotientProd: noncomputable def quotientInfEquivQuotientProd (I J : Ideal R) (coprime : IsCoprime I J) : R ⧸ I ⊓ J ≃+* (R ⧸ I) × R ⧸ J
 Source: Mathlib/RingTheory/Ideal/Quotient/Operations.lean
 Docstring: Chinese remainder theorem, specialized to two ideals.
+
+fermats little theorem
+ZMod.chineseRemainder (top leandex result for "fermats little theorem"):
+FermatLastTheorem: def FermatLastTheorem : Prop := ∀ n ≥ 3, FermatLastTheoremFor n
+Source: Mathlib/NumberTheory/FLT/Basic.lean
+Docstring: Statement of Fermat's Last Theorem: a ^ n + b ^ n = c ^ n has no nontrivial natural solution when n ≥ 3.
+
+ZMod.units_pow_card_sub_one_eq_one (Fermat's Little Theorem):
+theorem ZMod.units_pow_card_sub_one_eq_one: for a prime p and unit x in ZMod p, x ^ (p - 1) = 1
