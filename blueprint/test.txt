@@ -1,0 +1,4 @@
+chinese remainder theorem
+Ideal.quotientMulEquivQuotientProd (Mathlib/RingTheory/Ideal/Quotient/Operations.lean): Chinese remainder theorem for two coprime ideals. R ⧸ I * J ≃+* (R ⧸ I) × R ⧸ J
+ZMod.chineseRemainder (Mathlib/Data/ZMod/Basic.lean): For coprime m n, ZMod (m * n) ≃+* ZMod m × ZMod n
+ZMod.equivPi (Mathlib/Data/ZMod/QuotientRing.lean): ZMod n ≃+* Π (p : n.primeFactors), ZMod (p ^ (n.factorization p))
