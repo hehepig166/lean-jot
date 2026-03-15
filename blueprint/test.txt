@@ -1,0 +1,28 @@
+## chinese remainder theorem
+
+### ZMod.chineseRemainder
+**Source:** Mathlib/Data/ZMod/Basic.lean (line 867)
+
+**Statement:**
+```
+def chineseRemainder {m n : ℕ} (h : m.Coprime n) : ZMod (m * n) ≃+* ZMod m × ZMod n
+```
+
+**Docstring:** The **Chinese remainder theorem**. For a pair of coprime natural numbers, `m` and `n`, the rings `ZMod (m * n)` and `ZMod m × ZMod n` are isomorphic.
+
+**Informal:** Given two coprime natural numbers $m$ and $n$, the rings $\mathbb{Z}/mn\mathbb{Z}$ and $\mathbb{Z}/m\mathbb{Z} \times \mathbb{Z}/n\mathbb{Z}$ are isomorphic as rings.
+
+---
+
+### Ideal.quotientInfEquivQuotientProd
+**Source:** Mathlib/RingTheory/Ideal/Quotient/Operations.lean (line 264)
+
+**Statement:**
+```
+noncomputable def quotientInfEquivQuotientProd (I J : Ideal R) (coprime : IsCoprime I J) :
+    R ⧸ I ⊓ J ≃+* (R ⧸ I) × R ⧸ J
+```
+
+**Docstring:** **Chinese remainder theorem**, specialized to two ideals.
+
+**Informal:** Given a commutative ring $R$ and two coprime ideals $I$ and $J$, the quotient ring $R / (I \cap J)$ is isomorphic to the direct product ring $(R / I) \times (R / J)$.
